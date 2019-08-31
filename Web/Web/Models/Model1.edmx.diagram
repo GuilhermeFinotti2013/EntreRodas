@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6738c5f5b78e40538f4f88f4e02efd6f" Name="Diagram1">
+        <EntityTypeShape EntityType="entre_rodasModel.C__MigrationHistory" Width="1.5" PointX="0.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.Clientes" Width="1.5" PointX="5.375" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.MarcasCarros" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="entre_rodasModel.Veiculos" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" ManuallyRouted="false" />
+        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_MarcasCarros" ManuallyRouted="false" />
+        <AssociationConnector Association="entre_rodasModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
