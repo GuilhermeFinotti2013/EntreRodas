@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.label-form{
+    text-align:right;
+    margin-top: 10px;
+}
