@@ -71,6 +71,7 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
+            marcasCarros.Nome = marcasCarros.Nome.Trim();
             return View(marcasCarros);
         }
 
@@ -83,7 +84,7 @@ namespace Web.Controllers
         {
             try
             {
-                marcasCarros.Nome.Trim();
+                marcasCarros.Nome = marcasCarros.Nome.Trim();
                 if (ModelState.IsValid)
                 {
                     db.Entry(marcasCarros).State = EntityState.Modified;
@@ -92,7 +93,6 @@ namespace Web.Controllers
                 }
                 return View(marcasCarros);
             }
-
             catch (DbEntityValidationException e)
             {
                 foreach (var eve in e.EntityValidationErrors)
