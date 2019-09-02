@@ -70,10 +70,6 @@ namespace Web.Models
         public string Nome { get; set; }
 
         [Required]
-        [Display(Name = "Sobrenome")]
-        public string Sobrenome { get; set; }
-
-        [Required]
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }

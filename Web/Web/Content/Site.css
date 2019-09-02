@@ -27,3 +27,150 @@ textarea {
     text-align:right;
     margin-top: 10px;
 }
+/* largura dividida em 24 partes */
+
+
+
+.col-1-24 {
+    width: calc((100% / 24) * 1);
+}
+
+
+
+.col-2-24 {
+    width: calc((100% / 24) * 2);
+}
+
+
+
+.col-3-24 {
+    width: calc((100% / 24) * 3);
+}
+
+
+
+.col-4-24 {
+    width: calc((100% / 24) * 4);
+}
+
+
+
+.col-5-24 {
+    width: calc((100% / 24) * 5);
+}
+
+
+
+.col-6-24 {
+    width: calc((100% / 24) * 6);
+}
+
+
+
+.col-7-24 {
+    width: calc((100% / 24) * 7);
+}
+
+
+
+.col-8-24 {
+    width: calc((100% / 24) * 8);
+}
+
+
+
+.col-9-24 {
+    width: calc((100% / 24) * 9);
+}
+
+
+
+.col-10-24 {
+    width: calc((100% / 24) * 10);
+}
+
+
+
+.col-11-24 {
+    width: calc((100% / 24) * 11);
+}
+
+
+
+.col-12-24 {
+    width: calc((100% / 24) * 12);
+}
+
+
+
+.col-13-24 {
+    width: calc((100% / 24) * 13);
+}
+
+
+
+.col-14-24 {
+    width: calc((100% / 24) * 14);
+}
+
+
+
+.col-15-24 {
+    width: calc((100% / 24) * 15);
+}
+
+
+
+.col-16-24 {
+    width: calc((100% / 24) * 16);
+}
+
+
+
+.col-17-24 {
+    width: calc((100% / 24) * 17);
+}
+
+
+
+.col-18-24 {
+    width: calc((100% / 24) * 18);
+}
+
+
+
+.col-19-24 {
+    width: calc((100% / 24) * 19);
+}
+
+
+
+.col-20-24 {
+    width: calc((100% / 24) * 20);
+}
+
+
+
+.col-21-24 {
+    width: calc((100% / 24) * 21);
+}
+
+
+
+.col-22-24 {
+    width: calc((100% / 24) * 22);
+}
+
+
+
+.col-23-24 {
+    width: calc((100% / 24) * 23);
+}
+
+
+
+.col-24-24 {
+    width: calc((100% / 24) * 24);
+}
+
+ 

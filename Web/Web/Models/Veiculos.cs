@@ -22,8 +22,10 @@ namespace Web.Models
         public string Placa { get; set; }
         public string TipoCompustivel { get; set; }
         public string Observacoes { get; set; }
+        public string CategoriaCarro { get; set; }
+        public string TipoMotor { get; set; }
     
-        public virtual Clientes Clientes { get; set; }
         public virtual MarcasCarros MarcasCarros { get; set; }
+        public virtual Clientes Clientes { get; set; }
     }
 }
