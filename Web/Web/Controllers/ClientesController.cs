@@ -46,16 +46,49 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao")] Clientes clientes)
+        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, Modelo, Ano, Marca, TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente,
+                                    string cbxSexo, string cbxEhWhats, string cbxTipoCombustivel)
         {
+            Veiculos veiculo = new Veiculos()
+            {
+                MarcaVeiculoId = 2,
+                Modelo = viewCliente.Modelo,
+                Ano = viewCliente.Ano,
+                Placa = viewCliente.Placa,
+                TipoCompustivel = cbxTipoCombustivel,
+                TipoMotor = viewCliente.TipoMotor,
+                CategoriaCarro = "suv",
+                Observacoes = viewCliente.ObservacaoCarro
+            };
+            Clientes cliente = new Clientes()
+            {
+                Nome = viewCliente.Nome,
+                Sobrenome = viewCliente.Sobrenome,
+                DataNascimento = viewCliente.DataNascimento,
+                Sexo = cbxSexo,
+                CPF = viewCliente.CPF,
+                RG = viewCliente.RG,
+                Email = viewCliente.Email,
+                Telefone = viewCliente.Telefone,
+                Celular = viewCliente.Celular,
+                EhWhats = cbxEhWhats,
+                CEP = viewCliente.CEP,
+                Rua = viewCliente.Rua,
+                Numero = viewCliente.Numero,
+                Complemento = viewCliente.Complemento,
+                Bairro = viewCliente.Bairro,
+                Cidade = viewCliente.Cidade,
+            };
+            cliente.Veiculos.Add(veiculo);
+
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(clientes);
+                db.Clientes.Add(cliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(clientes);
+            return View(cliente);
         }
 
         // GET: Clientes/Edit/5

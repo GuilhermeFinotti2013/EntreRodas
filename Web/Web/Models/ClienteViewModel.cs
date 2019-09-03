@@ -70,8 +70,11 @@ namespace Web.Models
         [Display(Name = "Placa")]
         public string Placa { get; set; }
         [Required(ErrorMessage = "O tipo de combustível do carro deve ser informado!")]
-        [Display(Name = "ipo de combustível")]
+        [Display(Name = "Tipo de combustível")]
         public string TipoCombustivel { get; set; }
+        [Required(ErrorMessage = "O tipo de motor do carro deve ser informado!")]
+        [Display(Name = "Tipo de motor")]
+        public string TipoMotor { get; set; }
         [Display(Name = "Observações sobre o carro")]
         public string ObservacaoCarro { get; set; }
     }
