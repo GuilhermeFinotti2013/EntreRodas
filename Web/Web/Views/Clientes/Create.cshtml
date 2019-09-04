@@ -7,13 +7,13 @@
         new SelectListItem{ Text = "Feminino", Value = "F"}
     };
     var tipoCombustivel = new List<SelectListItem>()
-    {
+{
         new SelectListItem{ Text = "Álcool", Value = "A"},
         new SelectListItem{ Text = "Gasolina", Value = "G"},
         new SelectListItem{ Text = "Bicombustível", Value = "B"}
     };
     var SimNao = new List<SelectListItem>()
-    {
+{
         new SelectListItem{ Text = "Sim", Value = "S"},
         new SelectListItem{ Text = "Não", Value = "N"}
     };
@@ -172,8 +172,7 @@
                     @Html.LabelFor(model => model.MarcaSelecionada)
                 </div>
                 <div class="col col-lg-2">
-                    @Html.EditorFor(model => model.MarcaSelecionada, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MarcaSelecionada, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.MarcaSelecionada, new SelectList(Model.MarcasCarros, "Id", "Nome"))
                 </div>
                 <div class="col col-lg-2 label-form">
                     @Html.LabelFor(model => model.Modelo)
@@ -227,3 +226,15 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
+            $("#Celular").inputmask("mask", { "mask": "(99) 99999-99999" });
+            $("#CPF").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+            $("#RG").inputmask("mask", { "mask": "99.999.999-9" }, { reverse: true });
+            $("#CEP").inputmask("mask", { "mask": "99999-999" });
+        });
+    </script>
+}

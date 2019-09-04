@@ -27,7 +27,7 @@ namespace Web.Models
         [Required(ErrorMessage = "O RG do cliente deve ser informado!")]
         [Display(Name = "RG")]
         public string RG { get; set; }
-        [Required(ErrorMessage = "O E-mail do cliente deve ser informado!")]
+        //[Required(ErrorMessage = "O E-mail do cliente deve ser informado!")]
         [Display(Name = "E-mail")]
         [EmailAddress]
         public string Email { get; set; }
@@ -37,42 +37,40 @@ namespace Web.Models
         public string Celular { get; set; }
         [Display(Name = "Esse celular tem WhatsApp?")]
         public string EhWhats { get; set; }
-        [Required(ErrorMessage = "O CEP do cliente deve ser informado!")]
+        //[Required(ErrorMessage = "O CEP do cliente deve ser informado!")]
         [Display(Name = "CEP")]
         public string CEP { get; set; }
-        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a rua!")]
+        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a rua!")]
         [Display(Name = "Rua")]
         public string Rua { get; set; }
-        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o número!")]
+        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o número!")]
         [Display(Name = "Número")]
         public int Numero { get; set; }
         [Display(Name = "Complemento")]
         public string Complemento { get; set; }
-        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o bairro!")]
+        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o bairro!")]
         [Display(Name = "Bairro")]
         public string Bairro { get; set; }
-        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a cidade!")]
-        [Display(Name = "Rua")]
+        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a cidade!")]
+        [Display(Name = "Cidade")]
         public string Cidade { get; set; }
         [Display(Name = "Observações sobre o cliente")]
         public string Observacao { get; set; }
         public IEnumerable<MarcasCarros> MarcasCarros { get; set; }
-        [Required(ErrorMessage = "A marca do carro deve ser informado!")]
         [Display(Name = "Marca")]
-        public string MarcaSelecionada { get; set; }
-        [Required(ErrorMessage = "O modelo do carro deve ser informado!")]
+        public int MarcaSelecionada { get; set; }
+        //[Required(ErrorMessage = "O modelo do carro deve ser informado!")]
         [Display(Name = "Modelo")]
         public string Modelo { get; set; }
-        [Required(ErrorMessage = "O ano de fabricação do carro deve ser informado!")]
+        //[Required(ErrorMessage = "O ano de fabricação do carro deve ser informado!")]
         [Display(Name = "Ano")]
         public int Ano { get; set; }
-        [Required(ErrorMessage = "A placa do carro deve ser informado!")]
+        //[Required(ErrorMessage = "A placa do carro deve ser informado!")]
         [Display(Name = "Placa")]
         public string Placa { get; set; }
-        [Required(ErrorMessage = "O tipo de combustível do carro deve ser informado!")]
         [Display(Name = "Tipo de combustível")]
         public string TipoCombustivel { get; set; }
-        [Required(ErrorMessage = "O tipo de motor do carro deve ser informado!")]
+        //[Required(ErrorMessage = "O tipo de motor do carro deve ser informado!")]
         [Display(Name = "Tipo de motor")]
         public string TipoMotor { get; set; }
         [Display(Name = "Observações sobre o carro")]

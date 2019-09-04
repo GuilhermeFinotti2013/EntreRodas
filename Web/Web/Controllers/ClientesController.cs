@@ -38,7 +38,9 @@ namespace Web.Controllers
         // GET: Clientes/Create
         public ActionResult Create()
         {
-            return View();
+            ClienteViewModel clienteView = new ClienteViewModel();
+            clienteView.MarcasCarros = db.MarcasCarros.ToList();
+            return View(clienteView);
         }
 
         // POST: Clientes/Create
@@ -46,49 +48,62 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, Modelo, Ano, Marca, TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente,
+        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaSelecionada, Modelo, Ano, TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente,
                                     string cbxSexo, string cbxEhWhats, string cbxTipoCombustivel)
         {
-            Veiculos veiculo = new Veiculos()
-            {
-                MarcaVeiculoId = 2,
-                Modelo = viewCliente.Modelo,
-                Ano = viewCliente.Ano,
-                Placa = viewCliente.Placa,
-                TipoCompustivel = cbxTipoCombustivel,
-                TipoMotor = viewCliente.TipoMotor,
-                CategoriaCarro = "suv",
-                Observacoes = viewCliente.ObservacaoCarro
-            };
-            Clientes cliente = new Clientes()
-            {
-                Nome = viewCliente.Nome,
-                Sobrenome = viewCliente.Sobrenome,
-                DataNascimento = viewCliente.DataNascimento,
-                Sexo = cbxSexo,
-                CPF = viewCliente.CPF,
-                RG = viewCliente.RG,
-                Email = viewCliente.Email,
-                Telefone = viewCliente.Telefone,
-                Celular = viewCliente.Celular,
-                EhWhats = cbxEhWhats,
-                CEP = viewCliente.CEP,
-                Rua = viewCliente.Rua,
-                Numero = viewCliente.Numero,
-                Complemento = viewCliente.Complemento,
-                Bairro = viewCliente.Bairro,
-                Cidade = viewCliente.Cidade,
-            };
-            cliente.Veiculos.Add(veiculo);
-
             if (ModelState.IsValid)
             {
+                /*Veiculos veiculo = new Veiculos()
+                {
+                    MarcaVeiculoId = 2,
+                    Modelo = viewCliente.Modelo,
+                    Ano = viewCliente.Ano,
+                    Placa = viewCliente.Placa,
+                    TipoCompustivel = cbxTipoCombustivel,
+                    TipoMotor = viewCliente.TipoMotor,
+                    CategoriaCarro = "suv",
+                    Observacoes = viewCliente.ObservacaoCarro
+                };*/
+                Veiculos veiculo = new Veiculos();
+                veiculo.Ano = 200;
+                veiculo.CategoriaCarro = "suv";
+                veiculo.MarcaVeiculoId = viewCliente.MarcaSelecionada;
+                veiculo.Modelo = "q1";
+                veiculo.Observacoes = viewCliente.ObservacaoCarro;
+                veiculo.Placa = viewCliente.Placa;
+                veiculo.TipoCompustivel = cbxTipoCombustivel;
+                veiculo.TipoMotor = viewCliente.TipoMotor;
+
+
+                Clientes cliente = new Clientes()
+                {
+                    Nome = viewCliente.Nome,
+                    Sobrenome = viewCliente.Sobrenome,
+                    DataNascimento = viewCliente.DataNascimento,
+                    Sexo = cbxSexo,
+                    CPF = viewCliente.CPF,
+                    RG = viewCliente.RG,
+                    Email = viewCliente.Email,
+                    Telefone = viewCliente.Telefone,
+                    Celular = viewCliente.Celular,
+                    EhWhats = cbxEhWhats,
+                    CEP = viewCliente.CEP,
+                    Rua = viewCliente.Rua,
+                    Numero = viewCliente.Numero,
+                    Complemento = viewCliente.Complemento,
+                    Bairro = viewCliente.Bairro,
+                    Cidade = viewCliente.Cidade,
+                };
+
+                cliente.Veiculos = new List<Veiculos>();
+                cliente.Veiculos.Add(veiculo);
+
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cliente);
+            return View(viewCliente);
         }
 
         // GET: Clientes/Edit/5
