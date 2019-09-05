@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -53,56 +54,54 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*Veiculos veiculo = new Veiculos()
+                try
                 {
-                    MarcaVeiculoId = 2,
-                    Modelo = viewCliente.Modelo,
-                    Ano = viewCliente.Ano,
-                    Placa = viewCliente.Placa,
-                    TipoCompustivel = cbxTipoCombustivel,
-                    TipoMotor = viewCliente.TipoMotor,
-                    CategoriaCarro = "suv",
-                    Observacoes = viewCliente.ObservacaoCarro
-                };*/
-                Veiculos veiculo = new Veiculos();
-                veiculo.Ano = 200;
-                veiculo.CategoriaCarro = "suv";
-                veiculo.MarcaVeiculoId = viewCliente.MarcaSelecionada;
-                veiculo.Modelo = "q1";
-                veiculo.Observacoes = viewCliente.ObservacaoCarro;
-                veiculo.Placa = viewCliente.Placa;
-                veiculo.TipoCompustivel = cbxTipoCombustivel;
-                veiculo.TipoMotor = viewCliente.TipoMotor;
+                    Veiculos veiculo = new Veiculos();
+                    veiculo.Ano = 200;
+                    veiculo.CategoriaCarro = "suv";
+                    veiculo.MarcaVeiculoId = 2;//viewCliente.MarcaSelecionada;
+                    veiculo.Modelo = "q1";
+                    veiculo.Observacoes = viewCliente.ObservacaoCarro;
+                    veiculo.Placa = viewCliente.Placa;
+                    veiculo.TipoCompustivel = cbxTipoCombustivel;
+                    veiculo.TipoMotor = viewCliente.TipoMotor;
 
 
-                Clientes cliente = new Clientes()
+                    Clientes cliente = new Clientes()
+                    {
+                        Nome = viewCliente.Nome,
+                        Sobrenome = viewCliente.Sobrenome,
+                        DataNascimento = viewCliente.DataNascimento,
+                        Sexo = cbxSexo,
+                        CPF = viewCliente.CPF,
+                        RG = viewCliente.RG,
+                        Email = viewCliente.Email,
+                        Telefone = viewCliente.Telefone,
+                        Celular = viewCliente.Celular,
+                        EhWhats = cbxEhWhats,
+                        CEP = viewCliente.CEP,
+                        Rua = viewCliente.Rua,
+                        Numero = viewCliente.Numero,
+                        Complemento = viewCliente.Complemento,
+                        Bairro = viewCliente.Bairro,
+                        Cidade = viewCliente.Cidade,
+                    };
+
+                    cliente.Veiculos = new List<Veiculos>();
+                    cliente.Veiculos.Add(veiculo);
+
+                    db.Clientes.Add(cliente);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
+                catch (DbEntityValidationException ex)
                 {
-                    Nome = viewCliente.Nome,
-                    Sobrenome = viewCliente.Sobrenome,
-                    DataNascimento = viewCliente.DataNascimento,
-                    Sexo = cbxSexo,
-                    CPF = viewCliente.CPF,
-                    RG = viewCliente.RG,
-                    Email = viewCliente.Email,
-                    Telefone = viewCliente.Telefone,
-                    Celular = viewCliente.Celular,
-                    EhWhats = cbxEhWhats,
-                    CEP = viewCliente.CEP,
-                    Rua = viewCliente.Rua,
-                    Numero = viewCliente.Numero,
-                    Complemento = viewCliente.Complemento,
-                    Bairro = viewCliente.Bairro,
-                    Cidade = viewCliente.Cidade,
-                };
-
-                cliente.Veiculos = new List<Veiculos>();
-                cliente.Veiculos.Add(veiculo);
-
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    Console.WriteLine(ex.Message);
+                }
             }
-
+            ClienteViewModel clienteView = new ClienteViewModel();
+            clienteView.MarcasCarros = db.MarcasCarros.ToList();
             return View(viewCliente);
         }
 

@@ -27,7 +27,7 @@ namespace Web.Models
         [Required(ErrorMessage = "O RG do cliente deve ser informado!")]
         [Display(Name = "RG")]
         public string RG { get; set; }
-        //[Required(ErrorMessage = "O E-mail do cliente deve ser informado!")]
+        [Required(ErrorMessage = "O E-mail do cliente deve ser informado!")]
         [Display(Name = "E-mail")]
         [EmailAddress]
         public string Email { get; set; }
@@ -37,18 +37,18 @@ namespace Web.Models
         public string Celular { get; set; }
         [Display(Name = "Esse celular tem WhatsApp?")]
         public string EhWhats { get; set; }
-        //[Required(ErrorMessage = "O CEP do cliente deve ser informado!")]
+        [Required(ErrorMessage = "O CEP do cliente deve ser informado!")]
         [Display(Name = "CEP")]
         public string CEP { get; set; }
-        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a rua!")]
+        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a rua!")]
         [Display(Name = "Rua")]
         public string Rua { get; set; }
-        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o número!")]
+        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o número!")]
         [Display(Name = "Número")]
         public int Numero { get; set; }
         [Display(Name = "Complemento")]
         public string Complemento { get; set; }
-        //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o bairro!")]
+        [Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme o bairro!")]
         [Display(Name = "Bairro")]
         public string Bairro { get; set; }
         //[Required(ErrorMessage = "O endereço do cliente deve ser informado! Por favor, imforme a cidade!")]

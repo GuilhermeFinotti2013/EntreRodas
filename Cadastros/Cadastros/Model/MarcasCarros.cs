@@ -7,41 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Web.Models
+namespace Cadastros.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Clientes
+    
+    public partial class MarcasCarros
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clientes()
+        public MarcasCarros()
         {
             this.Veiculos = new HashSet<Veiculos>();
         }
     
         public int Id { get; set; }
-        [Display(Name = "Nome")]
         public string Nome { get; set; }
-        public string Sobrenome { get; set; }
-        public string Sexo { get; set; }
-        public Nullable<System.DateTime> DataNascimento { get; set; }
-        public string CPF { get; set; }
-        public string RG { get; set; }
-        [Display(Name = "E-mail")]
-        public string Email { get; set; }
-        public string Telefone { get; set; }
-        [Display(Name = "Celular")]
-        public string Celular { get; set; }
-        [Display(Name = "É WhatsApp?")]
-        public string EhWhats { get; set; }
-        public string CEP { get; set; }
-        public string Rua { get; set; }
-        public Nullable<int> Numero { get; set; }
-        public string Complemento { get; set; }
-        public string Bairro { get; set; }
-        public string Cidade { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Veiculos> Veiculos { get; set; }
