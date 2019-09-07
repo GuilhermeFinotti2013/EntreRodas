@@ -49,7 +49,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaSelecionada, Modelo, Ano, TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente,
+        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaSelecionada, Modelo, Ano, Placa, CategoriaCarro, TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente,
                                     string cbxSexo, string cbxEhWhats, string cbxTipoCombustivel)
         {
             if (ModelState.IsValid)
@@ -65,6 +65,7 @@ namespace Web.Controllers
                     veiculo.Placa = viewCliente.Placa;
                     veiculo.TipoCompustivel = cbxTipoCombustivel;
                     veiculo.TipoMotor = viewCliente.TipoMotor;
+                    veiculo.CategoriaCarro = viewCliente.CategoriaCarro;
 
 
                     Clientes cliente = new Clientes()

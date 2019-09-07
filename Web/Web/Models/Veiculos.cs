@@ -16,16 +16,16 @@ namespace Web.Models
     {
         public int Id { get; set; }
         public Nullable<int> ClienteId { get; set; }
-        public Nullable<int> MarcaVeiculoId { get; set; }
+        public int MarcaVeiculoId { get; set; }
         public string Modelo { get; set; }
-        public Nullable<int> Ano { get; set; }
+        public int Ano { get; set; }
         public string Placa { get; set; }
-        public string TipoCompustivel { get; set; }
-        public string Observacoes { get; set; }
         public string CategoriaCarro { get; set; }
+        public string TipoCompustivel { get; set; }
         public string TipoMotor { get; set; }
+        public string Observacoes { get; set; }
     
-        public virtual MarcasCarros MarcasCarros { get; set; }
         public virtual Clientes Clientes { get; set; }
+        public virtual MarcasCarros MarcasCarros { get; set; }
     }
 }

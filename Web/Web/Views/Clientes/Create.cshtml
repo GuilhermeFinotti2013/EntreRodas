@@ -165,7 +165,7 @@
                 @Html.LabelFor(model => model.Observacao)
             </div>
             <div class="col col-lg-8">
-                @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -203,11 +203,20 @@
         </div>
         <div class="row">
             <div class="col col-lg-2 label-form">
+                @Html.LabelFor(model => model.CategoriaCarro)
+            </div>
+            <div class="col col-lg-2">
+                @Html.EditorFor(model => model.CategoriaCarro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CategoriaCarro, "", new { @class = "text-danger" })
+            </div>
+            <div class="col col-lg-2 label-form">
                 @Html.LabelFor(model => model.TipoCombustivel)
             </div>
             <div class="col col-lg-2">
                 @Html.DropDownList("cbxTipoCombustivel", tipoCombustivel)
             </div>
+        </div>
+        <div class="row">
             <div class="col col-lg-2 label-form">
                 @Html.LabelFor(model => model.TipoMotor)
             </div>
@@ -215,14 +224,12 @@
                 @Html.EditorFor(model => model.TipoMotor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TipoMotor, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <div class="row">
             <div class="col col-lg-2 label-form">
                 @Html.LabelFor(model => model.ObservacaoCarro)
             </div>
             <div class="col col-lg-2">
+                @Html.TextAreaFor(model => model.ObservacaoCarro, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ObservacaoCarro, "", new { @class = "text-danger" })
-                @Html.EditorFor(model => model.ObservacaoCarro, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
     </div>
@@ -242,8 +249,8 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $("#Telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
-            $("#Celular").inputmask("mask", { "mask": "(99) 99999-99999" });
+            $("#Telefone").inputmask("mask", { "mask": "(99) 9999-9999" });
+            $("#Celular").inputmask("mask", { "mask": "(99) 99999-9999" });
             $("#CPF").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
             $("#RG").inputmask("mask", { "mask": "99.999.999-9" }, { reverse: true });
             $("#CEP").inputmask("mask", { "mask": "99999-999" });

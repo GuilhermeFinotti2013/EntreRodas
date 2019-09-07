@@ -59,15 +59,18 @@ namespace Web.Models
         public IEnumerable<MarcasCarros> MarcasCarros { get; set; }
         [Display(Name = "Marca")]
         public int MarcaSelecionada { get; set; }
-        //[Required(ErrorMessage = "O modelo do carro deve ser informado!")]
+        [Required(ErrorMessage = "O modelo do carro deve ser informado!")]
         [Display(Name = "Modelo")]
         public string Modelo { get; set; }
-        //[Required(ErrorMessage = "O ano de fabricação do carro deve ser informado!")]
+        [Required(ErrorMessage = "O ano de fabricação do carro deve ser informado!")]
         [Display(Name = "Ano")]
         public int Ano { get; set; }
-        //[Required(ErrorMessage = "A placa do carro deve ser informado!")]
+        [Required(ErrorMessage = "A placa do carro deve ser informado!")]
         [Display(Name = "Placa")]
         public string Placa { get; set; }
+        [Required(ErrorMessage = "A categoria do carro deve ser informado!")]
+        [Display(Name = "Categoria")]
+        public string CategoriaCarro { get; set; }
         [Display(Name = "Tipo de combustível")]
         public string TipoCombustivel { get; set; }
         //[Required(ErrorMessage = "O tipo de motor do carro deve ser informado!")]
