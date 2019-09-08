@@ -1,0 +1,90 @@
+﻿@model Web.Models.Veiculos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Veiculos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ano)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ano)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaCarro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaCarro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoCompustivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoCompustivel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoMotor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoMotor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacoes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clientes.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clientes.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarcasCarros.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarcasCarros.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

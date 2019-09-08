@@ -24,33 +24,74 @@
         </div>
     </div>
     <div class="container-fluid">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="height:100%;">
 
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <i class="fa fa-2x fa-home"></i> 
-                            Home
-                        </a>
+                        @if (ViewBag.MenuAtual == "HomeAdm")
+                        {
+                            <a class="nav-link active" href="#">
+                                <i class="fa fa-2x fa-home"></i>
+                                Home
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-2x fa-home"></i>
+                                Home
+                            </a>
+                        }
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Clientes">
-                            <i class="fa fa-user"></i>
-                            Clientes
-                        </a>
+                        @if (ViewBag.MenuAtual == "Clientes")
+                        {
+                            <a class="nav-link active" href="/Clientes">
+                                <i class="fa fa-2x fa-user"></i>
+                                Clientes
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="/Clientes">
+                                <i class="fa fa-2x fa-user"></i>
+                                Clientes
+                            </a>
+                        }
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/MarcasCarros">
-                            <i class="fa fa-car"></i>
-                            Marcas de carros
-                        </a>
+                        @if (ViewBag.MenuAtual == "MarcasCarros")
+                        {
+                            <a class="nav-link active" href="/MarcasCarros">
+                                <i class="fa fa-2x fa-car"></i>
+                                Marcas de carros
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="/MarcasCarros">
+                                <i class="fa fa-2x fa-car"></i>
+                                Marcas de carros
+                            </a>
+                        }
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa fa-user-tag"></i>
-                            Perfils de usuários
-                        </a>
+                        @if (ViewBag.MenuAtual == "PerfilUser")
+                        {
+                            <a class="nav-link active" href="#">
+                                <i class="fa fa-2x fa-user-tag"></i>
+                                Perfils de usuários
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-2x fa-user-tag"></i>
+                                Perfils de usuários
+                            </a>
+                        }
                     </li>
                 </ul>
             </div>
@@ -61,56 +102,10 @@
             </div>
         </main>
     </div>
-    <div class="container body-content">
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Entre Rodas Assistência Técnica Automotiva</p>
-        </footer>
-    </div>
-    <script>window.jQuery || document.write('https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')</script>
-    <!-- Principal JavaScript do Bootstrap
-    ================================================== -->
-    <!-- Foi colocado no final para a página carregar mais rápido -->
-    <script src="~/Scripts/popper.min.js"></script>
-
-    <!-- Ícones -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
-
-    <!-- Gráficos -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script>
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                datasets: [{
-                    data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                    lineTension: 0,
-                    backgroundColor: 'transparent',
-                    borderColor: '#007bff',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#007bff'
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: false
-                        }
-                    }]
-                },
-                legend: {
-                    display: false,
-                }
-            }
-        });
-    </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/inputmask")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -28,12 +28,32 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ClienteViewModel clienteView = new ClienteViewModel();
             Clientes clientes = db.Clientes.Find(id);
             if (clientes == null)
             {
                 return HttpNotFound();
             }
-            return View(clientes);
+            clienteView.Bairro = clientes.Bairro;
+            clienteView.Celular = clientes.Celular;
+            clienteView.CEP = clientes.CEP;
+            clienteView.Cidade = clientes.Cidade;
+            clienteView.Complemento = clientes.Complemento;
+            clienteView.CPF = clientes.CPF;
+            clienteView.DataNascimento = clientes.DataNascimento;
+            clienteView.EhWhats = clientes.EhWhats;
+            clienteView.Email = clientes.Email;
+            clienteView.Id = clientes.Id;
+            clienteView.Nome = clientes.Nome;
+            clienteView.Numero = clientes.Numero;
+            clienteView.Observacao = clientes.Observacao;
+            clienteView.RG = clientes.RG;
+            clienteView.Rua = clientes.Rua;
+            clienteView.Sexo = clientes.Sexo;
+            clienteView.Sobrenome = clientes.Sobrenome;
+            clienteView.Telefone = clientes.Telefone;
+            clienteView.VeiculosDoCliente = clientes.Veiculos.ToList();
+            return View(clienteView);
         }
 
         // GET: Clientes/Create

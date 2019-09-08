@@ -1,0 +1,97 @@
+﻿@model Web.Models.Veiculos
+
+@{
+    ViewBag.Title = "Excluir veículo";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "Clientes";
+}
+
+    <h2>Excluir veículo</h2>
+
+<h3>Você tem certreza que deseja excluir este veículo?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Marca:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarcasCarros.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ano):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ano)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Placa):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaCarro):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaCarro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoCompustivel):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoCompustivel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoMotor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoMotor):
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacoes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clientes.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clientes.Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-default" />
+    @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.Clientes.Id }, new { @class = "btn btn-success" })
+</div>
+    }
+</div>

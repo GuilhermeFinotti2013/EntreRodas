@@ -78,5 +78,6 @@ namespace Web.Models
         public string TipoMotor { get; set; }
         [Display(Name = "Observações sobre o carro")]
         public string ObservacaoCarro { get; set; }
+        public List<Veiculos> VeiculosDoCliente { get; set; }
     }
 }

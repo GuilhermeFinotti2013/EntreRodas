@@ -173,4 +173,7 @@ textarea {
     width: calc((100% / 24) * 24);
 }
 
- 
+select{
+    margin-top:5px;
+    font-size: 12pt;
+}
