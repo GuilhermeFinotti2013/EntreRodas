@@ -1,12 +1,14 @@
 ﻿@model Web.Models.MarcasCarros
 
 @{
-    ViewBag.Title = "Deletar marca de carro";
+    ViewBag.Title = "Fabrícante de carros ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "MarcasCarros";
 }
 
 <h2>Deletar marca</h2>
 
-<h3>Você tem certreza que deseja excluir essa marca de carro?</h3>
+<h3>Você tem certreza que deseja excluir essa fabrícantes de carro?</h3>
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -19,12 +21,19 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Voltar", "Index", null, null, new { @class = "btn btn-secondary" })
+
+        <div>
+            <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-trash"></span> Excluir
+            </button>
+            <a href="/MarcasCarros/Index" class="btn btn-primary btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </a>
         </div>
     }
 </div>

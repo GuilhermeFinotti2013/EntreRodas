@@ -11,7 +11,8 @@ namespace Web.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Veiculos
     {
         public int Id { get; set; }
@@ -20,9 +21,13 @@ namespace Web.Models
         public string Modelo { get; set; }
         public int Ano { get; set; }
         public string Placa { get; set; }
+        [Display(Name = "Categoria do carro")]
         public string CategoriaCarro { get; set; }
+        [Display(Name = "Tipo de combustível")]
         public string TipoCompustivel { get; set; }
+        [Display(Name = "Tipo do motor")]
         public string TipoMotor { get; set; }
+        [Display(Name = "Observações")]
         public string Observacoes { get; set; }
     
         public virtual Clientes Clientes { get; set; }

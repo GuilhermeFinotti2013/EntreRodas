@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Web.Models.MarcasCarros>
 
 @{
-    ViewBag.Title = "Marcas de carros ";
+    ViewBag.Title = "Fabrícantes de carros ";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.MenuAtual = "MarcasCarros";
 }
 
-<h2>Marcas de carros</h2>
+<h2>Fabrícantes de carros</h2>
 
 <p>
-    @Html.ActionLink("Adicionar nova marca", "Create", new {@class = "btn btn-success"})
+    <a href="/MarcasCarros/Create" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Nova fabricante</a>
 </p>
 <table class="table table-hover">
     <tr>
@@ -25,8 +25,14 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }, new { @class = "btn btn-primary" }) 
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+            <a href="/MarcasCarros/Edit/@item.Id" class="btn btn-primary btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> 
+                Editar
+            </a>
+            <a href="/MarcasCarros/Delete/@item.Id" class="btn btn-primary btn-danger">
+                <span class="glyphicon glyphicon-plus"></span> 
+                Excluir
+            </a>
         </td>
     </tr>
 }

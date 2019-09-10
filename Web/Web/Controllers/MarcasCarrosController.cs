@@ -51,6 +51,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                marcasCarros.Nome = marcasCarros.Nome.Trim();
                 db.MarcasCarros.Add(marcasCarros);
                 db.SaveChanges();
                 return RedirectToAction("Index");
