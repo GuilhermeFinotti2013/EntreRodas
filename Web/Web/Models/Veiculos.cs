@@ -17,17 +17,23 @@ namespace Web.Models
     {
         public int Id { get; set; }
         public Nullable<int> ClienteId { get; set; }
+        [Display(Name = "Marca:")]
         public int MarcaVeiculoId { get; set; }
+        [Display(Name = "Modelo:")]
         public string Modelo { get; set; }
+        [Display(Name = "Ano:")]
         public int Ano { get; set; }
+        [Display(Name = "Placa:")]
         public string Placa { get; set; }
-        [Display(Name = "Categoria do carro")]
+        [Display(Name = "Categoria:")]
         public string CategoriaCarro { get; set; }
-        [Display(Name = "Tipo de combustível")]
+        [Display(Name = "Tipo de combustível:")]
         public string TipoCompustivel { get; set; }
         [Display(Name = "Tipo do motor")]
         public string TipoMotor { get; set; }
-        [Display(Name = "Observações")]
+        [Display(Name = "Quilometragem atual:")]
+        public int QuilometragemAtual { get; set; }
+        [Display(Name = "Observações:")]
         public string Observacoes { get; set; }
     
         public virtual Clientes Clientes { get; set; }

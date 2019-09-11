@@ -37,9 +37,11 @@ namespace Web.Controllers
         }
 
         // GET: Veiculos/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome");
+            Clientes cliente = db.Clientes.Find(id);
+            ViewBag.ClienteId = id;
+            ViewBag.NomeCliente = cliente.Nome + " " + cliente.Sobrenome;
             ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome");
             return View();
         }
@@ -49,18 +51,30 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCompustivel,TipoMotor,Observacoes")] Veiculos veiculos)
+        public ActionResult Create([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCompustivel,TipoMotor,QuilometragemAtual,Observacoes")] Veiculos veiculos, string cbxTipoCombustivel)
         {
             if (ModelState.IsValid)
             {
-                db.Veiculos.Add(veiculos);
+                Veiculos veiculo = new Veiculos();
+                veiculo.Ano = veiculos.Ano;
+                veiculo.CategoriaCarro = veiculos.CategoriaCarro.Trim();
+                veiculo.ClienteId = veiculos.Ano;
+                veiculo.MarcaVeiculoId = veiculos.Ano;
+                veiculo.Modelo = veiculos.Modelo.Trim();
+                if (veiculo.Observacoes != null)
+                {
+                    veiculo.Observacoes = veiculos.Observacoes.Trim();
+                }
+                veiculo.Placa = veiculos.Placa.Trim();
+                veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
+                veiculo.TipoCompustivel = cbxTipoCombustivel;
+                veiculo.TipoMotor = veiculos.TipoMotor.Trim();
+                db.Veiculos.Add(veiculo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
-            ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
-            return View(veiculos);
+            return RedirectToAction("Details", "Clientes", new { id = veiculos.ClienteId });
         }
 
         // GET: Veiculos/Edit/5
@@ -89,7 +103,19 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(veiculos).State = EntityState.Modified;
+                Veiculos veiculo = new Veiculos();
+                veiculo.Id = veiculos.Id;
+                veiculo.Ano = veiculos.Ano;
+                veiculo.CategoriaCarro = veiculos.CategoriaCarro.Trim();
+                veiculo.ClienteId = veiculos.Ano;
+                veiculo.MarcaVeiculoId = veiculos.Ano;
+                veiculo.Modelo = veiculos.Modelo.Trim();
+                veiculo.Observacoes = veiculos.Observacoes.Trim();
+                veiculo.Placa = veiculos.Placa.Trim();
+                veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
+                veiculo.TipoCompustivel = veiculos.TipoCompustivel;
+                veiculo.TipoMotor = veiculos.TipoMotor.Trim();
+                db.Entry(veiculo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -122,7 +148,7 @@ namespace Web.Controllers
             int clienteId = veiculos.Clientes.Id;
             db.Veiculos.Remove(veiculos);
             db.SaveChanges();
-            return RedirectToAction("Details", "Clientes", clienteId);
+            return RedirectToAction("Details", "Clientes", new { id = clienteId });
         }
 
         protected override void Dispose(bool disposing)

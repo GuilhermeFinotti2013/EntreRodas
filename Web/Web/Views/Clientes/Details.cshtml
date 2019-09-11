@@ -152,40 +152,52 @@
     </dl>
     <h4>Carros do cliente</h4>
     <hr />
-    <a href="/Veiculo/Create/@Model.Id" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Adicionar novo carro</a>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Ano</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.VeiculosDoCliente)
-            {
+    <a href="/Veiculos/Create/@Model.Id" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Adicionar novo carro</a>
+    @if (Model.VeiculosDoCliente.Count > 0)
+    {
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MarcasCarros.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Modelo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ano)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Visualizar", "Details", "Veiculos", new { id = item.Id }, new { @class = "btn btn-success" })
-                        @Html.ActionLink("Editar", "Edit", "Veiculos", new { id = item.Id }, new { @class = "btn btn-warning" })
-                        @Html.ActionLink("Excluir", "Delete", "Veiculos", new { id = item.Id }, new { @class = "btn btn-danger" })
-                    </td>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.VeiculosDoCliente)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MarcasCarros.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Modelo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ano)
+                        </td>
+                        <td>
+                            <a href="/Veiculos/Details/@item.Id" class="btn btn-primary btn-success">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Visualizar
+                            </a>
+                            <a href="/Veiculos/Edit/@item.Id" class="btn btn-primary btn-primary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Editar
+                            </a>
+                            <a href="/Veiculos/Delete/@item.Id" class="btn btn-primary btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
-
+<hr/>
 <div>
     <a href="/Cliente/Edit/@Model.Id" class="btn btn-primary btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
