@@ -58,8 +58,18 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Visualizar", "Details", new { id = item.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    <a href="/Clientes/Details/@item.Id" class="btn btn-primary btn-success">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Visualizar
+                    </a>
+                    <a href="/Clientes/Edit/@item.Id" class="btn btn-primary btn-primary">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Editar
+                    </a>
+                    <a href="/Clientes/Delete/@item.Id" class="btn btn-primary btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Excluir
+                    </a>
                 </td>
             </tr>
         }

@@ -9,7 +9,6 @@
 <h2>Detalhes do veículo</h2>
 
 <div>
-    <h4>Veiculos</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -87,6 +86,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.Clientes.Id }, new { @class = "btn btn-success" })
+    <a href="/Veiculos/Edit/@Model.Id" class="btn btn-primary btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+    </a>
+    <a href="/Clientes/Details/@Model.Clientes.Id" class="btn btn-warning">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Voltar
+    </a>
 </p>

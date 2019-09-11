@@ -119,9 +119,10 @@ namespace Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Veiculos veiculos = db.Veiculos.Find(id);
+            int clienteId = veiculos.Clientes.Id;
             db.Veiculos.Remove(veiculos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Clientes", clienteId);
         }
 
         protected override void Dispose(bool disposing)
