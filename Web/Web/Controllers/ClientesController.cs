@@ -83,7 +83,7 @@ namespace Web.Controllers
                     veiculo.Modelo = "q1";
                     veiculo.Observacoes = viewCliente.ObservacaoCarro;
                     veiculo.Placa = viewCliente.Placa;
-                    veiculo.TipoCompustivel = cbxTipoCombustivel;
+                    veiculo.TipoCombustivel = cbxTipoCombustivel;
                     veiculo.TipoMotor = viewCliente.TipoMotor;
                     veiculo.CategoriaCarro = viewCliente.CategoriaCarro;
 

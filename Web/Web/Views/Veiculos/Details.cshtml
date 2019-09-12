@@ -11,8 +11,25 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Modelo):
+            Nome do cliente:
+        </dt>
+
+        <dd>
+            @Model.Clientes.Nome @Model.Clientes.Sobrenome
+        </dd>
+
+        <dt>
+            Fabrícante:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarcasCarros.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
         </dt>
 
         <dd>
@@ -20,7 +37,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Ano):
+            @Html.DisplayNameFor(model => model.Ano)
         </dt>
 
         <dd>
@@ -28,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Placa):
+            @Html.DisplayNameFor(model => model.Placa)
         </dt>
 
         <dd>
@@ -36,7 +53,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CategoriaCarro):
+            @Html.DisplayNameFor(model => model.CategoriaCarro)
         </dt>
 
         <dd>
@@ -44,15 +61,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TipoCompustivel):
+            @Html.DisplayNameFor(model => model.TipoCombustivel)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TipoCompustivel)
+            @Html.DisplayFor(model => model.TipoCombustivel)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TipoMotor):
+            @Html.DisplayNameFor(model => model.TipoMotor)
         </dt>
 
         <dd>
@@ -60,27 +77,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Observacoes):
+            @Html.DisplayNameFor(model => model.Observacoes)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Observacoes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Clientes.Nome):
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Clientes.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MarcasCarros.Nome):
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MarcasCarros.Nome)
         </dd>
 
     </dl>

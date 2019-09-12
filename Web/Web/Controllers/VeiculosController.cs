@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
+using Web.Util;
 
 namespace Web.Controllers
 {
@@ -58,20 +59,27 @@ namespace Web.Controllers
                 Veiculos veiculo = new Veiculos();
                 veiculo.Ano = veiculos.Ano;
                 veiculo.CategoriaCarro = veiculos.CategoriaCarro.Trim();
-                veiculo.ClienteId = veiculos.Ano;
-                veiculo.MarcaVeiculoId = veiculos.Ano;
+                veiculo.ClienteId = veiculos.ClienteId;
+                veiculo.MarcaVeiculoId = veiculos.MarcaVeiculoId;
                 veiculo.Modelo = veiculos.Modelo.Trim();
                 if (veiculo.Observacoes != null)
                 {
                     veiculo.Observacoes = veiculos.Observacoes.Trim();
                 }
                 veiculo.Placa = veiculos.Placa.Trim();
-                veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
-                veiculo.TipoCompustivel = cbxTipoCombustivel;
+                if (veiculos.QuilometragemAtual == 0)
+                {
+                    veiculo.QuilometragemAtual = 1;
+                }
+                else
+                {
+                    veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
+                }
+                veiculo.TipoCombustivel = cbxTipoCombustivel.Trim();
                 veiculo.TipoMotor = veiculos.TipoMotor.Trim();
                 db.Veiculos.Add(veiculo);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Clientes", new { id = veiculos.ClienteId });
             }
 
             return RedirectToAction("Details", "Clientes", new { id = veiculos.ClienteId });
@@ -89,9 +97,26 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
+            Veiculos veiculo = new Veiculos()
+            {
+                Ano = veiculos.Ano,
+                CategoriaCarro = veiculos.CategoriaCarro.Trim(),
+                ClienteId = veiculos.ClienteId,
+                Id = veiculos.Id,
+                MarcaVeiculoId = veiculos.MarcaVeiculoId,
+                Modelo = veiculos.Modelo,
+                Observacoes = veiculos.Observacoes,
+                Placa = veiculos.Placa.Trim(),
+                QuilometragemAtual = veiculos.QuilometragemAtual,
+                TipoMotor = veiculos.TipoMotor.Trim()
+            };
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
             ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
-            return View(veiculos);
+            CombosGenericos combos = new CombosGenericos();
+            ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto", veiculos.TipoCombustivel.Trim());
+            ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto", veiculos.TipoCombustivel.Trim());
+
+            return View(veiculo);
         }
 
         // POST: Veiculos/Edit/5
@@ -101,27 +126,36 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCompustivel,TipoMotor,Observacoes")] Veiculos veiculos)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Veiculos veiculo = new Veiculos();
-                veiculo.Id = veiculos.Id;
-                veiculo.Ano = veiculos.Ano;
-                veiculo.CategoriaCarro = veiculos.CategoriaCarro.Trim();
-                veiculo.ClienteId = veiculos.Ano;
-                veiculo.MarcaVeiculoId = veiculos.Ano;
-                veiculo.Modelo = veiculos.Modelo.Trim();
-                veiculo.Observacoes = veiculos.Observacoes.Trim();
-                veiculo.Placa = veiculos.Placa.Trim();
-                veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
-                veiculo.TipoCompustivel = veiculos.TipoCompustivel;
-                veiculo.TipoMotor = veiculos.TipoMotor.Trim();
-                db.Entry(veiculo).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {
+                    Veiculos veiculo = new Veiculos();
+                    veiculo.Id = veiculos.Id;
+                    veiculo.Ano = veiculos.Ano;
+                    veiculo.CategoriaCarro = veiculos.CategoriaCarro.Trim();
+                    veiculo.ClienteId = veiculos.Ano;
+                    veiculo.MarcaVeiculoId = veiculos.Ano;
+                    veiculo.Modelo = veiculos.Modelo.Trim();
+                    veiculo.Observacoes = veiculos.Observacoes;
+                    veiculo.Placa = veiculos.Placa.Trim();
+                    veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
+                    veiculo.TipoCombustivel = veiculos.TipoCombustivel;
+                    veiculo.TipoMotor = veiculos.TipoMotor.Trim();
+                    db.Entry(veiculo).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Clientes", new { id = veiculos.ClienteId });
+                }
+                ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
+                ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
+                return View(veiculos);
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
-            ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
-            return View(veiculos);
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         // GET: Veiculos/Delete/5
