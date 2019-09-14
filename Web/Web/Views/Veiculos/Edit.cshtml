@@ -21,14 +21,16 @@
     <div class="form-group">
         @Html.Label("Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Model.Clientes.Nome  @Model.Clientes.Sexo
+            @ViewBag.NomeCliente
+            @Html.HiddenFor(modal => modal.ClienteId)
+            @Html.HiddenFor(modal => modal.MarcaVeiculoId)
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.MarcaVeiculoId, "MarcaVeiculoId", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Fabrícante:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Model.MarcasCarros.Nome
+            @ViewBag.NomeMarca
         </div>
     </div>
 

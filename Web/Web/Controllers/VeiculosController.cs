@@ -44,6 +44,9 @@ namespace Web.Controllers
             ViewBag.ClienteId = id;
             ViewBag.NomeCliente = cliente.Nome + " " + cliente.Sobrenome;
             ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome");
+            CombosGenericos combos = new CombosGenericos();
+            ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto");
+            ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto");
             return View();
         }
 
@@ -52,7 +55,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCompustivel,TipoMotor,QuilometragemAtual,Observacoes")] Veiculos veiculos, string cbxTipoCombustivel)
+        public ActionResult Create([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCombustivel,TipoMotor,QuilometragemAtual,Observacoes")] Veiculos veiculos)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +78,7 @@ namespace Web.Controllers
                 {
                     veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
                 }
-                veiculo.TipoCombustivel = cbxTipoCombustivel.Trim();
+                veiculo.TipoCombustivel = veiculos.TipoCombustivel.Trim();
                 veiculo.TipoMotor = veiculos.TipoMotor.Trim();
                 db.Veiculos.Add(veiculo);
                 db.SaveChanges();
@@ -104,17 +107,21 @@ namespace Web.Controllers
                 ClienteId = veiculos.ClienteId,
                 Id = veiculos.Id,
                 MarcaVeiculoId = veiculos.MarcaVeiculoId,
-                Modelo = veiculos.Modelo,
+                Modelo = veiculos.Modelo.Trim(),
                 Observacoes = veiculos.Observacoes,
                 Placa = veiculos.Placa.Trim(),
                 QuilometragemAtual = veiculos.QuilometragemAtual,
                 TipoMotor = veiculos.TipoMotor.Trim()
             };
+            Clientes cliente = db.Clientes.Find(veiculos.ClienteId);
+            MarcasCarros marca = db.MarcasCarros.Find(veiculos.MarcaVeiculoId);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
+            ViewBag.NomeCliente = cliente.Nome + "  " + cliente.Sobrenome;
             ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
+            ViewBag.NomeMarca = marca.Nome;
             CombosGenericos combos = new CombosGenericos();
             ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto", veiculos.TipoCombustivel.Trim());
-            ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto", veiculos.TipoCombustivel.Trim());
+            ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto", veiculos.Ano);
 
             return View(veiculo);
         }
@@ -124,26 +131,14 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCompustivel,TipoMotor,Observacoes")] Veiculos veiculos)
+        public ActionResult Edit([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCombustivel,TipoMotor,Observacoes")] Veiculos veiculos)
         {
             try
             {
 
                 if (ModelState.IsValid)
                 {
-                    Veiculos veiculo = new Veiculos();
-                    veiculo.Id = veiculos.Id;
-                    veiculo.Ano = veiculos.Ano;
-                    veiculo.CategoriaCarro = veiculos.CategoriaCarro.Trim();
-                    veiculo.ClienteId = veiculos.Ano;
-                    veiculo.MarcaVeiculoId = veiculos.Ano;
-                    veiculo.Modelo = veiculos.Modelo.Trim();
-                    veiculo.Observacoes = veiculos.Observacoes;
-                    veiculo.Placa = veiculos.Placa.Trim();
-                    veiculo.QuilometragemAtual = veiculos.QuilometragemAtual;
-                    veiculo.TipoCombustivel = veiculos.TipoCombustivel;
-                    veiculo.TipoMotor = veiculos.TipoMotor.Trim();
-                    db.Entry(veiculo).State = EntityState.Modified;
+                    db.Entry(veiculos).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Details", "Clientes", new { id = veiculos.ClienteId });
                 }
