@@ -15,10 +15,10 @@
         <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="entre_rodasModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="entre_rodasModel.Clientes" Width="1.5" PointX="0.75" PointY="10.25" />
-        <EntityTypeShape EntityType="entre_rodasModel.Veiculos" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="entre_rodasModel.Veiculos" Width="1.5" PointX="3" PointY="9.625" />
         <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" />
         <AssociationConnector Association="entre_rodasModel.FK_Veiculos_MarcasCarros" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

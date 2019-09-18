@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
+using Web.Util;
 
 namespace Web.Controllers
 {
@@ -24,6 +25,12 @@ namespace Web.Controllers
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
+            CombosGenericos combos = new CombosGenericos();
+            ViewBag.Sexo = new SelectList(combos.ListarSexo(), "Valor", "Texto");
+            ViewBag.EhWhats = new SelectList(combos.ListarSimNao(), "Valor", "Texto");
+            ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto");
+            ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto");
+            ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -59,9 +66,13 @@ namespace Web.Controllers
         // GET: Clientes/Create
         public ActionResult Create()
         {
-            ClienteViewModel clienteView = new ClienteViewModel();
-            clienteView.MarcasCarros = db.MarcasCarros.ToList();
-            return View(clienteView);
+            CombosGenericos combos = new CombosGenericos();
+            ViewBag.Sexo = new SelectList(combos.ListarSexo(), "Valor", "Texto");
+            ViewBag.EhWhats = new SelectList(combos.ListarSimNao(), "Valor", "Texto");
+            ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto");
+            ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto");
+            ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome");
+            return View();
         }
 
         // POST: Clientes/Create
@@ -69,21 +80,20 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaSelecionada, Modelo, Ano, Placa, CategoriaCarro, TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente,
-                                    string cbxSexo, string cbxEhWhats, string cbxTipoCombustivel)
+        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,DataNascimento,Sexo,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaVeiculoId, Modelo, Ano, Placa, CategoriaCarro,TipoCombustivel,TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     Veiculos veiculo = new Veiculos();
-                    veiculo.Ano = 200;
-                    veiculo.CategoriaCarro = "suv";
-                    veiculo.MarcaVeiculoId = 2;//viewCliente.MarcaSelecionada;
-                    veiculo.Modelo = "q1";
+                    veiculo.Ano = viewCliente.Ano;
+                    veiculo.CategoriaCarro = viewCliente.CategoriaCarro;
+                    veiculo.MarcaVeiculoId = viewCliente.MarcaVeiculoId;
+                    veiculo.Modelo = viewCliente.Modelo;
                     veiculo.Observacoes = viewCliente.ObservacaoCarro;
                     veiculo.Placa = viewCliente.Placa;
-                    veiculo.TipoCombustivel = cbxTipoCombustivel;
+                    veiculo.TipoCombustivel = viewCliente.TipoCombustivel;
                     veiculo.TipoMotor = viewCliente.TipoMotor;
                     veiculo.CategoriaCarro = viewCliente.CategoriaCarro;
 
@@ -93,13 +103,13 @@ namespace Web.Controllers
                         Nome = viewCliente.Nome,
                         Sobrenome = viewCliente.Sobrenome,
                         DataNascimento = viewCliente.DataNascimento,
-                        Sexo = cbxSexo,
+                        Sexo = viewCliente.Sexo,
                         CPF = viewCliente.CPF,
                         RG = viewCliente.RG,
                         Email = viewCliente.Email,
                         Telefone = viewCliente.Telefone,
                         Celular = viewCliente.Celular,
-                        EhWhats = cbxEhWhats,
+                        EhWhats = viewCliente.EhWhats,
                         CEP = viewCliente.CEP,
                         Rua = viewCliente.Rua,
                         Numero = viewCliente.Numero,
@@ -110,6 +120,12 @@ namespace Web.Controllers
 
                     cliente.Veiculos = new List<Veiculos>();
                     cliente.Veiculos.Add(veiculo);
+                    CombosGenericos combos = new CombosGenericos();
+                    ViewBag.Sexo = new SelectList(combos.ListarSexo(), "Valor", "Texto");
+                    ViewBag.EhWhats = new SelectList(combos.ListarSimNao(), "Valor", "Texto");
+                    ViewBag.Ano = new SelectList(combos.ListarAnos(), "Valor", "Texto");
+                    ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto");
+                    ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome");
 
                     db.Clientes.Add(cliente);
                     db.SaveChanges();
@@ -122,7 +138,6 @@ namespace Web.Controllers
                 }
             }
             ClienteViewModel clienteView = new ClienteViewModel();
-            clienteView.MarcasCarros = db.MarcasCarros.ToList();
             return View(viewCliente);
         }
 
@@ -138,7 +153,38 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(clientes);
+            Clientes cliente = new Clientes();
+            cliente.Bairro = clientes.Bairro.Trim();
+            cliente.Celular = clientes.Celular.Trim();
+            cliente.CEP = clientes.CEP.Trim();
+            cliente.Cidade = clientes.Cidade.Trim();
+            if (clientes.Complemento != null)
+            {
+                cliente.Complemento = clientes.Complemento.Trim();
+            }
+            cliente.CPF = clientes.CPF.Trim();
+            cliente.DataNascimento = clientes.DataNascimento;
+            cliente.EhWhats = clientes.EhWhats.Trim();
+            cliente.Email = clientes.Email.Trim();
+            cliente.Id = clientes.Id;
+            cliente.Nome = clientes.Nome.Trim();
+            cliente.Numero = clientes.Numero;
+            if (clientes.Observacao != null)
+            {
+                cliente.Observacao = clientes.Observacao.Trim();
+            }
+            cliente.RG = clientes.RG.Trim();
+            cliente.Rua = clientes.Rua.Trim();
+            cliente.Sexo = clientes.Sexo.Trim();
+            cliente.Sobrenome = clientes.Sobrenome.Trim();
+            if (clientes.Telefone != null)
+            {
+                cliente.Telefone = clientes.Telefone.Trim();
+            }
+            CombosGenericos combos = new CombosGenericos();
+            ViewBag.Sexo = new SelectList(combos.ListarSexo(), "Valor", "Texto", clientes.Sexo.Trim());
+            ViewBag.EhWhats = new SelectList(combos.ListarSimNao(), "Valor", "Texto", clientes.EhWhats.Trim());
+            return View(cliente);
         }
 
         // POST: Clientes/Edit/5

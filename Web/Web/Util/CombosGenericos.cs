@@ -17,6 +17,24 @@ namespace Web.Util
             };
         }
 
+        public List<TODropDownListGenerico> ListarSimNao()
+        {
+            return new List<TODropDownListGenerico>()
+            {
+                new TODropDownListGenerico{ Texto = "Sim", Valor = "S"},
+                new TODropDownListGenerico{ Texto = "Não", Valor = "N"}
+            };
+        }
+
+        public List<TODropDownListGenerico> ListarSexo()
+        {
+            return new List<TODropDownListGenerico>()
+            {
+                new TODropDownListGenerico{ Texto = "Masculino", Valor = "M"},
+                new TODropDownListGenerico{ Texto = "Feminino", Valor = "F"}
+            };
+        }
+
         public List<TODropDownListGenerico> ListarAnos()
         {
             List<TODropDownListGenerico> listaDeAnos = new List<TODropDownListGenerico>();

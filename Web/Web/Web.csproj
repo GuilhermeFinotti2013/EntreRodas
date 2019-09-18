@@ -181,6 +181,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Annotations\Clientes.cs" />
+    <Compile Include="Models\Annotations\ClientesMetadata.cs" />
     <Compile Include="Models\Annotations\Veiculos.cs" />
     <Compile Include="Models\Annotations\VeiculosMetadata.cs" />
     <Compile Include="Models\AspNetRoles.cs">

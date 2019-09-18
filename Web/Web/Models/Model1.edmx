@@ -74,7 +74,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="nchar" MaxLength="75" Nullable="false" />
-          <Property Name="Sobrenome" Type="nchar" MaxLength="500" Nullable="false" />
+          <Property Name="Sobrenome" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Sexo" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="DataNascimento" Type="date" Nullable="false" />
           <Property Name="CPF" Type="nchar" MaxLength="14" Nullable="false" />
@@ -89,7 +89,7 @@
           <Property Name="Complemento" Type="nchar" MaxLength="30" />
           <Property Name="Bairro" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Cidade" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="Observacao" Type="nchar" MaxLength="1" />
+          <Property Name="Observacao" Type="nchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="MarcasCarros">
           <Key>
@@ -363,14 +363,14 @@
             <End Role="MarcasCarros" EntitySet="MarcasCarros" />
             <End Role="Veiculos" EntitySet="Veiculos" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="75" FixedLength="true" Unicode="true" />
-          <Property Name="Sobrenome" Type="String" Nullable="false" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="Sobrenome" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Sexo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="DataNascimento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CPF" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="true" />
@@ -385,7 +385,7 @@
           <Property Name="Complemento" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Bairro" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Cidade" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Observacao" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Observacao" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Veiculos" Relationship="entre_rodasModel.FK_Veiculos_Clientes1" FromRole="Clientes" ToRole="Veiculos" />
         </EntityType>
         <EntityType Name="Veiculos">
@@ -399,12 +399,12 @@
           <Property Name="Ano" Type="Int32" Nullable="false" />
           <Property Name="Placa" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="CategoriaCarro" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="TipoCombustivel" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="TipoMotor" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="QuilometragemAtual" Type="Int32" Nullable="false" />
           <Property Name="Observacoes" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Clientes" Relationship="entre_rodasModel.FK_Veiculos_Clientes1" FromRole="Veiculos" ToRole="Clientes" />
           <NavigationProperty Name="MarcasCarros" Relationship="entre_rodasModel.FK_Veiculos_MarcasCarros" FromRole="Veiculos" ToRole="MarcasCarros" />
-          <Property Name="QuilometragemAtual" Type="Int32" Nullable="false" />
-          <Property Name="TipoCombustivel" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_Veiculos_Clientes1">
           <End Type="entre_rodasModel.Clientes" Role="Clientes" Multiplicity="0..1" />
@@ -430,7 +430,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -536,10 +536,10 @@
           <EntitySetMapping Name="Veiculos">
             <EntityTypeMapping TypeName="entre_rodasModel.Veiculos">
               <MappingFragment StoreEntitySet="Veiculos">
-                <ScalarProperty Name="TipoCombustivel" ColumnName="TipoCombustivel" />
-                <ScalarProperty Name="QuilometragemAtual" ColumnName="QuilometragemAtual" />
                 <ScalarProperty Name="Observacoes" ColumnName="Observacoes" />
+                <ScalarProperty Name="QuilometragemAtual" ColumnName="QuilometragemAtual" />
                 <ScalarProperty Name="TipoMotor" ColumnName="TipoMotor" />
+                <ScalarProperty Name="TipoCombustivel" ColumnName="TipoCombustivel" />
                 <ScalarProperty Name="CategoriaCarro" ColumnName="CategoriaCarro" />
                 <ScalarProperty Name="Placa" ColumnName="Placa" />
                 <ScalarProperty Name="Ano" ColumnName="Ano" />

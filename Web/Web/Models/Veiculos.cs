@@ -21,10 +21,10 @@ namespace Web.Models
         public int Ano { get; set; }
         public string Placa { get; set; }
         public string CategoriaCarro { get; set; }
-        public string TipoMotor { get; set; }
-        public string Observacoes { get; set; }
-        public int QuilometragemAtual { get; set; }
         public string TipoCombustivel { get; set; }
+        public string TipoMotor { get; set; }
+        public int QuilometragemAtual { get; set; }
+        public string Observacoes { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual MarcasCarros MarcasCarros { get; set; }

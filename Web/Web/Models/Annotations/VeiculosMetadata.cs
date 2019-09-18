@@ -19,7 +19,7 @@ namespace Web.Models
         [StringLength(100)]
         [Display(Name = "Modelo:")]
         public string Modelo { get; set; }
-        [Required(ErrorMessage = "O modelo de fabrícação deve ser informado!")]
+        [Required(ErrorMessage = "O ano de fabrícação deve ser informado!")]
         [Display(Name = "Ano:")]
         public int Ano { get; set; }
         [Required(ErrorMessage = "A placa deve ser informado!")]
@@ -42,6 +42,5 @@ namespace Web.Models
         public int QuilometragemAtual { get; set; }
 
         public virtual Clientes Clientes { get; set; }
-        public virtual MarcasCarros MarcasCarros { get; set; }
     }
 }
