@@ -1,0 +1,47 @@
+﻿@model Web.Models.AspNetRoles
+
+@{
+    ViewBag.Title = "Perfis de  usuários";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "PerfilDeUsuario";
+}
+
+<h2>Excluir perfil de usuário</h2>
+
+<div>
+    <hr />
+    @if (Model.AspNetUsers.Count > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            Este perfil não pode ser excluído pois existem usúarios relacionado à ele!
+        </div>
+    }
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Descrição:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            @if (Model.AspNetUsers.Count == 0)
+            {
+                <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-trash"></span> Excluir
+                </button>
+            }
+            <a href="/AspNetRoles/Details/@Model.Id" class="btn btn-primary btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </a>
+        </div>
+    }
+</div>

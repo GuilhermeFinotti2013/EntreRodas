@@ -1,0 +1,38 @@
+﻿@model Web.Models.AspNetRoles
+
+@{
+    ViewBag.Title = "Perfis de  usuários";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "PerfilDeUsuario";
+}
+
+<h2>Detalhes do perfil de usuário</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Descrição:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+<div>
+    <a href="/AspNetRoles/Edit/@Model.Id" class="btn btn-primary btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar cliente
+    </a>
+    <a href="/AspNetRoles/Delete/@Model.Id" class="btn btn-primary btn-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        Excluir cliente
+    </a>
+    <a href="/AspNetRoles/Index" class="btn btn-primary btn-warning">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Voltar
+    </a>
+</div>

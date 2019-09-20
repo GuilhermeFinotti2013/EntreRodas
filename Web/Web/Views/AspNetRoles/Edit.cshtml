@@ -1,0 +1,43 @@
+﻿@model Web.Models.AspNetRoles
+
+@{
+    ViewBag.Title = "Perfis de  usuários";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "PerfilDeUsuario";
+}
+
+<h2>Editar perfil de usuário</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.Label("Descrição:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok"></span> Salvar
+        </button>
+        <a href="/AspNetRoles/Index" class="btn btn-primary btn-danger">
+            <span class="glyphicon glyphicon-remove"></span>
+            Cancelar
+        </a>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
