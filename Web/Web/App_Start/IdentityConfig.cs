@@ -33,24 +33,25 @@ namespace Web
     }
 
     // Configure o gerenciador de usuários do aplicativo usado nesse aplicativo. O UserManager está definido no ASP.NET Identity e é usado pelo aplicativo.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser, int>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, int> store)
             : base(store)
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(
+            IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            // Configurar a lógica de validação para nomes de usuário
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+            var manager = new ApplicationUserManager(
+                new CustomUserStore(context.Get<ApplicationDbContext>()));
+            // Configure validation logic for usernames 
+            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-
-            // Configurar a lógica de validação para senhas
+            // Configure validation logic for passwords 
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
@@ -59,37 +60,34 @@ namespace Web
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
-
-            // Configurar padrões de bloqueio de usuário
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
-
-            // Registre dois provedores de autenticação de fator. Este aplicativo usa Telefone e Emails como um passo para receber um código para verificar o usuário
-            // Você pode gravar seu próprio provedor e conectá-lo aqui.
-            manager.RegisterTwoFactorProvider("Código de telefone", new PhoneNumberTokenProvider<ApplicationUser>
-            {
-                MessageFormat = "Seu código de segurança é {0}"
-            });
-            manager.RegisterTwoFactorProvider("Código de e-mail", new EmailTokenProvider<ApplicationUser>
-            {
-                Subject = "Código de segurança",
-                BodyFormat = "Seu código de segurança é {0}"
-            });
+            // Register two factor authentication providers. This application uses Phone 
+            // and Emails as a step of receiving a code for verifying the user 
+            // You can write your own provider and plug in here. 
+            manager.RegisterTwoFactorProvider("PhoneCode",
+                new PhoneNumberTokenProvider<ApplicationUser, int>
+                {
+                    MessageFormat = "Your security code is: {0}"
+                });
+            manager.RegisterTwoFactorProvider("EmailCode",
+                new EmailTokenProvider<ApplicationUser, int>
+                {
+                    Subject = "Security Code",
+                    BodyFormat = "Your security code is: {0}"
+                });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser, int>(
+                        dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
     }
-
     // Configure o gerenciador de login do aplicativo que é usado neste aplicativo.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, int>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)

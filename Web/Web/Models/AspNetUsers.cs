@@ -22,7 +22,7 @@ namespace Web.Models
             this.AspNetRoles = new HashSet<AspNetRoles>();
         }
     
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Email { get; set; }

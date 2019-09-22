@@ -6,18 +6,18 @@
     <edmx:Diagrams>
       <Diagram DiagramId="aedd9bb54cde4f2ab413525d9d8c0ce6" Name="Diagram1">
         <EntityTypeShape EntityType="entre_rodasModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="entre_rodasModel.MarcasCarros" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="entre_rodasModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="entre_rodasModel.Clientes" Width="1.5" PointX="0.75" PointY="10.25" />
         <EntityTypeShape EntityType="entre_rodasModel.Veiculos" Width="1.5" PointX="3" PointY="9.625" />
         <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" />
         <AssociationConnector Association="entre_rodasModel.FK_Veiculos_MarcasCarros" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="entre_rodasModel.AspNetUserRoles" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,13 +28,14 @@ namespace Web
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    // Permite que o aplicativo valide o carimbo de segurança quando o usuário efetuar login.
-                    // Este é um recurso de segurança que é usado quando você altera uma senha ou adiciona um login externo à sua conta.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                    OnValidateIdentity = SecurityStampValidator
+                 .OnValidateIdentity<ApplicationUserManager, ApplicationUser, int>(
+                     validateInterval: TimeSpan.FromMinutes(30),
+                     regenerateIdentityCallback: (manager, user) =>
+                         user.GenerateUserIdentityAsync(manager),
+                     getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Permite que o aplicativo armazene temporariamente as informações do usuário quando ele estiver verificando o segundo fator no processo de autenticação de dois fatores.

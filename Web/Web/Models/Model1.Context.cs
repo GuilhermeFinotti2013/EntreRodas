@@ -26,12 +26,12 @@ namespace Web.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<MarcasCarros> MarcasCarros { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<Veiculos> Veiculos { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<MarcasCarros> MarcasCarros { get; set; }
-        public virtual DbSet<Clientes> Clientes { get; set; }
-        public virtual DbSet<Veiculos> Veiculos { get; set; }
     }
 }

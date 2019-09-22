@@ -31,14 +31,14 @@
                     <li class="nav-item">
                         @if (ViewBag.MenuAtual == "HomeAdm")
                         {
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="/Administrativo">
                                 <i class="fa fa-2x fa-home"></i>
                                 Home
                             </a>
                         }
                         else
                         {
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/Administrativo">
                                 <i class="fa fa-2x fa-home"></i>
                                 Home
                             </a>
@@ -74,6 +74,22 @@
                             <a class="nav-link" href="/MarcasCarros">
                                 <i class="fa fa-2x fa-car"></i>
                                 Fabrícantes
+                            </a>
+                        }
+                    </li>
+                    <li class="nav-item">
+                        @if (ViewBag.MenuAtual == "Usurio")
+                        {
+                            <a class="nav-link active" href="/Usuarios">
+                                <i class="fa fa-2x fa-user"></i>
+                                Usuários
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="/Usuarios">
+                                <i class="fa fa-2x fa-user"></i>
+                                Usuários
                             </a>
                         }
                     </li>

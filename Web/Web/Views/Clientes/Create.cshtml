@@ -43,7 +43,7 @@
                 @Html.LabelFor(model => model.Sexo)
             </div>
             <div class="col col-lg-2">
-                @Html.DropDownList("Sexo", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("cbxSexo", listaSexo, htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="col col-lg-2 label-form">
                 @Html.LabelFor(model => model.DataNascimento)
@@ -233,7 +233,7 @@
 
     </div>
             <input type="submit" value="Cadastrar" class="btn btn-success" />
-            <a href="/Clientes/Create" class="btn btn-primary btn-danger">Cancelar</a>
+            <a href="/Clientes/Index" class="btn btn-primary btn-danger">Cancelar</a>
 }
 
 @section Scripts {

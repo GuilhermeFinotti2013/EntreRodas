@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Web.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "Usuários";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "Usurio";
+}
+
+<h1 class="h2">Usuários</h1>
+
+<p>
+    <a href="/Account/Register" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Novo cliente</a>
+</p>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sobrenome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sobrenome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a href="/Clientes/Details/@item.Id" class="btn btn-primary btn-success">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Visualizar
+                </a>
+                <a href="#" class="btn btn-primary btn-primary">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Trocar senha
+                </a>
+                <a href="/Clientes/Edit/@item.Id" class="btn btn-primary btn-primary">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Editar
+                </a>
+                <a href="/Clientes/Delete/@item.Id" class="btn btn-primary btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Excluir
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

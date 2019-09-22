@@ -171,11 +171,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministrativoController.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasCarrosController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VeiculosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -344,6 +346,12 @@
     <Content Include="Views\Veiculos\Details.cshtml" />
     <Content Include="Views\Veiculos\Edit.cshtml" />
     <Content Include="Views\Veiculos\Index.cshtml" />
+    <Content Include="Views\Administrativo\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\AspNetRoles\Create.cshtml" />
     <Content Include="Views\AspNetRoles\Delete.cshtml" />
     <Content Include="Views\AspNetRoles\Details.cshtml" />

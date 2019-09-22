@@ -32,7 +32,6 @@ namespace Web.Models
         public string CategoriaCarro { get; set; }
         [Display(Name = "Tipo de combustível:")]
         public string TipoCombustivel { get; set; }
-        [Required(ErrorMessage = "O tipo de motor deve ser informado!")]
         [StringLength(30)]
         [Display(Name = "Tipo de motor:")]
         public string TipoMotor { get; set; }

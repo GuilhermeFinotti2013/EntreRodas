@@ -150,10 +150,9 @@ namespace Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-
-            RegisterViewModel registerViewModel = new RegisterViewModel();
-            registerViewModel.Perfils = context.Roles.ToList();
-            return View(registerViewModel);
+            entre_rodasEntities db = new entre_rodasEntities();
+            ViewBag.PerfilSelecionado = new SelectList(db.AspNetRoles, "Name", "Name");
+            return View();
         }
 
         //
@@ -176,9 +175,9 @@ namespace Web.Controllers
                     
                     // Para obter mais informações sobre como habilitar a confirmação da conta e redefinição de senha, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar um email com este link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmar sua conta", "Confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                     await UserManager.SendEmailAsync(user.Id, "Confirmar sua conta", "Confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -192,9 +191,9 @@ namespace Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
-            if (userId == null || code == null)
+            if (userId == default(int) || code == null)
             {
                 return View("Error");
             }
@@ -305,7 +304,7 @@ namespace Web.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            if (userId == default(int))
             {
                 return View("Error");
             }

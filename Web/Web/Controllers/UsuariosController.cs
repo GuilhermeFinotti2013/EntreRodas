@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -12,116 +10,107 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    public class AspNetRolesController : Controller
+    public class UsuariosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
 
-        // GET: AspNetRoles
+        // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.AspNetRoles.ToList());
+            return View(db.AspNetUsers.ToList());
         }
 
-        // GET: AspNetRoles/Details/5
+        // GET: Usuarios/Details/5
         public ActionResult Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
-            if (aspNetRoles == null)
+            AspNetUsers aspNetUsers = db.AspNetUsers.Find(id);
+            if (aspNetUsers == null)
             {
                 return HttpNotFound();
             }
-            return View(aspNetRoles);
+            return View(aspNetUsers);
         }
 
-        // GET: AspNetRoles/Create
+        // GET: Usuarios/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AspNetRoles/Create
+        // POST: Usuarios/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name")] AspNetRoles aspNetRoles)
+        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
         {
             if (ModelState.IsValid)
             {
-                AspNetRoles role = new AspNetRoles();
-                role.Name = aspNetRoles.Name.Trim();
-                db.AspNetRoles.Add(role);
+                db.AspNetUsers.Add(aspNetUsers);
                 db.SaveChanges();
-                
                 return RedirectToAction("Index");
             }
 
-            return View(aspNetRoles);
+            return View(aspNetUsers);
         }
 
-        // GET: AspNetRoles/Edit/5
+        // GET: Usuarios/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
-            if (aspNetRoles == null)
+            AspNetUsers aspNetUsers = db.AspNetUsers.Find(id);
+            if (aspNetUsers == null)
             {
                 return HttpNotFound();
             }
-            AspNetRoles role = new AspNetRoles();
-            role.Id = aspNetRoles.Id;
-            role.Name = aspNetRoles.Name.Trim();
-            return View(role);
+            return View(aspNetUsers);
         }
 
-        // POST: AspNetRoles/Edit/5
+        // POST: Usuarios/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] AspNetRoles aspNetRoles)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Sobrenome,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
         {
             if (ModelState.IsValid)
             {
-                AspNetRoles role = new AspNetRoles();
-                role.Id = aspNetRoles.Id;
-                role.Name = aspNetRoles.Name.Trim();
-                db.Entry(role).State = EntityState.Modified;
+                db.Entry(aspNetUsers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(aspNetRoles);
+            return View(aspNetUsers);
         }
 
-        // GET: AspNetRoles/Delete/5
+        // GET: Usuarios/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
-            if (aspNetRoles == null)
+            AspNetUsers aspNetUsers = db.AspNetUsers.Find(id);
+            if (aspNetUsers == null)
             {
                 return HttpNotFound();
             }
-            return View(aspNetRoles);
+            return View(aspNetUsers);
         }
 
-        // POST: AspNetRoles/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
-            db.AspNetRoles.Remove(aspNetRoles);
+            AspNetUsers aspNetUsers = db.AspNetUsers.Find(id);
+            db.AspNetUsers.Remove(aspNetUsers);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
