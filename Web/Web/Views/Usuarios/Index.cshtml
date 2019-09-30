@@ -17,10 +17,10 @@
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sobrenome)
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayName("Perfil")
         </th>
         <th></th>
     </tr>
@@ -32,17 +32,13 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sobrenome)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a href="/Clientes/Details/@item.Id" class="btn btn-primary btn-success">
-                    <span class="glyphicon glyphicon-search"></span>
-                    Visualizar
-                </a>
-                <a href="/Manage/ChangePassword/@item.Id" class="btn btn-primary btn-primary">
+                @Html.DisplayFor(modelItem => item.AspNetRoles.ToList()[0].Name)
+            </td>
+            <td>
+                <a href="/Manage/ChangePassword/@item.Id" class="btn btn-primary btn-success">
                     <span class="glyphicon glyphicon-pencil"></span>
                     Trocar senha
                 </a>
@@ -50,7 +46,7 @@
                     <span class="glyphicon glyphicon-pencil"></span>
                     Editar
                 </a>
-                <a href="/Clientes/Delete/@item.Id" class="btn btn-primary btn-danger">
+                <a href="/Usuarios/Delete/@item.Id" class="btn btn-primary btn-danger">
                     <span class="glyphicon glyphicon-trash"></span>
                     Excluir
                 </a>

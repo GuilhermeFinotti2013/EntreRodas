@@ -243,7 +243,7 @@ namespace Web.Controllers
             var result = await UserManager.ChangePasswordAsync(model.IdUsuario, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Usurios");
+                return RedirectToAction("Index", "Usuarios");
             }
             AddErrors(result);
             return View(model);
