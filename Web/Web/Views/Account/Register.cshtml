@@ -5,7 +5,7 @@
     ViewBag.MenuAtual = "Usurio";
 }
 
-<h2>Cadastrr novo usuário</h2>
+<h2>Cadastrar novo usuário</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -38,7 +38,7 @@
     </div>
     <!--Selecione o Tipo de Perfil para o usuário-->
     <div class="form-group">
-        @Html.Label("Selecione o Tipo de Perfil do Usuário", new { @class = "col-md-2 control-label" })
+        @Html.Label("Selecione o Tipo de Perfil do Usuário:", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.DropDownList("PerfilSelecionado", null, htmlAttributes: new { @class = "form-control" })
         </div>

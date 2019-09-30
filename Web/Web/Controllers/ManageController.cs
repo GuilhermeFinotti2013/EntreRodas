@@ -10,11 +10,11 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private entre_rodasEntities db = new entre_rodasEntities();
 
         public ManageController()
         {
@@ -220,9 +220,14 @@ namespace Web.Controllers
 
         //
         // GET: /Manage/ChangePassword
-        public ActionResult ChangePassword()
+        public ActionResult ChangePassword(int id)
         {
-            return View();
+            AspNetUsers user = db.AspNetUsers.Find(id);
+            ViewBag.NomeUsuario = user.Nome;
+            ChangePasswordViewModel changePasswordViewModel = new ChangePasswordViewModel();
+            changePasswordViewModel.IdUsuario = id;
+            
+            return View(changePasswordViewModel);
         }
 
         //
@@ -235,15 +240,10 @@ namespace Web.Controllers
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
+            var result = await UserManager.ChangePasswordAsync(model.IdUsuario, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", "Usurios");
             }
             AddErrors(result);
             return View(model);
