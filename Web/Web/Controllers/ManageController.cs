@@ -245,6 +245,8 @@ namespace Web.Controllers
             {
                 return RedirectToAction("Index", "Usuarios");
             }
+            AspNetUsers user = db.AspNetUsers.Find(model.IdUsuario);
+            ViewBag.NomeUsuario = user.Nome;
             AddErrors(result);
             return View(model);
         }

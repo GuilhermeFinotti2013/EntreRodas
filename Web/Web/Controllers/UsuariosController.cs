@@ -70,7 +70,11 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(aspNetUsers);
+            AspNetUsers user = new AspNetUsers();
+            user.Id = aspNetUsers.Id;
+            user.Nome = aspNetUsers.Nome.Trim();
+            user.Email = aspNetUsers.Email.Trim();
+            return View(user);
         }
 
         // POST: Usuarios/Edit/5
@@ -78,7 +82,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Sobrenome,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Email")] AspNetUsers aspNetUsers)
         {
             if (ModelState.IsValid)
             {
