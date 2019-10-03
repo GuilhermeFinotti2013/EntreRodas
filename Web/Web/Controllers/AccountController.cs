@@ -18,10 +18,11 @@ namespace Web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext context;
+        entre_rodasEntities db = new entre_rodasEntities();
 
         public AccountController()
         {
-            context = new ApplicationDbContext();
+            context = new ApplicationDbContext();            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -90,6 +91,13 @@ namespace Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var query = from u in db.AspNetUsers where u.Email == model.Email select u;
+                    AspNetUsers user = query.FirstOrDefault<AspNetUsers>();
+                    Session["NomeUser"] = user.Nome;
+                    if (user.AspNetRoles.ToList()[0].Name == "Administrativo")
+                    {
+                        return RedirectToAction("Index", "Administrador");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

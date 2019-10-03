@@ -86,6 +86,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                aspNetUsers.UserName = aspNetUsers.Nome;
                 db.Entry(aspNetUsers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
