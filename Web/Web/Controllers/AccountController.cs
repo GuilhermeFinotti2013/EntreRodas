@@ -96,7 +96,7 @@ namespace Web.Controllers
                     Session["NomeUser"] = user.Nome;
                     if (user.AspNetRoles.ToList()[0].Name == "Administrativo")
                     {
-                        return RedirectToAction("Index", "Administrador");
+                        return RedirectToAction("Index", "Administrativo");
                     }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
