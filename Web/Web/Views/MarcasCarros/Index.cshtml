@@ -7,34 +7,22 @@
 }
 
 <h2>Fabrícantes de carros</h2>
-
+<hr />
+@using (Ajax.BeginForm("Index", "MarcasCarros", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divListaMarcasCarros" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-12">
+                @Html.Label("Pesquisar por Fabríante:")
+                @Html.TextBox("Pesquisar")
+                <button type="submit" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span> Pesquisar
+                </button>
+            </div>
+        </div>
+    </div>
+}
 <p>
     <a href="/MarcasCarros/Create" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Nova fabricante</a>
 </p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>Ações</th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            <a href="/MarcasCarros/Edit/@item.Id" class="btn btn-primary btn-primary">
-                <span class="glyphicon glyphicon-pencil"></span> 
-                Editar
-            </a>
-            <a href="/MarcasCarros/Delete/@item.Id" class="btn btn-primary btn-danger">
-                <span class="glyphicon glyphicon-trash"></span> 
-                Excluir
-            </a>
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Partial("_MarcasCarros", Model)

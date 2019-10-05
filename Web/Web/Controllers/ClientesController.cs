@@ -17,9 +17,19 @@ namespace Web.Controllers
         private entre_rodasEntities db = new entre_rodasEntities();
 
         // GET: Clientes
-        public ActionResult Index()
+        public ActionResult Index(string Pesquisar = "")
         {
-            return View(db.Clientes.ToList());
+            var query = db.Clientes.AsQueryable();
+            if (!string.IsNullOrEmpty(Pesquisar))
+            {
+                query = query.Where(c => c.Nome.Contains(Pesquisar));
+            }
+            query = query.OrderBy(c => c.Nome);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Clientes", query.ToList());
+            }
+            return View(query.ToList());
         }
 
         // GET: Clientes/Details/5

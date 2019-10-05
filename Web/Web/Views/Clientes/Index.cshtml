@@ -6,74 +6,22 @@
     ViewBag.MenuAtual = "Clientes";
 }
 <h1 class="h2">Clientes</h1>
-
+<hr />
+@using (Ajax.BeginForm("Index", "Clientes", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divListaClientes" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-12">
+                @Html.Label("Pesquisar por nome:")
+                @Html.TextBox("Pesquisar")
+                <button type="submit" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span> Pesquisar
+                </button>
+            </div>
+        </div>
+    </div>
+}
 <p>
     <a href="/Clientes/Create" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Novo cliente</a>
 </p>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("Nome")
-            </th>
-            <th>
-                @Html.DisplayName("E-mail")
-            </th>
-            <th>
-                @Html.DisplayName("Telefone fixo")
-            </th>
-            <th>
-                @Html.DisplayName("Celular")
-            </th>
-            <th>
-                @Html.DisplayName("É whatsApp?")
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome) @Html.DisplayFor(modelItem => item.Sobrenome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Celular)
-                </td>
-                <td>
-                    @if (item.EhWhats == "S")
-                    {
-                        <p>Sim</p>
-                    }
-                    else
-                    {
-                        <p>Não</p>
-                    }
-                </td>
-                <td>
-                    <a href="/Clientes/Details/@item.Id" class="btn btn-primary btn-success">
-                        <span class="glyphicon glyphicon-search"></span>
-                        Visualizar
-                    </a>
-                    <a href="/Clientes/Edit/@item.Id" class="btn btn-primary btn-primary">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        Editar
-                    </a>
-                    <a href="/Clientes/Delete/@item.Id" class="btn btn-primary btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span>
-                        Excluir
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-    </div>
+@Html.Partial("_Clientes", Model)

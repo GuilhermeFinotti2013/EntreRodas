@@ -16,9 +16,19 @@ namespace Web.Controllers
         private entre_rodasEntities db = new entre_rodasEntities();
 
         // GET: MarcasCarros
-        public ActionResult Index()
+        public ActionResult Index(string Pesquisar = "")
         {
-            return View(db.MarcasCarros.ToList());
+            var query = db.MarcasCarros.AsQueryable();
+            if (!string.IsNullOrEmpty(Pesquisar))
+            {
+                query = query.Where(c => c.Nome.Contains(Pesquisar));
+            }
+            query = query.OrderBy(c => c.Nome);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_MarcasCarros", query.ToList());
+            }
+            return View(query.ToList());
         }
 
         // GET: MarcasCarros/Details/5

@@ -7,35 +7,22 @@
 }
 
 <h2>Perfils de  usuários</h2>
-
+<hr />
+@using (Ajax.BeginForm("Index", "AspNetRoles", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divListaRoles" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-12">
+                @Html.Label("Pesquisar por nome:")
+                @Html.TextBox("Pesquisar")
+                <button type="submit" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span> Pesquisar
+                </button>
+            </div>
+        </div>
+    </div>
+}
 <p>
     <a href="/AspNetRoles/Create" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Novo perfil</a>
 </p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayName("Descrição")
-        </th>
-        <th>Ações</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a href="/AspNetRoles/Edit/@item.Id" class="btn btn-primary btn-primary">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Editar
-                </a>
-                <a href="/AspNetRoles/Delete/@item.Id" class="btn btn-primary btn-danger">
-                    <span class="glyphicon glyphicon-trash"></span>
-                    Excluir
-                </a>
-            </td>
-        </tr>
-    }
-
-</table>
+@Html.Partial("_AspNetRoles", Model)

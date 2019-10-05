@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Web.Models.Clientes>
+    <div id="divListaClientes">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Nome")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Sobrenome")
+                    </th>
+                    <th>
+                        @Html.DisplayName("E-mail")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Celular")
+                    </th>
+                    <th>
+                        @Html.DisplayName("É whatsApp?")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sobrenome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Celular)
+                        </td>
+                        <td>
+                            @if (item.EhWhats == "S")
+                            {
+                                <p>Sim</p>
+                            }
+                            else
+                            {
+                                <p>Não</p>
+                            }
+                        </td>
+                        <td>
+                            <a href="/Clientes/Details/@item.Id" class="btn btn-primary btn-success">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Visualizar
+                            </a>
+                            <a href="/Clientes/Edit/@item.Id" class="btn btn-primary btn-primary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Editar
+                            </a>
+                            <a href="/Clientes/Delete/@item.Id" class="btn btn-primary btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>

@@ -7,51 +7,22 @@
 }
 
 <h1 class="h2">Usuários</h1>
-
+<hr />
+@using (Ajax.BeginForm("Index", "Usuarios", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divListaUsuarios" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-12">
+                @Html.Label("Pesquisar por nome:")
+                @Html.TextBox("Pesquisar")
+                <button type="submit" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span> Pesquisar
+                </button>
+            </div>
+        </div>
+    </div>
+}
 <p>
     <a href="/Account/Register" class="btn btn-primary btn-success"><span class="glyphicon glyphicon-plus"></span> Novo cliente</a>
 </p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayName("Perfil")
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AspNetRoles.ToList()[0].Name)
-            </td>
-            <td>
-                <a href="/Manage/ChangePassword/@item.Id" class="btn btn-primary btn-success">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Trocar senha
-                </a>
-                <a href="/Usuarios/Edit/@item.Id" class="btn btn-primary btn-primary">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Editar
-                </a>
-                <a href="/Usuarios/Delete/@item.Id" class="btn btn-primary btn-danger">
-                    <span class="glyphicon glyphicon-trash"></span>
-                    Excluir
-                </a>
-            </td>
-        </tr>
-    }
-
-</table>
+@Html.Partial("_Usuarios", Model)

@@ -17,9 +17,19 @@ namespace Web.Controllers
         private entre_rodasEntities db = new entre_rodasEntities();
 
         // GET: AspNetRoles
-        public ActionResult Index()
+        public ActionResult Index(string Pesquisar = "")
         {
-            return View(db.AspNetRoles.ToList());
+            var query = db.AspNetRoles.AsQueryable();
+            if (!string.IsNullOrEmpty(Pesquisar))
+            {
+                query = query.Where(c => c.Name.Contains(Pesquisar));
+            }
+            query = query.OrderBy(c => c.Name);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_AspNetRoles", query.ToList());
+            }
+            return View(query.ToList());
         }
 
         // GET: AspNetRoles/Details/5

@@ -15,9 +15,19 @@ namespace Web.Controllers
         private entre_rodasEntities db = new entre_rodasEntities();
 
         // GET: Usuarios
-        public ActionResult Index()
+        public ActionResult Index(string Pesquisar = "")
         {
-            return View(db.AspNetUsers.ToList());
+            var query = db.AspNetUsers.AsQueryable();
+            if (!string.IsNullOrEmpty(Pesquisar))
+            {
+                query = query.Where(c => c.Nome.Contains(Pesquisar));
+            }
+            query = query.OrderBy(c => c.Nome);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Usuarios", query.ToList());
+            }
+            return View(query.ToList());
         }
 
         // GET: Usuarios/Details/5
