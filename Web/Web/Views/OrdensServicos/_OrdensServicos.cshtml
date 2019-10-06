@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Web.Models.OrdensServicos>
+<div id="divListaOrdensServicos">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Nome do cliente")
+                </th>
+                <th>
+                    @Html.DisplayName("Placa  do veículo")
+                </th>
+                <th>
+                    @Html.DisplayName("Código")
+                </th>
+                <th>
+                    @Html.DisplayName("Celular")
+                </th>
+                <th>
+                    @Html.DisplayName("É whatsApp?")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="/Clientes/Details/@item.Id" class="btn btn-primary btn-success">
+                            <span class="glyphicon glyphicon-search"></span>
+                            Visualizar
+                        </a>
+                        <a href="/Clientes/Edit/@item.Id" class="btn btn-primary btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Editar
+                        </a>
+                        <a href="/Clientes/Delete/@item.Id" class="btn btn-primary btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -14,10 +14,6 @@ namespace Web.Models
         [StringLength(75)]
         [Display(Name = "Nome:")]
         public string Nome { get; set; }
-        [Required(ErrorMessage = "O sobrenome deve ser informado!")]
-        [StringLength(50)]
-        [Display(Name = "Sobrenome:")]
-        public string Sobrenome { get; set; }
         [Display(Name = "Sexo:")]
         public string Sexo { get; set; }
         [Required(ErrorMessage = "A data de nascimento deve ser informada!")]

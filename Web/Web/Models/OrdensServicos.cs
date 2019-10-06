@@ -22,6 +22,7 @@ namespace Web.Models
         }
     
         public int Id { get; set; }
+        public string CodigoOrdensServicos { get; set; }
         public int ClienteId { get; set; }
         public int Responsavel { get; set; }
         public System.DateTime DataOrcamento { get; set; }

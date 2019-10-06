@@ -67,7 +67,6 @@ namespace Web.Controllers
             clienteView.RG = clientes.RG;
             clienteView.Rua = clientes.Rua;
             clienteView.Sexo = clientes.Sexo;
-            clienteView.Sobrenome = clientes.Sobrenome;
             clienteView.Telefone = clientes.Telefone;
             clienteView.VeiculosDoCliente = clientes.Veiculos.ToList();
             return View(clienteView);
@@ -111,7 +110,6 @@ namespace Web.Controllers
                     Clientes cliente = new Clientes()
                     {
                         Nome = viewCliente.Nome,
-                        Sobrenome = viewCliente.Sobrenome,
                         DataNascimento = viewCliente.DataNascimento,
                         Sexo = cbxSexo,
                         CPF = viewCliente.CPF,
@@ -186,7 +184,6 @@ namespace Web.Controllers
             cliente.RG = clientes.RG.Trim();
             cliente.Rua = clientes.Rua.Trim();
             cliente.Sexo = clientes.Sexo.Trim();
-            cliente.Sobrenome = clientes.Sobrenome.Trim();
             if (clientes.Telefone != null)
             {
                 cliente.Telefone = clientes.Telefone.Trim();

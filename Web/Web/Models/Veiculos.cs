@@ -32,8 +32,8 @@ namespace Web.Models
         public int QuilometragemAtual { get; set; }
         public string Observacoes { get; set; }
     
-        public virtual Clientes Clientes { get; set; }
         public virtual MarcasCarros MarcasCarros { get; set; }
+        public virtual Clientes Clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdensServicos> OrdensServicos { get; set; }
     }

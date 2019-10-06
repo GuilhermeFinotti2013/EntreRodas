@@ -27,7 +27,6 @@ namespace Web.Models
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<MarcasCarros> MarcasCarros { get; set; }
-        public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Veiculos> Veiculos { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -35,6 +34,7 @@ namespace Web.Models
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<OrdensServicosMateriais> OrdensServicosMateriais { get; set; }
         public virtual DbSet<OrdensServicosServicos> OrdensServicosServicos { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<OrdensServicos> OrdensServicos { get; set; }
     }
 }

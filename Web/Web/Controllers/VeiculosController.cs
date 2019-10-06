@@ -42,7 +42,7 @@ namespace Web.Controllers
         {
             Clientes cliente = db.Clientes.Find(id);
             ViewBag.ClienteId = id;
-            ViewBag.NomeCliente = cliente.Nome + " " + cliente.Sobrenome;
+            ViewBag.NomeCliente = cliente.Nome;
             ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome");
             CombosGenericos combos = new CombosGenericos();
             ViewBag.TipoCombustivel = new SelectList(combos.ListarTipoCombustivel(), "Valor", "Texto");
@@ -116,7 +116,7 @@ namespace Web.Controllers
             Clientes cliente = db.Clientes.Find(veiculos.ClienteId);
             MarcasCarros marca = db.MarcasCarros.Find(veiculos.MarcaVeiculoId);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
-            ViewBag.NomeCliente = cliente.Nome + "  " + cliente.Sobrenome;
+            ViewBag.NomeCliente = cliente.Nome;
             ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
             ViewBag.NomeMarca = marca.Nome;
             CombosGenericos combos = new CombosGenericos();

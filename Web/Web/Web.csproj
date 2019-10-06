@@ -382,6 +382,7 @@
     <Content Include="Views\OrdensServicos\Details.cshtml" />
     <Content Include="Views\OrdensServicos\Edit.cshtml" />
     <Content Include="Views\OrdensServicos\Index.cshtml" />
+    <Content Include="Views\OrdensServicos\_OrdensServicos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
