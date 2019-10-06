@@ -35,6 +35,18 @@ namespace Web.Util
             };
         }
 
+        public List<TODropDownListGenerico> ListarStatusServico()
+        {
+            return new List<TODropDownListGenerico>()
+            {
+                new TODropDownListGenerico{ Texto = "Orçamentoo em aberto", Valor = "OA"},
+                new TODropDownListGenerico{ Texto = "Orçamento fechado", Valor = "OF"},
+                new TODropDownListGenerico{ Texto = "Em execução", Valor = "EE"},
+                new TODropDownListGenerico{ Texto = "Serviço pronto", Valor = "SF"},
+                new TODropDownListGenerico{ Texto = "Pago", Valor = "P"}
+            };
+        }
+
         public List<TODropDownListGenerico> ListarAnos()
         {
             List<TODropDownListGenerico> listaDeAnos = new List<TODropDownListGenerico>();

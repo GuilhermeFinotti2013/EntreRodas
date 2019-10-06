@@ -14,6 +14,12 @@ namespace Web.Models
     
     public partial class Veiculos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Veiculos()
+        {
+            this.OrdensServicos = new HashSet<OrdensServicos>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> ClienteId { get; set; }
         public int MarcaVeiculoId { get; set; }
@@ -28,5 +34,7 @@ namespace Web.Models
     
         public virtual Clientes Clientes { get; set; }
         public virtual MarcasCarros MarcasCarros { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrdensServicos> OrdensServicos { get; set; }
     }
 }

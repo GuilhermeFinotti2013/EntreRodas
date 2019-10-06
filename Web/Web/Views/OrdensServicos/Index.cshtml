@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Web.Models.OrdensServicos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataOrcamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInicialPrevista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFinalPrevista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubTotalServicos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubTotalMateriais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorAPagar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InformacoesAdicionais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clientes.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataOrcamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInicialPrevista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataFinalPrevista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubTotalServicos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubTotalMateriais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorAPagar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FormaPagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InformacoesAdicionais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clientes.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

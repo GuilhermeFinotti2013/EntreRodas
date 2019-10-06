@@ -18,6 +18,7 @@ namespace Web.Models
         public Clientes()
         {
             this.Veiculos = new HashSet<Veiculos>();
+            this.OrdensServicos = new HashSet<OrdensServicos>();
         }
     
         public int Id { get; set; }
@@ -41,5 +42,7 @@ namespace Web.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Veiculos> Veiculos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrdensServicos> OrdensServicos { get; set; }
     }
 }

@@ -1,0 +1,115 @@
+﻿@model Web.Models.OrdensServicos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrdensServicos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOrcamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOrcamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicialPrevista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicialPrevista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFinalPrevista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFinalPrevista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubTotalServicos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubTotalServicos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubTotalMateriais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubTotalMateriais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAPagar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorAPagar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormaPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InformacoesAdicionais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InformacoesAdicionais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clientes.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clientes.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

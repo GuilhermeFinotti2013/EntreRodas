@@ -98,6 +98,45 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="nchar" MaxLength="75" />
         </EntityType>
+        <EntityType Name="OrdensServicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="Responsavel" Type="int" Nullable="false" />
+          <Property Name="DataOrcamento" Type="date" Nullable="false" />
+          <Property Name="DataInicialPrevista" Type="date" />
+          <Property Name="DataFinalPrevista" Type="date" />
+          <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubTotalServicos" Type="real" />
+          <Property Name="SubTotalMateriais" Type="real" />
+          <Property Name="ValorTotal" Type="real" />
+          <Property Name="ValorAPagar" Type="real" />
+          <Property Name="FormaPagamento" Type="nchar" MaxLength="10" />
+          <Property Name="InformacoesAdicionais" Type="nchar" MaxLength="150" />
+          <Property Name="VeiculosId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrdensServicosMateriais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdensServicosId" Type="int" Nullable="false" />
+          <Property Name="Descricao" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="PrecoUnitario" Type="real" Nullable="false" />
+          <Property Name="Quantidade" Type="int" Nullable="false" />
+          <Property Name="PrecoTotal" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdensServicosServicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdensServicosId" Type="int" Nullable="false" />
+          <Property Name="Descricao" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Valor" Type="real" Nullable="false" />
+        </EntityType>
         <EntityType Name="Veiculos">
           <Key>
             <PropertyRef Name="Id" />
@@ -170,6 +209,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrdemServico_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="OrdensServicos" Type="Self.OrdensServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicos">
+              <PropertyRef Name="Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdemServico_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="OrdensServicos" Type="Self.OrdensServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServicos_Veiculos">
+          <End Role="Veiculos" Type="Self.Veiculos" Multiplicity="0..1" />
+          <End Role="OrdensServicos" Type="Self.OrdensServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicos">
+              <PropertyRef Name="VeiculosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServicosMateriais_OrdensServicos">
+          <End Role="OrdensServicos" Type="Self.OrdensServicos" Multiplicity="1" />
+          <End Role="OrdensServicosMateriais" Type="Self.OrdensServicosMateriais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdensServicos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicosMateriais">
+              <PropertyRef Name="OrdensServicosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServicosServicos_OrdensServicos">
+          <End Role="OrdensServicos" Type="Self.OrdensServicos" Multiplicity="1" />
+          <End Role="OrdensServicosServicos" Type="Self.OrdensServicosServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdensServicos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicosServicos">
+              <PropertyRef Name="OrdensServicosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Veiculos_Clientes1">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Veiculos" Type="Self.Veiculos" Multiplicity="*" />
@@ -203,6 +302,9 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarcasCarros" EntityType="Self.MarcasCarros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdensServicos" EntityType="Self.OrdensServicos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdensServicosMateriais" EntityType="Self.OrdensServicosMateriais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdensServicosServicos" EntityType="Self.OrdensServicosServicos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Veiculos" EntityType="Self.Veiculos" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -219,6 +321,26 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdemServico_AspNetUsers" Association="Self.FK_OrdemServico_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdemServico_Clientes" Association="Self.FK_OrdemServico_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServicos_Veiculos" Association="Self.FK_OrdensServicos_Veiculos">
+            <End Role="Veiculos" EntitySet="Veiculos" />
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServicosMateriais_OrdensServicos" Association="Self.FK_OrdensServicosMateriais_OrdensServicos">
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+            <End Role="OrdensServicosMateriais" EntitySet="OrdensServicosMateriais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServicosServicos_OrdensServicos" Association="Self.FK_OrdensServicosServicos_OrdensServicos">
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+            <End Role="OrdensServicosServicos" EntitySet="OrdensServicosServicos" />
           </AssociationSet>
           <AssociationSet Name="FK_Veiculos_Clientes1" Association="Self.FK_Veiculos_Clientes1">
             <End Role="Clientes" EntitySet="Clientes" />
@@ -280,6 +402,29 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="OrdensServicosMateriais" EntityType="entre_rodasModel.OrdensServicosMateriais" />
+          <EntitySet Name="OrdensServicosServicos" EntityType="entre_rodasModel.OrdensServicosServicos" />
+          <EntitySet Name="OrdensServicos" EntityType="entre_rodasModel.OrdensServicos" />
+          <AssociationSet Name="FK_OrdemServico_AspNetUsers" Association="entre_rodasModel.FK_OrdemServico_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdemServico_Clientes" Association="entre_rodasModel.FK_OrdemServico_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServicos_Veiculos" Association="entre_rodasModel.FK_OrdensServicos_Veiculos">
+            <End Role="Veiculos" EntitySet="Veiculos" />
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServicosMateriais_OrdensServicos" Association="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos">
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+            <End Role="OrdensServicosMateriais" EntitySet="OrdensServicosMateriais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServicosServicos_OrdensServicos" Association="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos">
+            <End Role="OrdensServicos" EntitySet="OrdensServicos" />
+            <End Role="OrdensServicosServicos" EntitySet="OrdensServicosServicos" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Clientes">
           <Key>
@@ -304,6 +449,7 @@
           <Property Name="Cidade" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Observacao" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Veiculos" Relationship="entre_rodasModel.FK_Veiculos_Clientes1" FromRole="Clientes" ToRole="Veiculos" />
+          <NavigationProperty Name="OrdensServicos" Relationship="entre_rodasModel.FK_OrdemServico_Clientes" FromRole="Clientes" ToRole="OrdensServicos" />
         </EntityType>
         <EntityType Name="Veiculos">
           <Key>
@@ -322,6 +468,7 @@
           <Property Name="Observacoes" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Clientes" Relationship="entre_rodasModel.FK_Veiculos_Clientes1" FromRole="Veiculos" ToRole="Clientes" />
           <NavigationProperty Name="MarcasCarros" Relationship="entre_rodasModel.FK_Veiculos_MarcasCarros" FromRole="Veiculos" ToRole="MarcasCarros" />
+          <NavigationProperty Name="OrdensServicos" Relationship="entre_rodasModel.FK_OrdensServicos_Veiculos" FromRole="Veiculos" ToRole="OrdensServicos" />
         </EntityType>
         <Association Name="FK_Veiculos_Clientes1">
           <End Type="entre_rodasModel.Clientes" Role="Clientes" Multiplicity="0..1" />
@@ -397,6 +544,7 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="entre_rodasModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="entre_rodasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="entre_rodasModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="OrdensServicos" Relationship="entre_rodasModel.FK_OrdemServico_AspNetUsers" FromRole="AspNetUsers" ToRole="OrdensServicos" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="entre_rodasModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -429,6 +577,112 @@
         <Association Name="AspNetUserRoles">
           <End Type="entre_rodasModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="entre_rodasModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="OrdensServicosMateriais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdensServicosId" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="PrecoUnitario" Type="Single" Nullable="false" />
+          <Property Name="Quantidade" Type="Int32" Nullable="false" />
+          <Property Name="PrecoTotal" Type="Single" Nullable="false" />
+          <NavigationProperty Name="OrdensServicos" Relationship="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos" FromRole="OrdensServicosMateriais" ToRole="OrdensServicos" />
+        </EntityType>
+        <EntityType Name="OrdensServicosServicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdensServicosId" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Valor" Type="Single" Nullable="false" />
+          <NavigationProperty Name="OrdensServicos" Relationship="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" FromRole="OrdensServicosServicos" ToRole="OrdensServicos" />
+        </EntityType>
+        <EntityType Name="OrdensServicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <Property Name="Responsavel" Type="Int32" Nullable="false" />
+          <Property Name="DataOrcamento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataInicialPrevista" Type="DateTime" Precision="0" />
+          <Property Name="DataFinalPrevista" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubTotalServicos" Type="Single" />
+          <Property Name="SubTotalMateriais" Type="Single" />
+          <Property Name="ValorTotal" Type="Single" />
+          <Property Name="ValorAPagar" Type="Single" />
+          <Property Name="FormaPagamento" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InformacoesAdicionais" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Name="VeiculosId" Type="Int32" />
+          <NavigationProperty Name="AspNetUsers" Relationship="entre_rodasModel.FK_OrdemServico_AspNetUsers" FromRole="OrdensServicos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Clientes" Relationship="entre_rodasModel.FK_OrdemServico_Clientes" FromRole="OrdensServicos" ToRole="Clientes" />
+          <NavigationProperty Name="Veiculos" Relationship="entre_rodasModel.FK_OrdensServicos_Veiculos" FromRole="OrdensServicos" ToRole="Veiculos" />
+          <NavigationProperty Name="OrdensServicosMateriais" Relationship="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosMateriais" />
+          <NavigationProperty Name="OrdensServicosServicos" Relationship="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosServicos" />
+        </EntityType>
+        <Association Name="FK_OrdemServico_AspNetUsers">
+          <End Type="entre_rodasModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="entre_rodasModel.OrdensServicos" Role="OrdensServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicos">
+              <PropertyRef Name="Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdemServico_Clientes">
+          <End Type="entre_rodasModel.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="entre_rodasModel.OrdensServicos" Role="OrdensServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServicos_Veiculos">
+          <End Type="entre_rodasModel.Veiculos" Role="Veiculos" Multiplicity="0..1" />
+          <End Type="entre_rodasModel.OrdensServicos" Role="OrdensServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicos">
+              <PropertyRef Name="VeiculosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServicosMateriais_OrdensServicos">
+          <End Type="entre_rodasModel.OrdensServicos" Role="OrdensServicos" Multiplicity="1" />
+          <End Type="entre_rodasModel.OrdensServicosMateriais" Role="OrdensServicosMateriais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdensServicos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicosMateriais">
+              <PropertyRef Name="OrdensServicosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServicosServicos_OrdensServicos">
+          <End Type="entre_rodasModel.OrdensServicos" Role="OrdensServicos" Multiplicity="1" />
+          <End Type="entre_rodasModel.OrdensServicosServicos" Role="OrdensServicosServicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdensServicos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdensServicosServicos">
+              <PropertyRef Name="OrdensServicosId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -550,6 +804,48 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="OrdensServicosMateriais">
+            <EntityTypeMapping TypeName="entre_rodasModel.OrdensServicosMateriais">
+              <MappingFragment StoreEntitySet="OrdensServicosMateriais">
+                <ScalarProperty Name="PrecoTotal" ColumnName="PrecoTotal" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="OrdensServicosId" ColumnName="OrdensServicosId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdensServicosServicos">
+            <EntityTypeMapping TypeName="entre_rodasModel.OrdensServicosServicos">
+              <MappingFragment StoreEntitySet="OrdensServicosServicos">
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="OrdensServicosId" ColumnName="OrdensServicosId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdensServicos">
+            <EntityTypeMapping TypeName="entre_rodasModel.OrdensServicos">
+              <MappingFragment StoreEntitySet="OrdensServicos">
+                <ScalarProperty Name="VeiculosId" ColumnName="VeiculosId" />
+                <ScalarProperty Name="InformacoesAdicionais" ColumnName="InformacoesAdicionais" />
+                <ScalarProperty Name="FormaPagamento" ColumnName="FormaPagamento" />
+                <ScalarProperty Name="ValorAPagar" ColumnName="ValorAPagar" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+                <ScalarProperty Name="SubTotalMateriais" ColumnName="SubTotalMateriais" />
+                <ScalarProperty Name="SubTotalServicos" ColumnName="SubTotalServicos" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DataFinalPrevista" ColumnName="DataFinalPrevista" />
+                <ScalarProperty Name="DataInicialPrevista" ColumnName="DataInicialPrevista" />
+                <ScalarProperty Name="DataOrcamento" ColumnName="DataOrcamento" />
+                <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

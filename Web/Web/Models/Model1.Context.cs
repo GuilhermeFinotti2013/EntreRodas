@@ -33,5 +33,8 @@ namespace Web.Models
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<OrdensServicosMateriais> OrdensServicosMateriais { get; set; }
+        public virtual DbSet<OrdensServicosServicos> OrdensServicosServicos { get; set; }
+        public virtual DbSet<OrdensServicos> OrdensServicos { get; set; }
     }
 }
