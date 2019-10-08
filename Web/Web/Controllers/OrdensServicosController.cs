@@ -8,17 +8,26 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Models;
 
-namespace Web.Content
+namespace Web.Controllers
 {
     public class OrdensServicosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
 
         // GET: OrdensServicos
-        public ActionResult Index()
+        public ActionResult Index(string Pesquisar = "")
         {
-            var ordensServicos = db.OrdensServicos.Include(o => o.AspNetUsers).Include(o => o.Clientes);
-            return View(ordensServicos.ToList());
+            var query = db.OrdensServicos.AsQueryable();
+            if (!string.IsNullOrEmpty(Pesquisar))
+            {
+                query = query.Where(c => c.Clientes.Nome.Contains(Pesquisar));
+            }
+            query = query.OrderBy(c => c.Clientes.Nome);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_OrdensServicos", query.ToList());
+            }
+            return View(query.ToList());
         }
 
         // GET: OrdensServicos/Details/5
@@ -41,6 +50,7 @@ namespace Web.Content
         {
             ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome");
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome");
+            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo");
             return View();
         }
 
@@ -49,7 +59,7 @@ namespace Web.Content
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ClienteId,Responsavel,DataOrcamento,DataInicialPrevista,DataFinalPrevista,Status,SubTotalServicos,SubTotalMateriais,ValorTotal,ValorAPagar,FormaPagamento,InformacoesAdicionais")] OrdensServicos ordensServicos)
+        public ActionResult Create([Bind(Include = "Id,CodigoOrdensServicos,ClienteId,Responsavel,DataOrcamento,DataInicialPrevista,DataFinalPrevista,Status,SubTotalServicos,SubTotalMateriais,ValorTotal,ValorAPagar,FormaPagamento,InformacoesAdicionais,VeiculosId")] OrdensServicos ordensServicos)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +70,7 @@ namespace Web.Content
 
             ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
+            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
             return View(ordensServicos);
         }
 
@@ -77,6 +88,7 @@ namespace Web.Content
             }
             ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
+            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
             return View(ordensServicos);
         }
 
@@ -85,7 +97,7 @@ namespace Web.Content
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ClienteId,Responsavel,DataOrcamento,DataInicialPrevista,DataFinalPrevista,Status,SubTotalServicos,SubTotalMateriais,ValorTotal,ValorAPagar,FormaPagamento,InformacoesAdicionais")] OrdensServicos ordensServicos)
+        public ActionResult Edit([Bind(Include = "Id,CodigoOrdensServicos,ClienteId,Responsavel,DataOrcamento,DataInicialPrevista,DataFinalPrevista,Status,SubTotalServicos,SubTotalMateriais,ValorTotal,ValorAPagar,FormaPagamento,InformacoesAdicionais,VeiculosId")] OrdensServicos ordensServicos)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +107,7 @@ namespace Web.Content
             }
             ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
+            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
             return View(ordensServicos);
         }
 

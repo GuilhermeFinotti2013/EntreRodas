@@ -18,6 +18,7 @@ namespace Web.Models
         public string Sexo { get; set; }
         [Required(ErrorMessage = "A data de nascimento deve ser informada!")]
         [Display(Name = "Data de nascimento:")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DataNascimento { get; set; }
         [Required(ErrorMessage = "O CPF deve ser informado!")]
         [StringLength(14)]

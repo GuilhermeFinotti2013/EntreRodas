@@ -89,7 +89,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Sobrenome,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaVeiculoId, Modelo, Ano, Placa, CategoriaCarro,TipoCombustivel,TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente, string cbxSexo)
+        public ActionResult Create([Bind(Include = "Id,Nome,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao, MarcaVeiculoId, Modelo, Ano, Placa, CategoriaCarro,TipoCombustivel,TipoMotor,ObservacaoCarro")] ClienteViewModel viewCliente, string cbxSexo)
         {
             if (ModelState.IsValid)
             {
@@ -199,7 +199,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Sobrenome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao")] Clientes clientes)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Sexo,DataNascimento,CPF,RG,Email,Telefone,Celular,EhWhats,CEP,Rua,Numero,Complemento,Bairro,Cidade,Observacao")] Clientes clientes)
         {
             if (ModelState.IsValid)
             {
