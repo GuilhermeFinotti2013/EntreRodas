@@ -25,7 +25,7 @@ namespace Web.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Sexo { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime DataNascimento { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
