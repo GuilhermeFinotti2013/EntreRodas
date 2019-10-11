@@ -48,9 +48,20 @@
             $('#ClienteId').change(function () {
                 var idVeiculo = $('#ClienteId').val();
                 if (idVeiculo != '') {
-                    $.post('', { 'idVeiculo': idVeiculo }, function (data) {
-
-                    })
+                    $.post('@Url.Action("ObterVeiculos", "OndensServicos")', { 'idCliente': idVeiculo }, function (data) {
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                $('#cmd_veiculo').append('<option value="' + data[i].Id + '">' + data[i].Modelo + '</option>');
+                            }
+                        }
+                    });
+/*                    $.post(Url.("ObterVeiculos", "OndensServicos"), { 'idCliente': idVeiculo }, function (data) {
+                        /*if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                $('#cmd_veiculo').append('<option value="' + data[i].Id + '">' + data[i].Modelo + '</option>');
+                            }
+                        }
+                    });*/
                 }
             });
         });

@@ -54,6 +54,12 @@ namespace Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ObterVeiculos(int idCliente)
+        {
+            return Json(db.Veiculos.Where(c => c.ClienteId == idCliente).ToList());
+        }
+
         // POST: OrdensServicos/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
