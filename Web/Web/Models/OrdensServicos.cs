@@ -27,7 +27,6 @@ namespace Web.Models
         public int Responsavel { get; set; }
         public System.DateTime DataOrcamento { get; set; }
         public Nullable<System.DateTime> DataInicialPrevista { get; set; }
-        public Nullable<System.DateTime> DataFinalPrevista { get; set; }
         public string Status { get; set; }
         public Nullable<float> SubTotalServicos { get; set; }
         public Nullable<float> SubTotalMateriais { get; set; }
@@ -36,6 +35,8 @@ namespace Web.Models
         public string FormaPagamento { get; set; }
         public string InformacoesAdicionais { get; set; }
         public Nullable<int> VeiculosId { get; set; }
+        public Nullable<System.DateTime> DataInicial { get; set; }
+        public Nullable<System.DateTime> DataFinal { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Clientes Clientes { get; set; }

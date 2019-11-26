@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
+using Web.Util;
 
 namespace Web.Controllers
 {
@@ -48,16 +49,23 @@ namespace Web.Controllers
         // GET: OrdensServicos/Create
         public ActionResult Create()
         {
-            ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome");
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome");
-            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo");
+            var lista = new List<Models.Clientes>();
+            lista.AddRange(db.Clientes.ToList());
+            lista.Insert(0, new Clientes() { Id = -1, Nome = "--" });
+            ViewBag.ClienteId = new SelectList(lista, "Id", "Nome");
             return View();
         }
 
         [HttpPost]
         public ActionResult ObterVeiculos(int idCliente)
         {
-            return Json(db.Veiculos.Where(c => c.ClienteId == idCliente).ToList());
+            List<Veiculos> listaBd = db.Veiculos.Where(c => c.ClienteId == idCliente).ToList();
+            List<TODropDownListGenerico> lista = new List<TODropDownListGenerico>();
+            foreach (Veiculos item in listaBd)
+            {
+                lista.Add(new TODropDownListGenerico() { Id = item.Id, Texto = item.Modelo.Trim() });
+            }
+            return Json(lista);
         }
 
         // POST: OrdensServicos/Create
@@ -65,9 +73,9 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CodigoOrdensServicos,ClienteId,Responsavel,DataOrcamento,DataInicialPrevista,DataFinalPrevista,Status,SubTotalServicos,SubTotalMateriais,ValorTotal,ValorAPagar,FormaPagamento,InformacoesAdicionais,VeiculosId")] OrdensServicos ordensServicos)
+        public ActionResult Create(string cmd_cliente, string cmd_veiculo)
         {
-            if (ModelState.IsValid)
+            /*if (ModelState.IsValid)
             {
                 db.OrdensServicos.Add(ordensServicos);
                 db.SaveChanges();
@@ -77,7 +85,8 @@ namespace Web.Controllers
             ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
             ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
-            return View(ordensServicos);
+            return View(ordensServicos);*/
+            return View("Index");
         }
 
         // GET: OrdensServicos/Edit/5

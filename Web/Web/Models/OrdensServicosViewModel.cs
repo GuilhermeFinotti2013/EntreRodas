@@ -13,5 +13,9 @@ namespace Web.Models
         public int ClienteId { get; set; }
         [Display(Name = "Veículos:")]
         public int VeiculosId { get; set; }
+        [Required(ErrorMessage = "A data prevista para o início do trabalho deve ser informada!")]
+        [Display(Name = "Data inícial prevista:")]
+        [DataType(DataType.Date)]
+        public System.DateTime DataInicialPrevista { get; set; }
     }
 }

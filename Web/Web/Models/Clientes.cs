@@ -11,8 +11,7 @@ namespace Web.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Clientes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,7 +24,6 @@ namespace Web.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Sexo { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime DataNascimento { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }

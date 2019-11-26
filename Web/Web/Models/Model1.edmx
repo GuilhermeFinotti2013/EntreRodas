@@ -107,7 +107,8 @@
           <Property Name="Responsavel" Type="int" Nullable="false" />
           <Property Name="DataOrcamento" Type="date" Nullable="false" />
           <Property Name="DataInicialPrevista" Type="date" />
-          <Property Name="DataFinalPrevista" Type="date" />
+          <Property Name="DataInicial" Type="date" />
+          <Property Name="DataFinal" Type="date" />
           <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="SubTotalServicos" Type="real" />
           <Property Name="SubTotalMateriais" Type="real" />
@@ -597,7 +598,6 @@
           <Property Name="Responsavel" Type="Int32" Nullable="false" />
           <Property Name="DataOrcamento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DataInicialPrevista" Type="DateTime" Precision="0" />
-          <Property Name="DataFinalPrevista" Type="DateTime" Precision="0" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="SubTotalServicos" Type="Single" />
           <Property Name="SubTotalMateriais" Type="Single" />
@@ -611,6 +611,8 @@
           <NavigationProperty Name="Veiculos" Relationship="entre_rodasModel.FK_OrdensServicos_Veiculos" FromRole="OrdensServicos" ToRole="Veiculos" />
           <NavigationProperty Name="OrdensServicosMateriais" Relationship="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosMateriais" />
           <NavigationProperty Name="OrdensServicosServicos" Relationship="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosServicos" />
+          <Property Name="DataInicial" Type="DateTime" Precision="0" />
+          <Property Name="DataFinal" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_OrdemServico_AspNetUsers">
           <End Type="entre_rodasModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -828,6 +830,8 @@
           <EntitySetMapping Name="OrdensServicos">
             <EntityTypeMapping TypeName="entre_rodasModel.OrdensServicos">
               <MappingFragment StoreEntitySet="OrdensServicos">
+                <ScalarProperty Name="DataFinal" ColumnName="DataFinal" />
+                <ScalarProperty Name="DataInicial" ColumnName="DataInicial" />
                 <ScalarProperty Name="VeiculosId" ColumnName="VeiculosId" />
                 <ScalarProperty Name="InformacoesAdicionais" ColumnName="InformacoesAdicionais" />
                 <ScalarProperty Name="FormaPagamento" ColumnName="FormaPagamento" />
@@ -836,7 +840,6 @@
                 <ScalarProperty Name="SubTotalMateriais" ColumnName="SubTotalMateriais" />
                 <ScalarProperty Name="SubTotalServicos" ColumnName="SubTotalServicos" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DataFinalPrevista" ColumnName="DataFinalPrevista" />
                 <ScalarProperty Name="DataInicialPrevista" ColumnName="DataInicialPrevista" />
                 <ScalarProperty Name="DataOrcamento" ColumnName="DataOrcamento" />
                 <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />

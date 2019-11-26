@@ -6,62 +6,50 @@
     ViewBag.MenuAtual = "OrdensServicos";
 }
 
-<h2>Create</h2>
+<h2>Abrir nova ordem de serviço</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>OrdensServicos</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.ClienteId, "ClienteId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.Label("Veículo:")
+        <div id="rowVeiculo" class="form-group hidden">
+                @Html.Label("Veículo:")
             <div class="col-md-10">
                 @Html.DropDownList("cmd_veiculo", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Modelo"))
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        <input type="submit" value="Abrir" class="btn btn-success" />
+        <a href="/OrdensServicos/Index" class="btn btn-primary btn-danger">Cancelar</a>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#ClienteId').change(function () {
-                var idVeiculo = $('#ClienteId').val();
-                if (idVeiculo != '') {
-                    $.post('@Url.Action("ObterVeiculos", "OndensServicos")', { 'idCliente': idVeiculo }, function (data) {
+            $('#cmd_cliente').change(function () {
+                var idCliente = $('#cmd_cliente').val();
+                if (idCliente > 0) {
+                    $.post("@Url.Action("ObterVeiculos", "OrdensServicos")", { 'idCliente': idCliente }, function (data) {
+                        $('#cmd_veiculo').empty();
                         if (data.length > 0) {
+                            $('#rowVeiculo').show();
                             for (var i = 0; i < data.length; i++) {
-                                $('#cmd_veiculo').append('<option value="' + data[i].Id + '">' + data[i].Modelo + '</option>');
+                                $('#cmd_veiculo').append('<option value="' + data[i].Id.Trim + '">' + data[i].Texto + '</option>');
                             }
+                        } else {
+                            alert('O cliente selecionado não possui veículos cadastrados!');
                         }
                     });
-/*                    $.post(Url.("ObterVeiculos", "OndensServicos"), { 'idCliente': idVeiculo }, function (data) {
-                        /*if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-                                $('#cmd_veiculo').append('<option value="' + data[i].Id + '">' + data[i].Modelo + '</option>');
-                            }
-                        }
-                    });*/
                 }
             });
         });

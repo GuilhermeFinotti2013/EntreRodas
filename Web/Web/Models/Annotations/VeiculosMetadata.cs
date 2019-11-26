@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -39,7 +40,7 @@ namespace Web.Models
         [Required(ErrorMessage = "A quilometragem atual deve ser informado!")]
         [Display(Name = "Quilometragem atual:")]
         public int QuilometragemAtual { get; set; }
-
+        [JsonIgnore]
         public virtual Clientes Clientes { get; set; }
     }
 }
