@@ -56,6 +56,29 @@ namespace Web.Controllers
             return View();
         }
 
+        // POST: OrdensServicos/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ClienteId, VeiculoId")] AbrirOrdensServicosViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                OrdensServicos ordensServicos = new OrdensServicos();
+
+                db.OrdensServicos.Add(ordensServicos);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            var lista = new List<Models.Clientes>();
+            lista.AddRange(db.Clientes.ToList());
+            lista.Insert(0, new Clientes() { Id = -1, Nome = "--" });
+            ViewBag.ClienteId = new SelectList(lista, "Id", "Nome");
+            return View(viewModel);
+        }
+
         [HttpPost]
         public ActionResult ObterVeiculos(int idCliente)
         {
@@ -66,27 +89,6 @@ namespace Web.Controllers
                 lista.Add(new TODropDownListGenerico() { Id = item.Id, Texto = item.Modelo.Trim() });
             }
             return Json(lista);
-        }
-
-        // POST: OrdensServicos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(string cmd_cliente, string cmd_veiculo)
-        {
-            /*if (ModelState.IsValid)
-            {
-                db.OrdensServicos.Add(ordensServicos);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
-            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
-            return View(ordensServicos);*/
-            return View("Index");
         }
 
         // GET: OrdensServicos/Edit/5

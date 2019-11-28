@@ -19,10 +19,10 @@
         <EntityTypeShape EntityType="entre_rodasModel.OrdensServicosMateriais" Width="1.5" PointX="7.75" PointY="8.75" />
         <EntityTypeShape EntityType="entre_rodasModel.OrdensServicosServicos" Width="1.5" PointX="5.25" PointY="7.625" />
         <EntityTypeShape EntityType="entre_rodasModel.Clientes" Width="1.5" PointX="0.75" PointY="9.375" />
-        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicos" Width="1.5" PointX="10.5" PointY="3.125" />
+        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" />
+        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicos" Width="1.5" PointX="8.25" PointY="2" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdemServico_AspNetUsers" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdemServico_Clientes" />
-        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdensServicos_Veiculos" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" />

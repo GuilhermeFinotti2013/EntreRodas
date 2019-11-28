@@ -24,19 +24,19 @@ namespace Web.Models
         public int Id { get; set; }
         public string CodigoOrdensServicos { get; set; }
         public int ClienteId { get; set; }
-        public int Responsavel { get; set; }
+        public int VeiculosId { get; set; }
+        public int FuncionarioResponsavel { get; set; }
+        public string Status { get; set; }
         public System.DateTime DataOrcamento { get; set; }
         public Nullable<System.DateTime> DataInicialPrevista { get; set; }
-        public string Status { get; set; }
+        public Nullable<System.DateTime> DataInicial { get; set; }
+        public Nullable<System.DateTime> DataFinal { get; set; }
         public Nullable<float> SubTotalServicos { get; set; }
         public Nullable<float> SubTotalMateriais { get; set; }
         public Nullable<float> ValorTotal { get; set; }
         public Nullable<float> ValorAPagar { get; set; }
         public string FormaPagamento { get; set; }
         public string InformacoesAdicionais { get; set; }
-        public Nullable<int> VeiculosId { get; set; }
-        public Nullable<System.DateTime> DataInicial { get; set; }
-        public Nullable<System.DateTime> DataFinal { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Clientes Clientes { get; set; }
