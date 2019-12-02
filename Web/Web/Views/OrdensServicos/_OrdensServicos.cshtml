@@ -4,16 +4,16 @@
         <thead>
             <tr>
                 <th>
+                    @Html.DisplayName("Código do serviço")
+                </th>
+                <th>
                     @Html.DisplayName("Nome do cliente")
                 </th>
                 <th>
-                    @Html.DisplayName("Placa  do veículo")
-                </th>
-                <th>
-                    @Html.DisplayName("Código")
-                </th>
-                <th>
                     @Html.DisplayName("Modelo")
+                </th>
+                <th>
+                    @Html.DisplayName("Placa  do veículo")
                 </th>
                 <th>
                     @Html.DisplayName("Situação")
@@ -26,6 +26,9 @@
             {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.CodigoOrdensServicos)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Clientes.Nome)
                 </td>
                 <td>
@@ -35,14 +38,13 @@
                     @Html.DisplayFor(modelItem => item.Veiculos.Placa)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CodigoOrdensServicos)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
                     @if (item.Status.Trim() == "O")
                     {
-                        <p>uuuuu</p>
                         @Html.Label("Em orçamento")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Status)
                     }
                 </td>
                 <td>

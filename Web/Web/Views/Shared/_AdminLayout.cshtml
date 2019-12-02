@@ -28,8 +28,6 @@
 
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    @if (@User.Identity.IsAuthenticated && @User.IsInRole("Administradores"))
-                    {
                         <li class="nav-item">
                             @if (ViewBag.MenuAtual == "HomeAdm")
                             {
@@ -128,7 +126,7 @@
                                 </a>
                             }
                         </li>
-                    }
+                    
                 </ul>
             </div>
         </nav>

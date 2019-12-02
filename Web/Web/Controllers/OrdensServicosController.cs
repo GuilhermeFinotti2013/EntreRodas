@@ -11,7 +11,7 @@ using Web.Util;
 
 namespace Web.Controllers
 {
-    [Authorize(Roles = "Administradores")]
+//    [Authorize(Roles = "Administradores")]
     public class OrdensServicosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
@@ -75,7 +75,7 @@ namespace Web.Controllers
                 ordensServicos.Status = "O";
                 db.OrdensServicos.Add(ordensServicos);
                 db.SaveChanges();
-                return RedirectToAction("Edit",ordensServicos.Id);
+                return RedirectToAction("Details", new { id = ordensServicos.Id });
             }
 
             var lista = new List<Models.Clientes>();
@@ -164,14 +164,25 @@ namespace Web.Controllers
         private String ObterCodigoOrdemServico()
         {
             string novoCodigo = String.Empty;
-
             OrdensServicos ultimaOrdem = db.OrdensServicos.OrderByDescending(x => x.Id).Take(1).FirstOrDefault();
-
             if (ultimaOrdem == null)
             {
                 novoCodigo = String.Format("{0}{1}", DateTime.Now.ToString("yyyyMM"), "0001");
             }
-
+            else
+            {
+                string ultimoMes = ultimaOrdem.CodigoOrdensServicos.Substring(0, 6);
+                if (ultimoMes == DateTime.Now.ToString("yyyyMM"))
+                {
+                    int contServicosMes = Convert.ToInt32(ultimaOrdem.CodigoOrdensServicos.Substring(6,4));
+                    contServicosMes++;
+                    novoCodigo = String.Format("{0}{1}", DateTime.Now.ToString("yyyyMM"), contServicosMes.ToString().PadLeft(4, '0'));
+                }
+                else
+                {
+                    novoCodigo = String.Format("{0}{1}", DateTime.Now.ToString("yyyyMM"), "0001");
+                }
+            }
             return novoCodigo;
         }
 

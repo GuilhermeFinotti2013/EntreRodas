@@ -12,7 +12,7 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    [Authorize(Roles = "Administradores")]
+//    [Authorize(Roles = "Administradores")]
     public class AspNetRolesController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();

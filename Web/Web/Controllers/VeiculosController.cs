@@ -11,7 +11,7 @@ using Web.Util;
 
 namespace Web.Controllers
 {
-    [Authorize(Roles = "Administradores")]
+//    [Authorize(Roles = "Administradores")]
     public class VeiculosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
