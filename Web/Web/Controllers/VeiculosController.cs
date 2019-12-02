@@ -11,6 +11,7 @@ using Web.Util;
 
 namespace Web.Controllers
 {
+    [Authorize(Roles = "Administradores")]
     public class VeiculosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
@@ -110,9 +111,12 @@ namespace Web.Controllers
                 Modelo = veiculos.Modelo.Trim(),
                 Observacoes = veiculos.Observacoes,
                 Placa = veiculos.Placa.Trim(),
-                QuilometragemAtual = veiculos.QuilometragemAtual,
-                TipoMotor = veiculos.TipoMotor.Trim()
+                QuilometragemAtual = veiculos.QuilometragemAtual,                
             };
+            if (veiculos.TipoMotor != null)
+            {
+                veiculo.TipoMotor = veiculos.TipoMotor;
+            }
             Clientes cliente = db.Clientes.Find(veiculos.ClienteId);
             MarcasCarros marca = db.MarcasCarros.Find(veiculos.MarcaVeiculoId);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);

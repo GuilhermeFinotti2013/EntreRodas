@@ -12,8 +12,12 @@ namespace Web.Models.Annotations
         [Key]
         [Display(Name = "Código:")]
         public int Id { get; set; }
+        [Required(ErrorMessage = "O cliente deve ser informado!")]
         [Display(Name = "Cliente:")]
         public int ClienteId { get; set; }
+        [Required(ErrorMessage = "O veículo deve ser informado!")]
+        [Display(Name = "Veículos:")]
+        public int VeiculoId { get; set; }
         [Display(Name = "Responsável pelo orçamento:")]
         public int Responsavel { get; set; }
         [Display(Name = "Data de realização do orçamento:")]
@@ -36,7 +40,6 @@ namespace Web.Models.Annotations
         public string FormaPagamento { get; set; }
         [Display(Name = "Informações adcionais:")]
         public string InformacoesAdicionais { get; set; }
-        public Nullable<int> VeiculosId { get; set; }
 
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Clientes Clientes { get; set; }

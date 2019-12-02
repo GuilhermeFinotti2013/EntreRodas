@@ -12,39 +12,41 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
-            </div>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label("Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
         </div>
-        <div id="rowVeiculo" class="form-group hidden">
-                @Html.Label("Veículo:")
-            <div class="col-md-10">
-                @Html.DropDownList("VeiculoId", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Modelo"))
-            </div>
-        </div>
-
-        <input type="submit" value="Abrir" class="btn btn-success" />
-        <a href="/OrdensServicos/Index" class="btn btn-primary btn-danger">Cancelar</a>
     </div>
+    <div id="rowVeiculo" class="form-group">
+        @Html.Label("Veículo:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.DropDownList("VeiculosId", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Modelo"))
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <span class="glyphicon glyphicon-ok"></span> Salvar
+    </button>
+    <a href="/OrdensServicos/Index" class="btn btn-primary btn-danger">Cancelar</a>
+</div>
 }
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#cmd_cliente').change(function () {
-                var idCliente = $('#cmd_cliente').val();
+            $('#ClienteId').change(function () {
+                var idCliente = $('#ClienteId').val();
                 if (idCliente > 0) {
                     $.post("@Url.Action("ObterVeiculos", "OrdensServicos")", { 'idCliente': idCliente }, function (data) {
-                        $('#cmd_veiculo').empty();
+                        $('#VeiculosId').empty();
                         if (data.length > 0) {
-                            $('#rowVeiculo').show();
+                           // $('#rowVeiculo').show();
                             for (var i = 0; i < data.length; i++) {
-                                $('#cmd_veiculo').append('<option value="' + data[i].Id.Trim + '">' + data[i].Texto + '</option>');
+                                $('#VeiculosId').append('<option value="' + data[i].Id + '">' + data[i].Texto + '</option>');
                             }
                         } else {
                             alert('O cliente selecionado não possui veículos cadastrados!');

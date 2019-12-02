@@ -12,6 +12,7 @@ using Web.Util;
 
 namespace Web.Controllers
 {
+    [Authorize(Roles = "Administradores")]
     public class ClientesController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();

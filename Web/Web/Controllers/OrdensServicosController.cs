@@ -11,6 +11,7 @@ using Web.Util;
 
 namespace Web.Controllers
 {
+    [Authorize(Roles = "Administradores")]
     public class OrdensServicosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
@@ -61,15 +62,20 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClienteId, VeiculoId")] AbrirOrdensServicosViewModel viewModel)
+        public ActionResult Create([Bind(Include = "ClienteId,VeiculosId")] OrdensServicos viewModel)
         {
             if (ModelState.IsValid)
             {
                 OrdensServicos ordensServicos = new OrdensServicos();
-
+                ordensServicos.ClienteId = viewModel.ClienteId;
+                ordensServicos.VeiculosId = viewModel.VeiculosId;
+                ordensServicos.CodigoOrdensServicos = this.ObterCodigoOrdemServico();
+                ordensServicos.FuncionarioResponsavel = Convert.ToInt32(Session["IdUser"]);
+                ordensServicos.DataOrcamento = DateTime.Now;
+                ordensServicos.Status = "O";
                 db.OrdensServicos.Add(ordensServicos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit",ordensServicos.Id);
             }
 
             var lista = new List<Models.Clientes>();
@@ -88,6 +94,7 @@ namespace Web.Controllers
             {
                 lista.Add(new TODropDownListGenerico() { Id = item.Id, Texto = item.Modelo.Trim() });
             }
+            lista.Insert(0, new TODropDownListGenerico() { Id = -1, Texto = "--" });
             return Json(lista);
         }
 
@@ -103,7 +110,7 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
+
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
             ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
             return View(ordensServicos);
@@ -122,7 +129,7 @@ namespace Web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Responsavel = new SelectList(db.AspNetUsers, "Id", "Nome", ordensServicos.Responsavel);
+
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
             ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
             return View(ordensServicos);
@@ -152,6 +159,20 @@ namespace Web.Controllers
             db.OrdensServicos.Remove(ordensServicos);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private String ObterCodigoOrdemServico()
+        {
+            string novoCodigo = String.Empty;
+
+            OrdensServicos ultimaOrdem = db.OrdensServicos.OrderByDescending(x => x.Id).Take(1).FirstOrDefault();
+
+            if (ultimaOrdem == null)
+            {
+                novoCodigo = String.Format("{0}{1}", DateTime.Now.ToString("yyyyMM"), "0001");
+            }
+
+            return novoCodigo;
         }
 
         protected override void Dispose(bool disposing)

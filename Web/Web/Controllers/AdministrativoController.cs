@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Web.Controllers
 {
+    [Authorize(Roles = "Administradores")]
     public class AdministrativoController : Controller
     {
         // GET: Administrativo

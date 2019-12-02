@@ -11,6 +11,7 @@ namespace Web.Models
         [Required(ErrorMessage = "O cliente deve ser informado!")]
         [Display(Name = "Cliente:")]
         public int ClienteId { get; set; }
+        [Required(ErrorMessage = "O veículo deve ser informado!")]
         [Display(Name = "Veículos:")]
         public int VeiculoId { get; set; }
     }

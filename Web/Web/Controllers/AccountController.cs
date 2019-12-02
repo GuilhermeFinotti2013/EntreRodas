@@ -94,6 +94,7 @@ namespace Web.Controllers
                     var query = from u in db.AspNetUsers where u.Email == model.Email select u;
                     AspNetUsers user = query.FirstOrDefault<AspNetUsers>();
                     Session["NomeUser"] = user.Nome;
+                    Session["IdUser"] = user.Id;
                     if (user.AspNetRoles.ToList()[0].Name == "Administrativo")
                     {
                         return RedirectToAction("Index", "Administrativo");
@@ -409,6 +410,7 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session.Abandon();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

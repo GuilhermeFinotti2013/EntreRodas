@@ -10,6 +10,7 @@ using Web.Models;
 
 namespace Web.Controllers
 {
+    [Authorize(Roles = "Administradores")]
     public class UsuariosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
@@ -33,7 +34,7 @@ namespace Web.Controllers
         // GET: Usuarios/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
