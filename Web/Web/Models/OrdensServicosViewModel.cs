@@ -18,6 +18,7 @@ namespace Web.Models
 
     public class VisualizarServicoViewModel
     {
+        public int Id { get; set; }
         public int ClienteId { get; set; }
         [Display(Name = "Nome do cliente")]
         public String NomeCliente { get; set; }
@@ -27,11 +28,11 @@ namespace Web.Models
         public String FonesCliente { get; set; }
         public int VeiculoId { get; set; }
         [Display(Name = "Modelo")]
-        public String Modelo { get; set; }
+        public String ModeloVeiculo { get; set; }
         [Display(Name = "Placa")]
-        public String Placa { get; set; }
+        public String PlacaVeiculo { get; set; }
         [Display(Name = "Ano")]
-        public int Ano { get; set; }
+        public int AnoVeiculo { get; set; }
         public String CodigoOrdemServico { get; set; }
         [Display(Name = "Funcionário responsavel")]
         public String NomeFuncionarioResponsavel { get; set; }

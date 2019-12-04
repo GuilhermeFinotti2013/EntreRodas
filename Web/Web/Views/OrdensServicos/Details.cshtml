@@ -1,14 +1,15 @@
-﻿@model Web.Models.OrdensServicos
+﻿@model Web.Models.VisualizarServicoViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Serviços";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "OrdensServicos";
 }
 
-<h2>Details</h2>
+<h2>Detalhes do serviço</h2>
 
 <div>
-    <h4>OrdensServicos</h4>
+    <h4>Código do serviço: @Html.DisplayFor(model => model.CodigoOrdemServico)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,10 +20,21 @@
             @Html.DisplayFor(model => model.DataOrcamento)
         </dd>
 
-        
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr />
+<div>
+    <a href="/OrdensServisos/Edit/@Model.Id" class="btn btn-primary btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar cliente
+    </a>
+    <a href="/OrdensServisos/Delete/@Model.Id" class="btn btn-primary btn-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        Excluir cliente
+    </a>
+    <a href="/OrdensServisos/Index" class="btn btn-primary btn-warning">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Voltar
+    </a>
+</div>

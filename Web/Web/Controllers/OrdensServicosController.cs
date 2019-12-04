@@ -44,7 +44,31 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(ordensServicos);
+
+            VisualizarServicoViewModel model = new VisualizarServicoViewModel();
+            model.Id = ordensServicos.Id;
+            model.CodigoOrdemServico = ordensServicos.CodigoOrdensServicos;
+            model.DataOrcamento = ordensServicos.DataOrcamento;
+            model.Status = ordensServicos.Status;
+            model.ClienteId = ordensServicos.ClienteId;
+            model.NomeCliente = ordensServicos.Clientes.Nome.Trim();
+            model.EmailCliente = ordensServicos.Clientes.Email.Trim();
+            if (ordensServicos.Clientes.Telefone != null)
+            {
+                model.FonesCliente = String.Format("{0}/{1}", ordensServicos.Clientes.Telefone.Trim(), ordensServicos.Clientes.Celular.Trim());
+            }
+            else
+            {
+                model.FonesCliente = ordensServicos.Clientes.Celular.Trim();
+            }
+            model.VeiculoId = ordensServicos.VeiculosId;
+            model.ModeloVeiculo = ordensServicos.Veiculos.Modelo.Trim();
+            model.PlacaVeiculo = ordensServicos.Veiculos.Placa.Trim();
+            model.AnoVeiculo = ordensServicos.Veiculos.Ano;
+            model.DataFinalPrevista = ordensServicos.DataFinal;
+            model.Materiais = ordensServicos.OrdensServicosMateriais.ToList();
+            model.Servicos = ordensServicos.OrdensServicosServicos.ToList();
+            return View(model);
         }
 
         // GET: OrdensServicos/Create
