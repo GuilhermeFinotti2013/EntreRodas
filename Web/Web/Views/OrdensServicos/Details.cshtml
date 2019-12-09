@@ -8,20 +8,80 @@
 
 <h2>Detalhes do serviço</h2>
 
-<div>
-    <h4>Código do serviço: @Html.DisplayFor(model => model.CodigoOrdemServico)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DataOrcamento)
-        </dt>
-
-        <dd>
+<h3>Serviço @Html.DisplayFor(model => model.CodigoOrdemServico)</h3>
+<hr />
+<p class="titulo_sessao">Informações do serviço</p>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.NomeFuncionarioResponsavel)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.NomeFuncionarioResponsavel)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>Status do serviço:</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.Status)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataOrcamento)</strong>
+        </div>
+        <div class="col col-lg-2">
             @Html.DisplayFor(model => model.DataOrcamento)
-        </dd>
-
-
-    </dl>
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataInicialPrevista)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataInicialPrevista)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataInicial)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataInicial)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataFinal)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataFinal)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ValorTotal)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ValorAPagar)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ValorAPagar)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.FormaPagamento)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.FormaPagamento)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.InformacoesAdicionais)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.InformacoesAdicionais)
+        </div>
+    </div>
 </div>
 <hr />
 <div>

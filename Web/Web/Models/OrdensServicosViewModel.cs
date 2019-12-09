@@ -36,12 +36,14 @@ namespace Web.Models
         public String CodigoOrdemServico { get; set; }
         [Display(Name = "Funcionário responsavel")]
         public String NomeFuncionarioResponsavel { get; set; }
-        [Display(Name = "Data de realização do orçamento:")]
-        public System.DateTime DataOrcamento { get; set; }
-        [Display(Name = "Data prevista para o início do trabalho:")]
-        public Nullable<System.DateTime> DataInicialPrevista { get; set; }
-        [Display(Name = "Data prevista para o final do trabalho:")]
-        public Nullable<System.DateTime> DataFinalPrevista { get; set; }
+        [Display(Name = "Data do orçamento:")]
+        public String DataOrcamento { get; set; }
+        [Display(Name = "Data inicial prevista:")]
+        public String DataInicialPrevista { get; set; }
+        [Display(Name = "Data inicial:")]
+        public String DataInicial { get; set; }
+        [Display(Name = "Data de entrega prevista:")]
+        public String DataFinal { get; set; }
         [Display(Name = "Situação da ordem de serviços:")]
         public string Status { get; set; }
         [Display(Name = "Subtotal serviços:")]

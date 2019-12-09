@@ -48,11 +48,27 @@ namespace Web.Controllers
             VisualizarServicoViewModel model = new VisualizarServicoViewModel();
             model.Id = ordensServicos.Id;
             model.CodigoOrdemServico = ordensServicos.CodigoOrdensServicos;
-            model.DataOrcamento = ordensServicos.DataOrcamento;
+            if (ordensServicos.DataOrcamento != null)
+            {
+                model.DataOrcamento = ordensServicos.DataOrcamento.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                model.DataOrcamento = "--";
+            }
             model.Status = ordensServicos.Status;
             model.ClienteId = ordensServicos.ClienteId;
             model.NomeCliente = ordensServicos.Clientes.Nome.Trim();
             model.EmailCliente = ordensServicos.Clientes.Email.Trim();
+            AspNetUsers funcionario = db.AspNetUsers.Find(ordensServicos.FuncionarioResponsavel);
+            if (funcionario != null)
+            {
+                model.NomeFuncionarioResponsavel = funcionario.Nome;
+            }
+            else
+            {
+                model.NomeFuncionarioResponsavel = "--";
+            }
             if (ordensServicos.Clientes.Telefone != null)
             {
                 model.FonesCliente = String.Format("{0}/{1}", ordensServicos.Clientes.Telefone.Trim(), ordensServicos.Clientes.Celular.Trim());
@@ -65,7 +81,22 @@ namespace Web.Controllers
             model.ModeloVeiculo = ordensServicos.Veiculos.Modelo.Trim();
             model.PlacaVeiculo = ordensServicos.Veiculos.Placa.Trim();
             model.AnoVeiculo = ordensServicos.Veiculos.Ano;
-            model.DataFinalPrevista = ordensServicos.DataFinal;
+            if (ordensServicos.DataFinal != null)
+            {
+                model.DataFinal = ordensServicos.DataFinal.Value.ToString("dd/MM/yyyy");
+            }
+            if (ordensServicos.DataInicial != null)
+            {
+                model.DataInicial = ordensServicos.DataInicial.Value.ToString("dd/MM/yyyy");
+            }
+            if (ordensServicos.DataInicialPrevista != null)
+            {
+                model.DataInicialPrevista = ordensServicos.DataOrcamento.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                model.DataInicialPrevista = "--";
+            }
             model.Materiais = ordensServicos.OrdensServicosMateriais.ToList();
             model.Servicos = ordensServicos.OrdensServicosServicos.ToList();
             return View(model);
