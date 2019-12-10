@@ -14,6 +14,7 @@ namespace Web.Models
         [Required(ErrorMessage = "O veículo deve ser informado!")]
         [Display(Name = "Veículos:")]
         public int VeiculoId { get; set; }
+        public String ProblemaIdentificado { get; set; }
     }
 
     public class VisualizarServicoViewModel
@@ -56,6 +57,10 @@ namespace Web.Models
         public Nullable<float> ValorAPagar { get; set; }
         [Display(Name = "Forma de pagamento:")]
         public string FormaPagamento { get; set; }
+        [Display(Name = "Problema identificado junto com o cliente:")
+        public string ProblemaIdentificado { get; set; }
+        [Display(Name = "Aprovação do serviço pelo cliente:")]
+        public string AprovacaoCliente { get; set; }
         [Display(Name = "Informações adcionais:")]
         public string InformacoesAdicionais { get; set; }
 

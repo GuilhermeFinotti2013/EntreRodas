@@ -28,6 +28,14 @@
     </div>
     <div class="row">
         <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ProblemaIdentificado)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ProblemaIdentificado)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.DataOrcamento)</strong>
         </div>
         <div class="col col-lg-2">
@@ -54,6 +62,62 @@
             @Html.DisplayFor(model => model.DataFinal)
         </div>
     </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.AprovacaoCliente)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.AprovacaoCliente)
+        </div>
+    </div>
+</div>
+<p class="titulo_sessao">Informações do cliente</p>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.NomeCliente)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.NomeCliente)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.EmailCliente)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.EmailCliente)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.FonesCliente)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.FonesCliente)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ModeloVeiculo)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ModeloVeiculo)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.AnoVeiculo)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.AnoVeiculo)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.PlacaVeiculo)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.PlacaVeiculo)
+        </div>
+    </div>
+</div>
+<p class="titulo_sessao">Informações do pagamento</p>
+<div class="container">
     <div class="row">
         <div class="col col-lg-3" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>

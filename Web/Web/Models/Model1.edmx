@@ -108,6 +108,7 @@
           <Property Name="FuncionarioResponsavel" Type="int" Nullable="false" />
           <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="DataOrcamento" Type="date" Nullable="false" />
+          <Property Name="ProblemaIdentificado" Type="nchar" MaxLength="250" />
           <Property Name="DataInicialPrevista" Type="date" />
           <Property Name="DataInicial" Type="date" />
           <Property Name="DataFinal" Type="date" />
@@ -117,6 +118,7 @@
           <Property Name="ValorAPagar" Type="real" />
           <Property Name="FormaPagamento" Type="nchar" MaxLength="10" />
           <Property Name="InformacoesAdicionais" Type="nchar" MaxLength="250" />
+          <Property Name="AprovacaoCliente" Type="nchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="OrdensServicosMateriais">
           <Key>
@@ -625,6 +627,8 @@
           <NavigationProperty Name="Veiculos" Relationship="entre_rodasModel.FK_OrdensServicos_Veiculos" FromRole="OrdensServicos" ToRole="Veiculos" />
           <NavigationProperty Name="OrdensServicosMateriais" Relationship="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosMateriais" />
           <NavigationProperty Name="OrdensServicosServicos" Relationship="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosServicos" />
+          <Property Name="ProblemaIdentificado" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="AprovacaoCliente" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_OrdemServico_AspNetUsers">
           <End Type="entre_rodasModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -830,6 +834,8 @@
           <EntitySetMapping Name="OrdensServicos">
             <EntityTypeMapping TypeName="entre_rodasModel.OrdensServicos">
               <MappingFragment StoreEntitySet="OrdensServicos">
+                <ScalarProperty Name="AprovacaoCliente" ColumnName="AprovacaoCliente" />
+                <ScalarProperty Name="ProblemaIdentificado" ColumnName="ProblemaIdentificado" />
                 <ScalarProperty Name="InformacoesAdicionais" ColumnName="InformacoesAdicionais" />
                 <ScalarProperty Name="FormaPagamento" ColumnName="FormaPagamento" />
                 <ScalarProperty Name="ValorAPagar" ColumnName="ValorAPagar" />

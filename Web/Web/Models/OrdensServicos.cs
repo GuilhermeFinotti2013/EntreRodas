@@ -37,6 +37,8 @@ namespace Web.Models
         public Nullable<float> ValorAPagar { get; set; }
         public string FormaPagamento { get; set; }
         public string InformacoesAdicionais { get; set; }
+        public string ProblemaIdentificado { get; set; }
+        public string AprovacaoCliente { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Clientes Clientes { get; set; }

@@ -46,6 +46,7 @@ namespace Web.Controllers
             }
 
             VisualizarServicoViewModel model = new VisualizarServicoViewModel();
+            #region Dados do serviço
             model.Id = ordensServicos.Id;
             model.CodigoOrdemServico = ordensServicos.CodigoOrdensServicos;
             if (ordensServicos.DataOrcamento != null)
@@ -57,9 +58,18 @@ namespace Web.Controllers
                 model.DataOrcamento = "--";
             }
             model.Status = ordensServicos.Status;
-            model.ClienteId = ordensServicos.ClienteId;
-            model.NomeCliente = ordensServicos.Clientes.Nome.Trim();
-            model.EmailCliente = ordensServicos.Clientes.Email.Trim();
+            if (model.Status == "F")
+            {
+                model.AprovacaoCliente = ordensServicos.AprovacaoCliente;
+            }
+            if (ordensServicos.ProblemaIdentificado != null)
+            {
+                model.ProblemaIdentificado = ordensServicos.ProblemaIdentificado;
+            }
+            else
+            {
+                model.ProblemaIdentificado = "--";
+            }
             AspNetUsers funcionario = db.AspNetUsers.Find(ordensServicos.FuncionarioResponsavel);
             if (funcionario != null)
             {
@@ -69,18 +79,6 @@ namespace Web.Controllers
             {
                 model.NomeFuncionarioResponsavel = "--";
             }
-            if (ordensServicos.Clientes.Telefone != null)
-            {
-                model.FonesCliente = String.Format("{0}/{1}", ordensServicos.Clientes.Telefone.Trim(), ordensServicos.Clientes.Celular.Trim());
-            }
-            else
-            {
-                model.FonesCliente = ordensServicos.Clientes.Celular.Trim();
-            }
-            model.VeiculoId = ordensServicos.VeiculosId;
-            model.ModeloVeiculo = ordensServicos.Veiculos.Modelo.Trim();
-            model.PlacaVeiculo = ordensServicos.Veiculos.Placa.Trim();
-            model.AnoVeiculo = ordensServicos.Veiculos.Ano;
             if (ordensServicos.DataFinal != null)
             {
                 model.DataFinal = ordensServicos.DataFinal.Value.ToString("dd/MM/yyyy");
@@ -99,6 +97,24 @@ namespace Web.Controllers
             }
             model.Materiais = ordensServicos.OrdensServicosMateriais.ToList();
             model.Servicos = ordensServicos.OrdensServicosServicos.ToList();
+            #endregion
+            #region Dados do cliente
+            model.ClienteId = ordensServicos.ClienteId;
+            model.NomeCliente = ordensServicos.Clientes.Nome.Trim();
+            model.EmailCliente = ordensServicos.Clientes.Email.Trim();
+            if (ordensServicos.Clientes.Telefone != null)
+            {
+                model.FonesCliente = String.Format("{0}/{1}", ordensServicos.Clientes.Telefone.Trim(), ordensServicos.Clientes.Celular.Trim());
+            }
+            else
+            {
+                model.FonesCliente = ordensServicos.Clientes.Celular.Trim();
+            }
+            model.VeiculoId = ordensServicos.VeiculosId;
+            model.ModeloVeiculo = ordensServicos.Veiculos.Modelo.Trim();
+            model.PlacaVeiculo = ordensServicos.Veiculos.Placa.Trim();
+            model.AnoVeiculo = ordensServicos.Veiculos.Ano;
+            #endregion
             return View(model);
         }
 
@@ -117,7 +133,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClienteId,VeiculosId")] OrdensServicos viewModel)
+        public ActionResult Create([Bind(Include = "ClienteId,VeiculosId,ProblemaIdentificado")] OrdensServicos viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -128,6 +144,10 @@ namespace Web.Controllers
                 ordensServicos.FuncionarioResponsavel = Convert.ToInt32(Session["IdUser"]);
                 ordensServicos.DataOrcamento = DateTime.Now;
                 ordensServicos.Status = "O";
+                if (viewModel.ProblemaIdentificado != null)
+                {
+                    ordensServicos.ProblemaIdentificado = viewModel.ProblemaIdentificado;
+                }
                 db.OrdensServicos.Add(ordensServicos);
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = ordensServicos.Id });
