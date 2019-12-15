@@ -14,67 +14,6 @@
 <div class="container">
     <div class="row">
         <div class="col col-lg-3" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.NomeFuncionarioResponsavel)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.NomeFuncionarioResponsavel)
-        </div>
-        <div class="col col-lg-2" style="text-align:right;">
-            <strong>Status do serviço:</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.Status)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.ProblemaIdentificado)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.ProblemaIdentificado)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.DataOrcamento)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.DataOrcamento)
-        </div>
-        <div class="col col-lg-2" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.DataInicialPrevista)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.DataInicialPrevista)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.DataInicial)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.DataInicial)
-        </div>
-        <div class="col col-lg-2" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.DataFinal)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.DataFinal)
-        </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.AprovacaoCliente)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.AprovacaoCliente)
-        </div>
-    </div>
-</div>
-<p class="titulo_sessao">Informações do cliente</p>
-<div class="container">
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.NomeCliente)</strong>
         </div>
         <div class="col col-lg-2">
@@ -91,31 +30,111 @@
         <div class="col col-lg-3" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.FonesCliente)</strong>
         </div>
-        <div class="col col-lg-2">
+        <div class="col col-lg-3">
             @Html.DisplayFor(model => model.FonesCliente)
         </div>
+        <div class="col col-lg-1" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.Status)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @if (Model.Status.Trim() == "O")
+            {
+                <p>Em orçamento</p>
+            }
+            else if (Model.Status == "OE")
+            {
+                <p>Orçamento enviado</p>
+            }
+            else if (Model.Status == "EE")
+            {
+                <p>Em execução</p>
+            }
+            else if (Model.Status == "F")
+            {
+                <p>Entregue</p>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.NomeFuncionarioResponsavel)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.NomeFuncionarioResponsavel)
+        </div>
         <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataOrcamento)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataOrcamento)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataInicialPrevista)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataInicialPrevista)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataInicial)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataInicial)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.DataFinal)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.DataFinal)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ProblemaIdentificado)</strong>
+        </div>
+        <div class="col col-lg-6">
+            @Html.DisplayFor(model => model.ProblemaIdentificado)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.AprovacaoCliente)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.AprovacaoCliente)
+        </div>
+    </div>
+</div>
+<hr />
+<p class="titulo_sessao">Informações do veículo</p>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.ModeloVeiculo)</strong>
         </div>
         <div class="col col-lg-2">
             @Html.DisplayFor(model => model.ModeloVeiculo)
         </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
+        <div class="col col-lg-2" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.AnoVeiculo)</strong>
         </div>
         <div class="col col-lg-2">
             @Html.DisplayFor(model => model.AnoVeiculo)
         </div>
-        <div class="col col-lg-2" style="text-align:right;">
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
             <strong>@Html.DisplayNameFor(model => model.PlacaVeiculo)</strong>
         </div>
         <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.PlacaVeiculo)
+            @Html.DisplayFor(model => model.AnoVeiculo)
         </div>
     </div>
 </div>
+<hr />
 <p class="titulo_sessao">Informações do pagamento</p>
 <div class="container">
     <div class="row">
@@ -140,22 +159,150 @@
             @Html.DisplayFor(model => model.FormaPagamento)
         </div>
         <div class="col col-lg-2" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.InformacoesAdicionais)</strong>
+            <strong>@Html.DisplayNameFor(model => model.ValorDinheiro)</strong>
         </div>
         <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.InformacoesAdicionais)
+            @Html.DisplayFor(model => model.ValorDinheiro)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ValorCartao)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ValorCartao)
         </div>
     </div>
 </div>
 <hr />
+<p class="titulo_sessao">Informações adicionais</p>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-8">
+            @Html.DisplayFor(model => model.InformacoesAdicionais)
+        </div>
+    </div>
+</div>
+<p class="titulo_sessao">Serviços</p>
+<hr />
+<a href="/OrdensServicosServicos/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar serviço</a>
+@if (Model.Servicos.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var servico in Model.Servicos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => servico.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => servico.Valor)
+                    </td>
+                    <td>
+                        <a href="/OrdensServicosServicos/Edit/@servico.Id" class="btn btn-primary btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Editar
+                        </a>
+                        <a href="/OrdensServicosServicos/Delete/@servico.Id" class="btn btn-primary btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p class="titulo_sessao">Materiais</p>
+<a href="/OrdensServicosMateriais/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar material</a>
+@if (Model.Materiais.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Preço unitário</th>
+                <th>Preço total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var material in Model.Materiais)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.Quantidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.PrecoUnitario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.PrecoTotal)
+                    </td>
+                    <td>
+                        <a href="/OrdensServicosMateriais/Edit/@material.Id" class="btn btn-primary btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Editar
+                        </a>
+                        <a href="/OrdensServicosMateriais/Delete/@material.Id" class="btn btn-primary btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr />
 <div>
+    @if (Model.Status == "O")
+    {
+        @Html.Display("Em orçamento")
+    }
+    else if (Model.Status == "OE")
+    {
+        @Html.Display("Orçamento enviado")
+    }
+    else if (Model.Status == "EE")
+    {
+        @Html.Display("Em execução")
+    }
+    else if (Model.Status == "F")
+    {
+        @Html.Display("Finalizado")
+    }
+    <a href="/OrdensServisos/EnviaOrcamento/@Model.Id" class="btn btn-success">
+        <span class="fa fa-envelope"></span>
+        Enviar orçamento
+    </a>
+    <a href="/OrdensServisos/IniciaServico/@Model.Id" class="btn btn-success">
+        <span class="fa fa-play"></span>
+        Iniciar serviço
+    </a>
+    <a href="/OrdensServisos/FinalizaServico/@Model.Id" class="btn btn-success">
+        <span class="fa fa-stop"></span>
+        Finalizar serviço
+    </a>
     <a href="/OrdensServisos/Edit/@Model.Id" class="btn btn-primary btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
-        Editar cliente
+        Editar serviço
     </a>
     <a href="/OrdensServisos/Delete/@Model.Id" class="btn btn-primary btn-danger">
         <span class="glyphicon glyphicon-trash"></span>
-        Excluir cliente
+        Excluir serviço
     </a>
     <a href="/OrdensServisos/Index" class="btn btn-primary btn-warning">
         <span class="glyphicon glyphicon-chevron-left"></span>

@@ -119,6 +119,8 @@
           <Property Name="FormaPagamento" Type="nchar" MaxLength="10" />
           <Property Name="InformacoesAdicionais" Type="nchar" MaxLength="250" />
           <Property Name="AprovacaoCliente" Type="nchar" MaxLength="250" />
+          <Property Name="ValorDinheiro" Type="real" />
+          <Property Name="ValorCartao" Type="real" />
         </EntityType>
         <EntityType Name="OrdensServicosMateriais">
           <Key>
@@ -629,6 +631,8 @@
           <NavigationProperty Name="OrdensServicosServicos" Relationship="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" FromRole="OrdensServicos" ToRole="OrdensServicosServicos" />
           <Property Name="ProblemaIdentificado" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="AprovacaoCliente" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="ValorDinheiro" Type="Single" />
+          <Property Name="ValorCartao" Type="Single" />
         </EntityType>
         <Association Name="FK_OrdemServico_AspNetUsers">
           <End Type="entre_rodasModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -834,6 +838,8 @@
           <EntitySetMapping Name="OrdensServicos">
             <EntityTypeMapping TypeName="entre_rodasModel.OrdensServicos">
               <MappingFragment StoreEntitySet="OrdensServicos">
+                <ScalarProperty Name="ValorCartao" ColumnName="ValorCartao" />
+                <ScalarProperty Name="ValorDinheiro" ColumnName="ValorDinheiro" />
                 <ScalarProperty Name="AprovacaoCliente" ColumnName="AprovacaoCliente" />
                 <ScalarProperty Name="ProblemaIdentificado" ColumnName="ProblemaIdentificado" />
                 <ScalarProperty Name="InformacoesAdicionais" ColumnName="InformacoesAdicionais" />

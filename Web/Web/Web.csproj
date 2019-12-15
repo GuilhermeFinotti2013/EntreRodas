@@ -178,6 +178,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasCarrosController.cs" />
     <Compile Include="Controllers\OrdensServicosController.cs" />
+    <Compile Include="Controllers\OrdensServicosMateriaisController.cs" />
+    <Compile Include="Controllers\OrdensServicosServicosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VeiculosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -383,6 +385,16 @@
     <Content Include="Views\OrdensServicos\Edit.cshtml" />
     <Content Include="Views\OrdensServicos\Index.cshtml" />
     <Content Include="Views\OrdensServicos\_OrdensServicos.cshtml" />
+    <Content Include="Views\OrdensServicosMateriais\Create.cshtml" />
+    <Content Include="Views\OrdensServicosMateriais\Delete.cshtml" />
+    <Content Include="Views\OrdensServicosMateriais\Details.cshtml" />
+    <Content Include="Views\OrdensServicosMateriais\Edit.cshtml" />
+    <Content Include="Views\OrdensServicosMateriais\Index.cshtml" />
+    <Content Include="Views\OrdensServicosServicos\Create.cshtml" />
+    <Content Include="Views\OrdensServicosServicos\Delete.cshtml" />
+    <Content Include="Views\OrdensServicosServicos\Details.cshtml" />
+    <Content Include="Views\OrdensServicosServicos\Edit.cshtml" />
+    <Content Include="Views\OrdensServicosServicos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

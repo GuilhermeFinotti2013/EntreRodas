@@ -39,6 +39,8 @@ namespace Web.Models
         public string InformacoesAdicionais { get; set; }
         public string ProblemaIdentificado { get; set; }
         public string AprovacaoCliente { get; set; }
+        public Nullable<float> ValorDinheiro { get; set; }
+        public Nullable<float> ValorCartao { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Clientes Clientes { get; set; }

@@ -21,21 +21,21 @@ namespace Web.Models
     {
         public int Id { get; set; }
         public int ClienteId { get; set; }
-        [Display(Name = "Nome do cliente")]
+        [Display(Name = "Nome do cliente:")]
         public String NomeCliente { get; set; }
-        [Display(Name = "E-mail")]
+        [Display(Name = "E-mail:")]
         public String EmailCliente { get; set; }
-        [Display(Name = "Telefones")]
+        [Display(Name = "Telefones:")]
         public String FonesCliente { get; set; }
         public int VeiculoId { get; set; }
-        [Display(Name = "Modelo")]
+        [Display(Name = "Modelo:")]
         public String ModeloVeiculo { get; set; }
-        [Display(Name = "Placa")]
+        [Display(Name = "Placa:")]
         public String PlacaVeiculo { get; set; }
-        [Display(Name = "Ano")]
+        [Display(Name = "Ano:")]
         public int AnoVeiculo { get; set; }
         public String CodigoOrdemServico { get; set; }
-        [Display(Name = "Funcionário responsavel")]
+        [Display(Name = "Funcionário responsavel:")]
         public String NomeFuncionarioResponsavel { get; set; }
         [Display(Name = "Data do orçamento:")]
         public String DataOrcamento { get; set; }
@@ -43,9 +43,9 @@ namespace Web.Models
         public String DataInicialPrevista { get; set; }
         [Display(Name = "Data inicial:")]
         public String DataInicial { get; set; }
-        [Display(Name = "Data de entrega prevista:")]
+        [Display(Name = "Data da entrega:")]
         public String DataFinal { get; set; }
-        [Display(Name = "Situação da ordem de serviços:")]
+        [Display(Name = "Situação:")]
         public string Status { get; set; }
         [Display(Name = "Subtotal serviços:")]
         public Nullable<float> SubTotalServicos { get; set; }
@@ -53,11 +53,15 @@ namespace Web.Models
         public Nullable<float> SubTotalMateriais { get; set; }
         [Display(Name = "Valor total:")]
         public Nullable<float> ValorTotal { get; set; }
-        [Display(Name = "Valor  à  pagar:")]
+        [Display(Name = "Valor à pagar:")]
         public Nullable<float> ValorAPagar { get; set; }
+        [Display(Name = "Valor em dinheiro:")]
+        public Nullable<float> ValorDinheiro { get; set; }
+        [Display(Name = "Valor no cartão:")]
+        public Nullable<float> ValorCartao { get; set; }
         [Display(Name = "Forma de pagamento:")]
         public string FormaPagamento { get; set; }
-        [Display(Name = "Problema identificado junto com o cliente:")
+        [Display(Name = "Problema identificado junto com o cliente:")]
         public string ProblemaIdentificado { get; set; }
         [Display(Name = "Aprovação do serviço pelo cliente:")]
         public string AprovacaoCliente { get; set; }
