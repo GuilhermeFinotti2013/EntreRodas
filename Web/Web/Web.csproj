@@ -190,6 +190,8 @@
     <Compile Include="Models\Annotations\ClientesMetadata.cs" />
     <Compile Include="Models\Annotations\OrdensServicos.cs" />
     <Compile Include="Models\Annotations\OrdensServicosMetadata.cs" />
+    <Compile Include="Models\Annotations\OrdensServicosServicos.cs" />
+    <Compile Include="Models\Annotations\OrdensServicosServicosMetadata.cs" />
     <Compile Include="Models\Annotations\Veiculos.cs" />
     <Compile Include="Models\Annotations\VeiculosMetadata.cs" />
     <Compile Include="Models\AspNetRoles.cs">
@@ -394,7 +396,6 @@
     <Content Include="Views\OrdensServicosServicos\Delete.cshtml" />
     <Content Include="Views\OrdensServicosServicos\Details.cshtml" />
     <Content Include="Views\OrdensServicosServicos\Edit.cshtml" />
-    <Content Include="Views\OrdensServicosServicos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

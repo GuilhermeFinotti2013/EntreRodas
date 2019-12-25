@@ -13,14 +13,6 @@ namespace Web.Controllers
     public class OrdensServicosServicosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
-
-        // GET: OrdensServicosServicos
-        public ActionResult Index()
-        {
-            var ordensServicosServicos = db.OrdensServicosServicos.Include(o => o.OrdensServicos);
-            return View(ordensServicosServicos.ToList());
-        }
-
         // GET: OrdensServicosServicos/Details/5
         public ActionResult Details(int? id)
         {
@@ -37,9 +29,13 @@ namespace Web.Controllers
         }
 
         // GET: OrdensServicosServicos/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos");
+            OrdensServicos ordem = db.OrdensServicos.Find(id);
+            ViewBag.OrdemServicoId = id;
+            ViewBag.NomeCliente = ordem.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordem.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordem.Veiculos.Modelo.Trim(), ordem.Veiculos.Ano);
             return View();
         }
 

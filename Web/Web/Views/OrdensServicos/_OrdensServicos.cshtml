@@ -42,10 +42,39 @@
                     {
                         @Html.Label("Em orçamento")
                     }
+                    else if (item.Status.Trim() == "OE")
+                    {
+                        @Html.Display("Orçamento enviado")
+                    }
+                    else if (item.Status.Trim() == "AG")
+                    {
+                        @Html.Display("Agendado")
+                    }
+                    else if (item.Status.Trim() == "EE")
+                    {
+                        @Html.Display("Em execuçao")
+                    }
+                    else if (item.Status.Trim() == "AP")
+                    {
+                        @Html.Display("Aguardando peças")
+                    }
+                    else if (item.Status.Trim() == "PT")
+                    {
+                        @Html.Display("Proto")
+                    }
+                    else if (item.Status.Trim() == "F")
+                    {
+                        @Html.Label("Entregue")
+                    }
+                    else if (item.Status.Trim() == "PG")
+                    {
+                        @Html.Display("pAGO")
+                    }
                     else
                     {
                         @Html.DisplayFor(modelItem => item.Status)
                     }
+
                 </td>
                 <td>
                     <a href="/OrdensServicos/Details/@item.Id" class="btn btn-primary btn-success">
