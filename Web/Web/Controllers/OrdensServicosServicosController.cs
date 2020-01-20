@@ -32,7 +32,7 @@ namespace Web.Controllers
         public ActionResult Create(int? id)
         {
             OrdensServicos ordem = db.OrdensServicos.Find(id);
-            ViewBag.OrdemServicoId = id;
+            ViewBag.OrdensServicosId = id;
             ViewBag.NomeCliente = ordem.Clientes.Nome;
             ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordem.Veiculos.MarcasCarros.Nome.Trim(),
                                                  ordem.Veiculos.Modelo.Trim(), ordem.Veiculos.Ano);
@@ -48,12 +48,20 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.OrdensServicosServicos.Add(ordensServicosServicos);
+                OrdensServicosServicos servico = new OrdensServicosServicos();
+                servico.Descricao = ordensServicosServicos.Descricao.Trim();
+                servico.Valor = ordensServicosServicos.Valor;
+                servico.OrdensServicosId = ordensServicosServicos.OrdensServicosId;
+                db.OrdensServicosServicos.Add(servico);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "OrdensServicos", new { id = servico.OrdensServicosId });
             }
 
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos", ordensServicosServicos.OrdensServicosId);
+            OrdensServicos ordem = db.OrdensServicos.Find(ordensServicosServicos.OrdensServicosId);
+            ViewBag.OrdensServicosId = ordensServicosServicos.OrdensServicosId;
+            ViewBag.NomeCliente = ordem.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordem.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordem.Veiculos.Modelo.Trim(), ordem.Veiculos.Ano);
             return View(ordensServicosServicos);
         }
 
@@ -111,9 +119,10 @@ namespace Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             OrdensServicosServicos ordensServicosServicos = db.OrdensServicosServicos.Find(id);
+            int ordensServicosId = ordensServicosServicos.OrdensServicosId;
             db.OrdensServicosServicos.Remove(ordensServicosServicos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "OrdensServicos", new { id = ordensServicosId });
         }
 
         protected override void Dispose(bool disposing)

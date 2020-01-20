@@ -137,8 +137,6 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ClienteId,MarcaVeiculoId,Modelo,Ano,Placa,CategoriaCarro,TipoCombustivel,TipoMotor,Observacoes")] Veiculos veiculos)
         {
-            try
-            {
 
                 if (ModelState.IsValid)
                 {
@@ -149,12 +147,6 @@ namespace Web.Controllers
                 ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculos.ClienteId);
                 ViewBag.MarcaVeiculoId = new SelectList(db.MarcasCarros, "Id", "Nome", veiculos.MarcaVeiculoId);
                 return View(veiculos);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
         }
 
         // GET: Veiculos/Delete/5

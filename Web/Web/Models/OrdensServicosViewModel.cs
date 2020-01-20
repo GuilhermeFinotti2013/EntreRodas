@@ -48,17 +48,17 @@ namespace Web.Models
         [Display(Name = "Situação:")]
         public string Status { get; set; }
         [Display(Name = "Subtotal serviços:")]
-        public Nullable<float> SubTotalServicos { get; set; }
+        public string SubTotalServicos { get; set; }
         [Display(Name = "Subtotal materiais:")]
-        public Nullable<float> SubTotalMateriais { get; set; }
+        public string SubTotalMateriais { get; set; }
         [Display(Name = "Valor total:")]
-        public Nullable<float> ValorTotal { get; set; }
+        public string ValorTotal { get; set; }
         [Display(Name = "Valor à pagar:")]
-        public Nullable<float> ValorAPagar { get; set; }
+        public string ValorAPagar { get; set; }
         [Display(Name = "Valor em dinheiro:")]
-        public Nullable<float> ValorDinheiro { get; set; }
+        public string ValorDinheiro { get; set; }
         [Display(Name = "Valor no cartão:")]
-        public Nullable<float> ValorCartao { get; set; }
+        public string ValorCartao { get; set; }
         [Display(Name = "Forma de pagamento:")]
         public string FormaPagamento { get; set; }
         [Display(Name = "Problema identificado junto com o cliente:")]

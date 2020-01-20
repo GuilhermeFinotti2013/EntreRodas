@@ -14,6 +14,7 @@ namespace Web
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*",
+                        "~/Scripts/jquery.moneymask;js*",
                         "~/Scripts/methods_pt.js"));
 
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver

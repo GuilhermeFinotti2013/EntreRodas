@@ -14,32 +14,14 @@ namespace Web.Controllers
     {
         private entre_rodasEntities db = new entre_rodasEntities();
 
-        // GET: OrdensServicosMateriais
-        public ActionResult Index()
-        {
-            var ordensServicosMateriais = db.OrdensServicosMateriais.Include(o => o.OrdensServicos);
-            return View(ordensServicosMateriais.ToList());
-        }
-
-        // GET: OrdensServicosMateriais/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrdensServicosMateriais ordensServicosMateriais = db.OrdensServicosMateriais.Find(id);
-            if (ordensServicosMateriais == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ordensServicosMateriais);
-        }
-
         // GET: OrdensServicosMateriais/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos");
+            OrdensServicos ordem = db.OrdensServicos.Find(id);
+            ViewBag.OrdensServicosId = id;
+            ViewBag.NomeCliente = ordem.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordem.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordem.Veiculos.Modelo.Trim(), ordem.Veiculos.Ano);
             return View();
         }
 
@@ -48,16 +30,27 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,OrdensServicosId,Descricao,PrecoUnitario,Quantidade,PrecoTotal")] OrdensServicosMateriais ordensServicosMateriais)
+        public ActionResult Create([Bind(Include = "Id,OrdensServicosId,Descricao,PrecoUnitario,Quantidade")] OrdensServicosMateriais ordensServicosMateriais)
         {
             if (ModelState.IsValid)
             {
-                db.OrdensServicosMateriais.Add(ordensServicosMateriais);
+                OrdensServicosMateriais material = new OrdensServicosMateriais();
+                material.Descricao = ordensServicosMateriais.Descricao.Trim();
+                material.Quantidade = ordensServicosMateriais.Quantidade;
+                material.PrecoUnitario = ordensServicosMateriais.PrecoUnitario;
+                float valor = ordensServicosMateriais.PrecoUnitario * ordensServicosMateriais.Quantidade;
+                material.PrecoTotal = valor;
+                material.OrdensServicosId = ordensServicosMateriais.OrdensServicosId;
+                db.OrdensServicosMateriais.Add(material);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "OrdensServicos", new { id = material.OrdensServicosId });
             }
 
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos", ordensServicosMateriais.OrdensServicosId);
+            OrdensServicos ordem = db.OrdensServicos.Find(ordensServicosMateriais.OrdensServicosId);
+            ViewBag.OrdensServicosId = ordensServicosMateriais.OrdensServicosId;
+            ViewBag.NomeCliente = ordem.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordem.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordem.Veiculos.Modelo.Trim(), ordem.Veiculos.Ano);
             return View(ordensServicosMateriais);
         }
 

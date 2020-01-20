@@ -163,14 +163,90 @@
     </div>
 </div>
 <hr />
-<p class="titulo_sessao">Informações do pagamento</p>
-@if (Model.Status.Trim() != "F" || Model.Status.Trim() != "PG")
+<p class="titulo_sessao">Serviços</p>
+<a href="/OrdensServicosServicos/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar serviço</a>
+@if (Model.Servicos.Count > 0)
 {
-    <a href="/OrdensServisos/EditFormaPagamento/@Model.Id" class="btn btn-primary btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar forma de pagamento
-    </a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor Total: @Model.SubTotalServicos</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var servico in Model.Servicos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => servico.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => servico.Valor)
+                    </td>
+                    <td>
+                        <a href="/OrdensServicosServicos/Edit/@servico.Id" class="btn btn-primary btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Editar
+                        </a>
+                        <a href="/OrdensServicosServicos/Delete/@servico.Id" class="btn btn-primary btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
+<p class="titulo_sessao">Materiais</p>
+<a href="/OrdensServicosMateriais/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar material</a>
+@if (Model.Materiais.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Preço unitário</th>
+                <th>Preço total: @Model.SubTotalMateriais</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var material in Model.Materiais)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.Quantidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.PrecoUnitario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.PrecoTotal)
+                    </td>
+                    <td>
+                        <a href="/OrdensServicosMateriais/Edit/@material.Id" class="btn btn-primary btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Editar
+                        </a>
+                        <a href="/OrdensServicosMateriais/Delete/@material.Id" class="btn btn-primary btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr />
+<p class="titulo_sessao">Informações do pagamento</p>
 <div class="container">
     <div class="row">
         <div class="col col-lg-3" style="text-align:right;">
@@ -212,6 +288,13 @@
         </div>
     }
 </div>
+@if (Model.Status.Trim() != "F" || Model.Status.Trim() != "PG")
+{
+    <a href="/OrdensServisos/EditFormaPagamento/@Model.Id" class="btn btn-primary btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar forma de pagamento
+    </a>
+}
 @if (Model.InformacoesAdicionais != String.Empty)
 {
     <hr />
@@ -224,91 +307,8 @@
         </div>
     </div>
 }
-<hr />
-<p class="titulo_sessao">Serviços</p>
-<hr />
-<a href="/OrdensServicosServicos/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar serviço</a>
-@if (Model.Servicos.Count > 0)
-{
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var servico in Model.Servicos)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => servico.Descricao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => servico.Valor)
-                    </td>
-                    <td>
-                        <a href="/OrdensServicosServicos/Edit/@servico.Id" class="btn btn-primary btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Editar
-                        </a>
-                        <a href="/OrdensServicosServicos/Delete/@servico.Id" class="btn btn-primary btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                            Excluir
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-<p class="titulo_sessao">Materiais</p>
-<a href="/OrdensServicosMateriais/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar material</a>
-@if (Model.Materiais.Count > 0)
-{
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th>Quantidade</th>
-                <th>Preço unitário</th>
-                <th>Preço total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var material in Model.Materiais)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => material.Descricao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => material.Quantidade)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => material.PrecoUnitario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => material.PrecoTotal)
-                    </td>
-                    <td>
-                        <a href="/OrdensServicosMateriais/Edit/@material.Id" class="btn btn-primary btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Editar
-                        </a>
-                        <a href="/OrdensServicosMateriais/Delete/@material.Id" class="btn btn-primary btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                            Excluir
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-<hr />
+
+
 <div>
     @if (Model.Status.Trim() == "O")
     {

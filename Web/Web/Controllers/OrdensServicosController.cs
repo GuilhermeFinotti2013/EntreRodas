@@ -97,6 +97,48 @@ namespace Web.Controllers
             }
             model.Materiais = ordensServicos.OrdensServicosMateriais.ToList();
             model.Servicos = ordensServicos.OrdensServicosServicos.ToList();
+            if (ordensServicos.ValorTotal == null)
+            {
+                model.ValorTotal = String.Format("R${0}", this.CalcularValorTotal(ordensServicos));
+            }
+            else
+            {
+                model.ValorTotal = String.Format("R${0}", ordensServicos.ValorTotal);
+            }
+            if (ordensServicos.FormaPagamento == null)
+            {
+                model.FormaPagamento = "--";
+            }
+            else
+            {
+                model.FormaPagamento = String.Format("R${0}", ordensServicos.FormaPagamento);
+            }
+            if (ordensServicos.ValorAPagar == null)
+            {
+                model.ValorAPagar = "--";
+            }
+            else
+            {
+                model.ValorAPagar = String.Format("R${0}", ordensServicos.ValorAPagar);
+            }
+            if (ordensServicos.ValorCartao == null)
+            {
+                model.ValorCartao = "--";
+            }
+            else
+            {
+                model.ValorCartao = String.Format("R${0}", ordensServicos.ValorCartao);
+            }
+            if (ordensServicos.ValorDinheiro == null)
+            {
+                model.ValorDinheiro = "--";
+            }
+            else
+            {
+                model.ValorDinheiro = String.Format("R${0}", ordensServicos.ValorDinheiro);
+            }
+            model.SubTotalMateriais = String.Format("R${0}", this.CalcularValorTotalDeMateriais(ordensServicos.OrdensServicosMateriais.ToList()));
+            model.SubTotalServicos = String.Format("R${0}", this.CalcularValorTotalDeServicos(ordensServicos.OrdensServicosServicos.ToList()));
             #endregion
             #region Dados do cliente
             model.ClienteId = ordensServicos.ClienteId;
@@ -268,6 +310,54 @@ namespace Web.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public float CalcularValorTotal(OrdensServicos ordensServicos)
+        {
+            float valorTotal = 0;
+
+            if (ordensServicos.OrdensServicosMateriais != null && ordensServicos.OrdensServicosMateriais.Count > 0)
+            {
+                foreach (OrdensServicosMateriais materiais in ordensServicos.OrdensServicosMateriais)
+                {
+                    valorTotal += materiais.PrecoTotal;
+                }
+            }
+            if (ordensServicos.OrdensServicosServicos != null && ordensServicos.OrdensServicosServicos.Count > 0)
+            {
+                foreach (OrdensServicosServicos servico in ordensServicos.OrdensServicosServicos)
+                {
+                    valorTotal += servico.Valor;
+                }
+            }
+
+            return valorTotal;
+        }
+
+        public float CalcularValorTotalDeMateriais(List<OrdensServicosMateriais> materiais)
+        {
+            float valorTotal = 0;
+            if (materiais != null && materiais.Count > 0)
+            {
+                foreach (OrdensServicosMateriais material in materiais)
+                {
+                    valorTotal += material.PrecoTotal;
+                }
+            }
+            return valorTotal;
+        }
+
+        public float CalcularValorTotalDeServicos(List<OrdensServicosServicos> servicos)
+        {
+            float valorTotal = 0;
+            if (servicos != null && servicos.Count > 0)
+            {
+                foreach (OrdensServicosServicos servico in servicos)
+                {
+                    valorTotal += servico.Valor;
+                }
+            }
+            return valorTotal;
         }
     }
 }
