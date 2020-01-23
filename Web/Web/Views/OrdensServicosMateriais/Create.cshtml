@@ -82,8 +82,8 @@
                     return value;
                 }
             });
-            $("#PrecoUnitario").keypress(function (e) {
-                if ($("#PrecoUnitario").val() != undefined && $("#Quantidade").val() != undefined) {
+            $("#PrecoUnitario").change(function () {
+                if ($("#PrecoUnitario").val() != '' && $("#Quantidade").val() != '') {
                     var valorUnitario = $("#PrecoUnitario").val().split(',');
                     var valorStr = valorUnitario[0] + '.' + valorUnitario[1];
                     var valorFloat = parseFloat(valorStr);
@@ -96,8 +96,8 @@
                     $("#pValorTotar").html("--");
                 }
             });
-            $("#Quantidade").keypress(function (e) {
-                if ($("#PrecoUnitario").val() != undefined && $("#Quantidade").val() != undefined) {
+            $("#Quantidade").change(function () {
+                if ($("#PrecoUnitario").val() != '' && $("#Quantidade").val() != '') {
                     var valorUnitario = $("#PrecoUnitario").val().split(',');
                     var valorStr = valorUnitario[0] + '.' + valorUnitario[1];
                     var valorFloat = parseFloat(valorStr);
