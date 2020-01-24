@@ -72,12 +72,20 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             OrdensServicosServicos ordensServicosServicos = db.OrdensServicosServicos.Find(id);
             if (ordensServicosServicos == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos", ordensServicosServicos.OrdensServicosId);
+            ViewBag.OrdensServicosId = ordensServicosServicos.OrdensServicosId;
+            ViewBag.NomeCliente = ordensServicosServicos.OrdensServicos.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordensServicosServicos.OrdensServicos.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordensServicosServicos.OrdensServicos.Veiculos.Modelo.Trim(), ordensServicosServicos.OrdensServicos.Veiculos.Ano);
+            OrdensServicosServicos servico = new OrdensServicosServicos();
+            servico.Id = ordensServicosServicos.Id;
+            servico.Descricao = ordensServicosServicos.Descricao.Trim();
+            servico.Valor = ordensServicosServicos.Valor;
             return View(ordensServicosServicos);
         }
 

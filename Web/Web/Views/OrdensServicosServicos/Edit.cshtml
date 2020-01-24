@@ -1,30 +1,37 @@
 ﻿@model Web.Models.OrdensServicosServicos
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar item de serviço";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "OrdensServicos";
 }
 
-<h2>Edit</h2>
-
+<h2>Adicionar novo serviço</h2>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-1" style="text-align:right;">
+            <strong>@Html.DisplayName("Cliente:")</strong>
+        </div>
+        <div class="col col-lg-2">
+            @ViewBag.NomeCliente
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayName("Veículo:")</strong>
+        </div>
+        <div class="col col-lg-2">
+            @ViewBag.ModeloCarro
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>OrdensServicosServicos</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrdensServicosId, "OrdensServicosId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("OrdensServicosId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OrdensServicosId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -41,14 +48,33 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div>
+            <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span> Salvar
+            </button>
+            <a href="/OrdensServicos/Details/@ViewBag.OrdensServicosId" class="btn btn-primary btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </a>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Valor").inputmask('decimal', {
+      radixPoint:",",
+      groupSeparator: ".",
+      autoGroup: true,
+      digits: 2,
+      digitsOptional: false,
+      placeholder: '0',
+      rightAlign: false,
+      onBeforeMask: function (value, opts) {
+        return value;
+      }
+});
+        });
+    </script>
+}
