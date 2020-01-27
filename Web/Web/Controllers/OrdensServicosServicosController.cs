@@ -86,7 +86,8 @@ namespace Web.Controllers
             servico.Id = ordensServicosServicos.Id;
             servico.Descricao = ordensServicosServicos.Descricao.Trim();
             servico.Valor = ordensServicosServicos.Valor;
-            return View(ordensServicosServicos);
+            servico.OrdensServicosId = ordensServicosServicos.OrdensServicosId;
+            return View(servico);
         }
 
         // POST: OrdensServicosServicos/Edit/5
@@ -100,7 +101,7 @@ namespace Web.Controllers
             {
                 db.Entry(ordensServicosServicos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "OrdensServicos", new { id = ordensServicosServicos.OrdensServicosId });
             }
             ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos", ordensServicosServicos.OrdensServicosId);
             return View(ordensServicosServicos);

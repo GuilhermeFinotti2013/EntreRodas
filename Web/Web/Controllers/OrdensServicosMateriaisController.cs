@@ -66,8 +66,18 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos", ordensServicosMateriais.OrdensServicosId);
-            return View(ordensServicosMateriais);
+            ViewBag.OrdensServicosId = ordensServicosMateriais.OrdensServicosId;
+            ViewBag.NomeCliente = ordensServicosMateriais.OrdensServicos.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordensServicosMateriais.OrdensServicos.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordensServicosMateriais.OrdensServicos.Veiculos.Modelo.Trim(), ordensServicosMateriais.OrdensServicos.Veiculos.Ano);
+            OrdensServicosMateriais material = new OrdensServicosMateriais();
+            material.Descricao = ordensServicosMateriais.Descricao.Trim();
+            material.Id = ordensServicosMateriais.Id;
+            material.OrdensServicosId = ordensServicosMateriais.OrdensServicosId;
+            material.PrecoTotal = ordensServicosMateriais.PrecoTotal;
+            material.PrecoUnitario = ordensServicosMateriais.PrecoUnitario;
+            material.Quantidade = ordensServicosMateriais.Quantidade;
+            return View(material);
         }
 
         // POST: OrdensServicosMateriais/Edit/5
@@ -79,11 +89,15 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                ordensServicosMateriais.PrecoTotal = ordensServicosMateriais.PrecoUnitario * ordensServicosMateriais.Quantidade;
                 db.Entry(ordensServicosMateriais).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "OrdensServicos", new { id = ordensServicosMateriais.OrdensServicosId });
             }
-            ViewBag.OrdensServicosId = new SelectList(db.OrdensServicos, "Id", "CodigoOrdensServicos", ordensServicosMateriais.OrdensServicosId);
+            ViewBag.OrdensServicosId = ordensServicosMateriais.OrdensServicosId;
+            ViewBag.NomeCliente = ordensServicosMateriais.OrdensServicos.Clientes.Nome;
+            ViewBag.ModeloCarro = String.Format("{0} {1} Ano {2}", ordensServicosMateriais.OrdensServicos.Veiculos.MarcasCarros.Nome.Trim(),
+                                                 ordensServicosMateriais.OrdensServicos.Veiculos.Modelo.Trim(), ordensServicosMateriais.OrdensServicos.Veiculos.Ano);
             return View(ordensServicosMateriais);
         }
 
@@ -110,7 +124,7 @@ namespace Web.Controllers
             OrdensServicosMateriais ordensServicosMateriais = db.OrdensServicosMateriais.Find(id);
             db.OrdensServicosMateriais.Remove(ordensServicosMateriais);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "OrdensServicos", new { id = ordensServicosMateriais.OrdensServicosId });
         }
 
         protected override void Dispose(bool disposing)

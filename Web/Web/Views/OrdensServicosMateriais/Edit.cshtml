@@ -3,27 +3,35 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "OrdensServicos";
 }
 
-<h2>Edit</h2>
-
+<h2>Editar item de serviço</h2>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-1" style="text-align:right;">
+            <strong>@Html.DisplayName("Cliente:")</strong>
+        </div>
+        <div class="col col-lg-2">
+            @ViewBag.NomeCliente
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayName("Veículo:")</strong>
+        </div>
+        <div class="col col-lg-2">
+            @ViewBag.ModeloCarro
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>OrdensServicosMateriais</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrdensServicosId, "OrdensServicosId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("OrdensServicosId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OrdensServicosId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.OrdensServicosId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -52,19 +60,73 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PrecoTotal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PrecoTotal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PrecoTotal, "", new { @class = "text-danger" })
+                <p id="pValorTotar">@Model.PrecoTotal</p>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div>
+            <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span> Salvar
+            </button>
+            <a href="/OrdensServicos/Details/@ViewBag.OrdensServicosId" class="btn btn-primary btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </a>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#PrecoUnitario").inputmask('decimal', {radixPoint: ",", groupSeparator: ".", autoGroup: true,
+                digits: 2, digitsOptional: false, placeholder: '0', rightAlign: false,
+                onBeforeMask: function (value, opts) {
+                    return value;
+                }
+            });
+            $("#PrecoUnitario").change(function () {
+                if ($("#PrecoUnitario").val() != '' && $("#Quantidade").val() != '') {
+                    var valorUnitario = $("#PrecoUnitario").val().split(',');
+                    var valorStr = valorUnitario[0] + '.' + valorUnitario[1];
+                    var valorFloat = parseFloat(valorStr);
+                    var quantidade = parseInt($("#Quantidade").val());
+                    var valor = valorFloat * quantidade;
+
+                    $("#pValorTotar").html(valor.toLocaleString('pt-BR'));
+                }
+                else {
+                    $("#pValorTotar").html("--");
+                }
+            });
+            $("#Quantidade").change(function () {
+                if ($("#PrecoUnitario").val() != '' && $("#Quantidade").val() != '') {
+                    var valorUnitario = $("#PrecoUnitario").val().split(',');
+                    var valorStr = valorUnitario[0] + '.' + valorUnitario[1];
+                    var valorFloat = parseFloat(valorStr);
+                    var quantidade = parseInt($("#Quantidade").val());
+                    var valor = valorFloat * quantidade;
+
+                    $("#pValorTotar").html(valor.toLocaleString('pt-BR'));
+                }
+                else {
+                    $("#pValorTotar").html("--");
+                }
+            });
+            $("#Quantidade").load(function () {
+                if ($("#PrecoUnitario").val() != '' && $("#Quantidade").val() != '') {
+                    var valorUnitario = $("#PrecoUnitario").val().split(',');
+                    var valorStr = valorUnitario[0] + '.' + valorUnitario[1];
+                    var valorFloat = parseFloat(valorStr);
+                    var quantidade = parseInt($("#Quantidade").val());
+                    var valor = valorFloat * quantidade;
+
+                    $("#pValorTotar").html(valor.toLocaleString('pt-BR'));
+                }
+                else {
+                    $("#pValorTotar").html("--");
+                }
+            });
+        });
+    </script>
+}
