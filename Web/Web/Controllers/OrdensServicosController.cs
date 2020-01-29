@@ -233,6 +233,44 @@ namespace Web.Controllers
             return View(ordensServicos);
         }
 
+        // GET: OrdensServicos/Edit/5
+        public ActionResult EditarFormaPagamento(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            EditarFormaPagamentoViewModel viewModel = new EditarFormaPagamentoViewModel();
+            viewModel.FormaPagamento = ordensServicos.FormaPagamento;
+            viewModel.OrdensServicosId = ordensServicos.Id;
+            return View(viewModel);
+        }
+
+        // POST: OrdensServicos/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarFormaPagamento([Bind(Include = "FormaPagamento,OrdensServicosId")] EditarFormaPagamentoViewModel editarForma)
+        {
+            if (ModelState.IsValid)
+            {
+                OrdensServicos ordensServicos = db.OrdensServicos.Find(editarForma.OrdensServicosId);
+                if (ordensServicos == null)
+                {
+                    return HttpNotFound();
+                }
+                ordensServicos.FormaPagamento = editarForma.FormaPagamento;
+                db.Entry(ordensServicos).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", "OrdensServicos", new { id = editarForma.OrdensServicosId });
+            }
+            return View(editarForma);
+        }
+
         // POST: OrdensServicos/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.

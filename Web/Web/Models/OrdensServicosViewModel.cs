@@ -71,4 +71,12 @@ namespace Web.Models
         public List<OrdensServicosMateriais> Materiais { get; set; }
         public List<OrdensServicosServicos> Servicos { get; set; }
     }
+
+    public class EditarFormaPagamentoViewModel
+    {
+        [Required(ErrorMessage = "A forma de pagamento deve ser informada!")]
+        [Display(Name = "Forma de pagamento:")]
+        public string FormaPagamento { get; set; }
+        public int OrdensServicosId { get; set; }
+    }
 }

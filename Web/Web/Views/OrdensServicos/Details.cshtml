@@ -290,10 +290,18 @@
 </div>
 @if (Model.Status.Trim() != "F" || Model.Status.Trim() != "PG")
 {
-    <a href="/OrdensServisos/EditFormaPagamento/@Model.Id" class="btn btn-primary btn-primary">
+    <button class="btn btn-primary btn-primary" id="editPag" data-value="@Model.Id">
+        <i class="glyphicon glyphicon-pencil"></i>
+        Editar forma de pagamento
+    </button>
+
+    <!--
+
+    a href="/OrdensServisos/EditFormaPagamento/Model.Id" class="btn btn-primary btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         Editar forma de pagamento
     </a>
+        -->
 }
 @if (Model.InformacoesAdicionais != String.Empty)
 {
@@ -307,6 +315,10 @@
         </div>
     </div>
 }
+
+<div class="modal" id="modao">
+
+</div>
 
 
 <div>
@@ -394,3 +406,21 @@
         Voltar
     </a>
 </div>
+
+<div id="modal" class="modal fade">
+
+</div> 
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#editPag").click(function () {
+                var id = $(this).data("value");
+
+                $("#modal").load("/OrdensServicos/EditarFormaPagamento/" + id, function () {
+                    $("#modal").modal("show");
+                });
+            });
+        });
+    </script>
+}

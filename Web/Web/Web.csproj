@@ -403,6 +403,7 @@
     <Content Include="Views\OrdensServicosServicos\Delete.cshtml" />
     <Content Include="Views\OrdensServicosServicos\Details.cshtml" />
     <Content Include="Views\OrdensServicosServicos\Edit.cshtml" />
+    <Content Include="Views\OrdensServicos\EditarFormaPagamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
