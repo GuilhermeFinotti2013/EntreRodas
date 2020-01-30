@@ -47,6 +47,17 @@ namespace Web.Util
             };
         }
 
+        public List<TODropDownListGenerico> ListarFormasPagamento()
+        {
+            return new List<TODropDownListGenerico>()
+            {
+                new TODropDownListGenerico{ Valor = "DI", Texto = "Dinheiro"},
+                new TODropDownListGenerico{ Valor = "CQ", Texto = "Cheque"},
+                new TODropDownListGenerico{ Valor = "CA", Texto = "Cartão de  crédito"},
+                new TODropDownListGenerico{ Valor = "TD", Texto = "Todos"}
+            };
+        }
+
         public List<TODropDownListGenerico> ListarAnos()
         {
             List<TODropDownListGenerico> listaDeAnos = new List<TODropDownListGenerico>();

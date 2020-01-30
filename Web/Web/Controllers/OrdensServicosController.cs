@@ -89,7 +89,7 @@ namespace Web.Controllers
             }
             if (ordensServicos.DataInicialPrevista != null)
             {
-                model.DataInicialPrevista = ordensServicos.DataOrcamento.ToString("dd/MM/yyyy");
+                model.DataInicialPrevista = ordensServicos.DataInicialPrevista.Value.ToString("dd/MM/yyyy");
             }
             else
             {
@@ -111,7 +111,22 @@ namespace Web.Controllers
             }
             else
             {
-                model.FormaPagamento = String.Format("R${0}", ordensServicos.FormaPagamento);
+                if (ordensServicos.FormaPagamento.Trim() == "DI")
+                {
+                    model.FormaPagamento = "Dinheiro";
+                }
+                else if (ordensServicos.FormaPagamento.Trim() == "CQ")
+                {
+                    model.FormaPagamento = "Cheque";
+                }
+                else if (ordensServicos.FormaPagamento.Trim() == "Cartão de crédito")
+                {
+                    model.FormaPagamento = "Cartão de crédito";
+                }
+                else if (ordensServicos.FormaPagamento.Trim() == "TD")
+                {
+                    model.FormaPagamento = "Todos";
+                }
             }
             if (ordensServicos.ValorAPagar == null)
             {
@@ -232,45 +247,6 @@ namespace Web.Controllers
             ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
             return View(ordensServicos);
         }
-
-        // GET: OrdensServicos/Edit/5
-        public ActionResult EditarFormaPagamento(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
-            if (ordensServicos == null)
-            {
-                return HttpNotFound();
-            }
-            EditarFormaPagamentoViewModel viewModel = new EditarFormaPagamentoViewModel();
-            viewModel.FormaPagamento = ordensServicos.FormaPagamento;
-            viewModel.OrdensServicosId = ordensServicos.Id;
-            return View(viewModel);
-        }
-
-        // POST: OrdensServicos/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditarFormaPagamento([Bind(Include = "FormaPagamento,OrdensServicosId")] EditarFormaPagamentoViewModel editarForma)
-        {
-            if (ModelState.IsValid)
-            {
-                OrdensServicos ordensServicos = db.OrdensServicos.Find(editarForma.OrdensServicosId);
-                if (ordensServicos == null)
-                {
-                    return HttpNotFound();
-                }
-                ordensServicos.FormaPagamento = editarForma.FormaPagamento;
-                db.Entry(ordensServicos).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Details", "OrdensServicos", new { id = editarForma.OrdensServicosId });
-            }
-            return View(editarForma);
-        }
-
         // POST: OrdensServicos/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -316,6 +292,83 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: OrdensServicos/Edit/5
+        public ActionResult EditarFormaPagamento(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            EditarFormaPagamentoViewModel viewModel = new EditarFormaPagamentoViewModel();
+            viewModel.OrdensServicosId = ordensServicos.Id;
+            CombosGenericos combos = new CombosGenericos();
+            ViewBag.FormaPagamento = new SelectList(combos.ListarFormasPagamento(), "Valor", "Texto", ordensServicos.FormaPagamento.Trim());
+            return View(viewModel);
+        }
+
+        // POST: OrdensServicos/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarFormaPagamento([Bind(Include = "FormaPagamento,OrdensServicosId")] EditarFormaPagamentoViewModel editarForma)
+        {
+            if (ModelState.IsValid)
+            {
+                OrdensServicos ordensServicos = db.OrdensServicos.Find(editarForma.OrdensServicosId);
+                if (ordensServicos == null)
+                {
+                    return HttpNotFound();
+                }
+                ordensServicos.FormaPagamento = editarForma.FormaPagamento;
+                db.Entry(ordensServicos).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", "OrdensServicos", new { id = editarForma.OrdensServicosId });
+            }
+            return View(editarForma);
+        }
+
+        // GET: OrdensServicos/AgendarInicio/5
+        public ActionResult AgendarInicio(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            AgendarServicoViewModel viewModel = new AgendarServicoViewModel();
+            viewModel.OrdensServicosId = ordensServicos.Id;
+            return View(viewModel);
+        }
+
+        // POST: OrdensServicos/AgendarInicio/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AgendarInicio([Bind(Include = "DataInicial,OrdensServicosId")] AgendarServicoViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                OrdensServicos ordensServicos = db.OrdensServicos.Find(viewModel.OrdensServicosId);
+                if (ordensServicos == null)
+                {
+                    return HttpNotFound();
+                }
+                ordensServicos.DataInicialPrevista = viewModel.DataInicial;
+                db.Entry(ordensServicos).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", "OrdensServicos", new { id = viewModel.OrdensServicosId });
+            }
+            return View(viewModel);
+        }
+
+        #region Métodos auxiliares
         private String ObterCodigoOrdemServico()
         {
             string novoCodigo = String.Empty;
@@ -397,5 +450,6 @@ namespace Web.Controllers
             }
             return valorTotal;
         }
+        #endregion
     }
 }

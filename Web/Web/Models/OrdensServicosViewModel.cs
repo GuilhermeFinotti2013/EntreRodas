@@ -79,4 +79,13 @@ namespace Web.Models
         public string FormaPagamento { get; set; }
         public int OrdensServicosId { get; set; }
     }
+
+    public class AgendarServicoViewModel
+    {
+        public int OrdensServicosId { get; set; }
+        [Required(ErrorMessage = "A data de início do trabalho deve ser informada!")]
+        [Display(Name = "Data de início:")]
+        [DataType(DataType.Date)]
+        public System.DateTime DataInicial{ get; set; }
+    }
 }

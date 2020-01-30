@@ -136,6 +136,14 @@
     }
 
 </div>
+@if (Model.DataInicialPrevista == "--")
+{
+    <button id="btnAgendarInicio" class="btn btn-success" data-value="@Model.Id">
+        <i class="fa fa-play"></i>
+        Agendar serviço
+    </button>
+}
+
 <hr />
 <p class="titulo_sessao">Informações do veículo</p>
 <div class="container">
@@ -294,14 +302,6 @@
         <i class="glyphicon glyphicon-pencil"></i>
         Editar forma de pagamento
     </button>
-
-    <!--
-
-    a href="/OrdensServisos/EditFormaPagamento/Model.Id" class="btn btn-primary btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar forma de pagamento
-    </a>
-        -->
 }
 @if (Model.InformacoesAdicionais != String.Empty)
 {
@@ -336,14 +336,6 @@
             Reenviar orçamento
         </a>
     }
-    @if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE")
-    {
-        <a href="/OrdensServisos/Agendar/@Model.Id" class="btn btn-success">
-            <span class="fa fa-play"></span>
-            Agendar serviço
-        </a>
-    }
-
     @if (Model.Status.Trim() == "AG" || Model.Status.Trim() == "OE")
     {
         <a href="/OrdensServisos/IniciaServico/@Model.Id" class="btn btn-success">
@@ -409,7 +401,7 @@
 
 <div id="modal" class="modal fade">
 
-</div> 
+</div>
 
 @section scripts{
     <script type="text/javascript">
@@ -418,6 +410,14 @@
                 var id = $(this).data("value");
 
                 $("#modal").load("/OrdensServicos/EditarFormaPagamento/" + id, function () {
+                    $("#modal").modal("show");
+                });
+            });
+
+            $("#btnAgendarInicio").click(function () {
+                var id = $(this).data("value");
+
+                $("#modal").load("/OrdensServicos/AgendarInicio/" + id, function () {
                     $("#modal").modal("show");
                 });
             });
