@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Web.Util;
 
 namespace Web.Models
 {
@@ -86,6 +87,7 @@ namespace Web.Models
         [Required(ErrorMessage = "A data de início do trabalho deve ser informada!")]
         [Display(Name = "Data de início:")]
         [DataType(DataType.Date)]
+        [DataFutura]
         public System.DateTime DataInicial{ get; set; }
     }
 }
