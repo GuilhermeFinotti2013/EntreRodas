@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
@@ -363,9 +364,21 @@ namespace Web.Controllers
                 ordensServicos.DataInicialPrevista = viewModel.DataInicial;
                 db.Entry(ordensServicos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "OrdensServicos", new { id = viewModel.OrdensServicosId });
             }
-            return View(viewModel);
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (ModelState modelState in ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        sb.Append(error + "\n");
+                    }
+                }
+                ViewBag.Error = sb.ToString();
+            }
+            return RedirectToAction("Details", "OrdensServicos", new { id = viewModel.OrdensServicosId });
         }
 
         #region Métodos auxiliares

@@ -10,6 +10,14 @@
 
 <h3>Serviço @Html.DisplayFor(model => model.CodigoOrdemServico)</h3>
 <hr />
+
+@if (!String.IsNullOrEmpty(ViewBag.Errors))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Errors
+    </div>
+}
+
 <p class="titulo_sessao">Informações do serviço</p>
 <div class="container">
     <div class="row">
