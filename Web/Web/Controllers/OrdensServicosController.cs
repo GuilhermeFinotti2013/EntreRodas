@@ -12,7 +12,7 @@ using Web.Util;
 
 namespace Web.Controllers
 {
-//    [Authorize(Roles = "Administradores")]
+    //    [Authorize(Roles = "Administradores")]
     public class OrdensServicosController : Controller
     {
         private entre_rodasEntities db = new entre_rodasEntities();
@@ -373,10 +373,10 @@ namespace Web.Controllers
                 {
                     foreach (ModelError error in modelState.Errors)
                     {
-                        sb.Append(error + "\n");
+                        sb.Append(error.ErrorMessage + "\n");
                     }
                 }
-                ViewBag.Error = sb.ToString();
+                TempData["Errors"] = sb.ToString();
             }
             return RedirectToAction("Details", "OrdensServicos", new { id = viewModel.OrdensServicosId });
         }
@@ -395,7 +395,7 @@ namespace Web.Controllers
                 string ultimoMes = ultimaOrdem.CodigoOrdensServicos.Substring(0, 6);
                 if (ultimoMes == DateTime.Now.ToString("yyyyMM"))
                 {
-                    int contServicosMes = Convert.ToInt32(ultimaOrdem.CodigoOrdensServicos.Substring(6,4));
+                    int contServicosMes = Convert.ToInt32(ultimaOrdem.CodigoOrdensServicos.Substring(6, 4));
                     contServicosMes++;
                     novoCodigo = String.Format("{0}{1}", DateTime.Now.ToString("yyyyMM"), contServicosMes.ToString().PadLeft(4, '0'));
                 }

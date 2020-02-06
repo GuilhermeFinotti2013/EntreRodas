@@ -5,18 +5,17 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.MenuAtual = "OrdensServicos";
 }
+@if (TempData["Errors"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Errors"]
+    </div>
+}
 
 <h2>Detalhes do serviço</h2>
 
 <h3>Serviço @Html.DisplayFor(model => model.CodigoOrdemServico)</h3>
 <hr />
-
-@if (!String.IsNullOrEmpty(ViewBag.Errors))
-{
-    <div class="alert alert-danger" role="alert">
-        @ViewBag.Errors
-    </div>
-}
 
 <p class="titulo_sessao">Informações do serviço</p>
 <div class="container">

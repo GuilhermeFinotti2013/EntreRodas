@@ -18,6 +18,11 @@ namespace Web.Models
         public String ProblemaIdentificado { get; set; }
     }
 
+    public class EditarInformacoesDoServico
+    {
+
+    }
+
     public class VisualizarServicoViewModel
     {
         public int Id { get; set; }

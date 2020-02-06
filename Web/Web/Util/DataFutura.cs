@@ -11,8 +11,14 @@ namespace Web.Util
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var agendamento = (AgendarServicoViewModel)validationContext.ObjectInstance;
-            int comparacao = DateTime.Compare(agendamento.DataInicial, DateTime.Now);
+            DateTime data = DateTime.Now; ;
+            Type tipo = validationContext.ObjectInstance.GetType();
+            if (tipo == typeof(AgendarServicoViewModel))
+            {
+                var agendamento = (AgendarServicoViewModel)validationContext.ObjectInstance;
+                data = agendamento.DataInicial;
+            }
+            int comparacao = DateTime.Compare(data, DateTime.Now);
             if (comparacao == 0 || comparacao > 0)
             {
                 return ValidationResult.Success;
