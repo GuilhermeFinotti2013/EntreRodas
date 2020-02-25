@@ -386,10 +386,10 @@
         || Model.Status.Trim() == "AG" || Model.Status.Trim() == "EE"
         || Model.Status.Trim() == "AP")
     {
-        <a href="/OrdensServisos/Edit/@Model.Id" class="btn btn-primary btn-primary">
-            <span class="glyphicon glyphicon-pencil"></span>
+        <button id="btnEditarOrdem" class="btn btn-primary" data-value="@Model.Id">
+            <i class="fa fa-edit"></i>
             Editar serviço
-        </a>
+        </button>
     }
     @if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE"
         || Model.Status.Trim() == "AG" || Model.Status.Trim() == "EE"
@@ -428,6 +428,15 @@
                     $("#modal").modal("show");
                 });
             });
+
+            $("#btnEditarOrdem").click(function () {
+                var id = $(this).data("value");
+
+                $("#modal").load("/OrdensServicos/Edit/" + id, function () {
+                    $("#modal").modal("show");
+                });
+            });
         });
+
     </script>
 }

@@ -18,9 +18,19 @@ namespace Web.Models
         public String ProblemaIdentificado { get; set; }
     }
 
-    public class EditarInformacoesDoServico
+    public class EditarInformacoesDoServicoViewModel
     {
-
+        public int OrdensServicosId { get; set; }
+        [DataType(DataType.Date)]
+        [DataFutura]
+        [Display(Name = "Data inícial prevista:")]
+        public System.DateTime DataInicialPrevista { get; set; }
+        [Display(Name = "Problema identificado junto com o cliente:")]
+        [MaxLength(250, ErrorMessage = "O campo Problema identificado deve ter, no maxímo, 250 caracteres!")]
+        public string ProblemaIdentificado { get; set; }
+        [Display(Name = "Informações adcionais:")]
+        [MaxLength(250, ErrorMessage = "O campo Informações adcionais deve ter, no maxímo, 250 caracteres!")]
+        public string InformacoesAdicionais { get; set; }
     }
 
     public class VisualizarServicoViewModel

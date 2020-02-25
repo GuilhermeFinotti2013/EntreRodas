@@ -243,28 +243,47 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
-            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
-            return View(ordensServicos);
+            EditarInformacoesDoServicoViewModel editarInformacoes = new EditarInformacoesDoServicoViewModel();
+            editarInformacoes.DataInicialPrevista = ordensServicos.DataInicialPrevista.Value;
+            editarInformacoes.InformacoesAdicionais = ordensServicos.InformacoesAdicionais;
+            editarInformacoes.OrdensServicosId = ordensServicos.Id;
+            editarInformacoes.ProblemaIdentificado = ordensServicos.ProblemaIdentificado;
+            return View(editarInformacoes);
         }
         // POST: OrdensServicos/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CodigoOrdensServicos,ClienteId,Responsavel,DataOrcamento,DataInicialPrevista,DataFinalPrevista,Status,SubTotalServicos,SubTotalMateriais,ValorTotal,ValorAPagar,FormaPagamento,InformacoesAdicionais,VeiculosId")] OrdensServicos ordensServicos)
+        public ActionResult Edit([Bind(Include = "OrdensServicosId,DataInicialPrevista,ProblemaIdentificado,InformacoesAdicionais")] EditarInformacoesDoServicoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                OrdensServicos ordensServicos = db.OrdensServicos.Find(viewModel.OrdensServicosId);
+                if (ordensServicos == null)
+                {
+                    return HttpNotFound();
+                }
+                ordensServicos.DataInicialPrevista = viewModel.DataInicialPrevista;
+                ordensServicos.ProblemaIdentificado = viewModel.ProblemaIdentificado;
+                ordensServicos.InformacoesAdicionais = viewModel.InformacoesAdicionais;
                 db.Entry(ordensServicos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
 
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", ordensServicos.ClienteId);
-            ViewBag.VeiculosId = new SelectList(db.Veiculos, "Id", "Modelo", ordensServicos.VeiculosId);
-            return View(ordensServicos);
+                foreach (ModelState modelState in ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        sb.Append(error.ErrorMessage + "\n");
+                    }
+                }
+                TempData["Errors"] = sb.ToString();
+            }
+            return RedirectToAction("Details", "OrdensServicos", new { id = viewModel.OrdensServicosId });
         }
 
         // GET: OrdensServicos/Delete/5
