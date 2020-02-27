@@ -21,10 +21,10 @@ namespace Web.Models
     public class EditarInformacoesDoServicoViewModel
     {
         public int OrdensServicosId { get; set; }
-        [DataType(DataType.Date)]
+    /*    [DataType(DataType.Date)]
         [DataFutura]
         [Display(Name = "Data inícial prevista:")]
-        public System.DateTime DataInicialPrevista { get; set; }
+        public System.DateTime DataInicialPrevista { get; set; }*/
         [Display(Name = "Problema identificado junto com o cliente:")]
         [MaxLength(250, ErrorMessage = "O campo Problema identificado deve ter, no maxímo, 250 caracteres!")]
         public string ProblemaIdentificado { get; set; }

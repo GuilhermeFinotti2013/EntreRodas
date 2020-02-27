@@ -143,11 +143,11 @@
     }
 
 </div>
-@if (Model.DataInicialPrevista == "--")
+@if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE" || Model.Status.Trim() == "AG")
 {
     <button id="btnAgendarInicio" class="btn btn-success" data-value="@Model.Id">
         <i class="fa fa-play"></i>
-        Agendar serviço
+        Editar data prevista para o início do serviço
     </button>
 }
 
@@ -260,64 +260,68 @@
         </tbody>
     </table>
 }
-<hr />
-<p class="titulo_sessao">Informações do pagamento</p>
-<div class="container">
-    <div class="row">
-        <div class="col col-lg-3" style="text-align:right;">
-            <strong>@Html.DisplayNameFor(model => model.FormaPagamento)</strong>
-        </div>
-        <div class="col col-lg-2">
-            @Html.DisplayFor(model => model.FormaPagamento)
-        </div>
-    </div>
-    @if (Model.Servicos.Count > 0 || Model.Materiais.Count > 0)
-    {
-        <div class="row">
-            <div class="col col-lg-3" style="text-align:right;">
-                <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>
-            </div>
-            <div class="col col-lg-2">
-                @Html.DisplayFor(model => model.ValorTotal)
-            </div>
-            <div class="col col-lg-2" style="text-align:right;">
-                <strong>@Html.DisplayNameFor(model => model.ValorAPagar)</strong>
-            </div>
-            <div class="col col-lg-2">
-                @Html.DisplayFor(model => model.ValorAPagar)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-lg-3" style="text-align:right;">
-                <strong>@Html.DisplayNameFor(model => model.ValorDinheiro)</strong>
-            </div>
-            <div class="col col-lg-2">
-                @Html.DisplayFor(model => model.ValorDinheiro)
-            </div>
-            <div class="col col-lg-2" style="text-align:right;">
-                <strong>@Html.DisplayNameFor(model => model.ValorCartao)</strong>
-            </div>
-            <div class="col col-lg-2">
-                @Html.DisplayFor(model => model.ValorCartao)
-            </div>
-        </div>
-    }
-</div>
-@if (Model.Status.Trim() != "F" || Model.Status.Trim() != "PG")
+@if (Model.Status.Trim() != "O")
 {
-    <button class="btn btn-primary btn-primary" id="editPag" data-value="@Model.Id">
-        <i class="glyphicon glyphicon-pencil"></i>
-        Editar forma de pagamento
-    </button>
+    <hr />
+    <p class="titulo_sessao">Informações do pagamento</p>
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-3" style="text-align:right;">
+                <strong>@Html.DisplayNameFor(model => model.FormaPagamento)</strong>
+            </div>
+            <div class="col col-lg-2">
+                @Html.DisplayFor(model => model.FormaPagamento)
+            </div>
+        </div>
+        @if (Model.Servicos.Count > 0 || Model.Materiais.Count > 0)
+        {
+            <div class="row">
+                <div class="col col-lg-3" style="text-align:right;">
+                    <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>
+                </div>
+                <div class="col col-lg-2">
+                    @Html.DisplayFor(model => model.ValorTotal)
+                </div>
+                <div class="col col-lg-2" style="text-align:right;">
+                    <strong>@Html.DisplayNameFor(model => model.ValorAPagar)</strong>
+                </div>
+                <div class="col col-lg-2">
+                    @Html.DisplayFor(model => model.ValorAPagar)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-3" style="text-align:right;">
+                    <strong>@Html.DisplayNameFor(model => model.ValorDinheiro)</strong>
+                </div>
+                <div class="col col-lg-2">
+                    @Html.DisplayFor(model => model.ValorDinheiro)
+                </div>
+                <div class="col col-lg-2" style="text-align:right;">
+                    <strong>@Html.DisplayNameFor(model => model.ValorCartao)</strong>
+                </div>
+                <div class="col col-lg-2">
+                    @Html.DisplayFor(model => model.ValorCartao)
+                </div>
+            </div>
+        }
+    </div>
+    if (Model.Status.Trim() != "F" || Model.Status.Trim() != "PG")
+    {
+        <button class="btn btn-primary btn-primary" id="editPag" data-value="@Model.Id">
+            <i class="glyphicon glyphicon-pencil"></i>
+            Editar forma de pagamento
+        </button>
+    }
 }
-@if (Model.InformacoesAdicionais != String.Empty)
+
+@if (!String.IsNullOrEmpty(Model.InformacoesAdicionais))
 {
     <hr />
     <p class="titulo_sessao">Informações adicionais</p>
     <div class="container">
         <div class="row">
             <div class="col col-lg-8">
-                @Html.DisplayFor(model => model.InformacoesAdicionais)
+                @Model.InformacoesAdicionais
             </div>
         </div>
     </div>
@@ -327,7 +331,7 @@
 
 </div>
 
-
+<br />
 <div>
     @if (Model.Status.Trim() == "O")
     {

@@ -27,15 +27,7 @@
 
 
                     <div class="container">
-                        <div class="row">
-                            <div class="col col-lg-2 label-form">
-                                @Html.LabelFor(model => model.DataInicialPrevista)
-                            </div>
-                            <div class="col col-lg-2">
-                                @Html.EditorFor(model => model.DataInicialPrevista, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DataInicialPrevista, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                    
                         <div class="row">
                             <div class="col col-lg-2 label-form">
                                 @Html.LabelFor(model => model.ProblemaIdentificado)

@@ -120,7 +120,7 @@ namespace Web.Controllers
                 {
                     model.FormaPagamento = "Cheque";
                 }
-                else if (ordensServicos.FormaPagamento.Trim() == "Cartão de crédito")
+                else if (ordensServicos.FormaPagamento.Trim() == "CA")
                 {
                     model.FormaPagamento = "Cartão de crédito";
                 }
@@ -153,6 +153,7 @@ namespace Web.Controllers
             {
                 model.ValorDinheiro = String.Format("R${0}", ordensServicos.ValorDinheiro);
             }
+            model.InformacoesAdicionais = ordensServicos.InformacoesAdicionais;
             model.SubTotalMateriais = String.Format("R${0}", this.CalcularValorTotalDeMateriais(ordensServicos.OrdensServicosMateriais.ToList()));
             model.SubTotalServicos = String.Format("R${0}", this.CalcularValorTotalDeServicos(ordensServicos.OrdensServicosServicos.ToList()));
             #endregion
@@ -244,10 +245,12 @@ namespace Web.Controllers
                 return HttpNotFound();
             }
             EditarInformacoesDoServicoViewModel editarInformacoes = new EditarInformacoesDoServicoViewModel();
-            editarInformacoes.DataInicialPrevista = ordensServicos.DataInicialPrevista.Value;
-            editarInformacoes.InformacoesAdicionais = ordensServicos.InformacoesAdicionais;
+            if (ordensServicos.InformacoesAdicionais != null)
+            {
+                editarInformacoes.InformacoesAdicionais = ordensServicos.InformacoesAdicionais.Trim();
+            }
             editarInformacoes.OrdensServicosId = ordensServicos.Id;
-            editarInformacoes.ProblemaIdentificado = ordensServicos.ProblemaIdentificado;
+            editarInformacoes.ProblemaIdentificado = ordensServicos.ProblemaIdentificado.Trim();
             return View(editarInformacoes);
         }
         // POST: OrdensServicos/Edit/5
@@ -255,7 +258,7 @@ namespace Web.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrdensServicosId,DataInicialPrevista,ProblemaIdentificado,InformacoesAdicionais")] EditarInformacoesDoServicoViewModel viewModel)
+        public ActionResult Edit([Bind(Include = "OrdensServicosId,ProblemaIdentificado,InformacoesAdicionais")] EditarInformacoesDoServicoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -264,7 +267,6 @@ namespace Web.Controllers
                 {
                     return HttpNotFound();
                 }
-                ordensServicos.DataInicialPrevista = viewModel.DataInicialPrevista;
                 ordensServicos.ProblemaIdentificado = viewModel.ProblemaIdentificado;
                 ordensServicos.InformacoesAdicionais = viewModel.InformacoesAdicionais;
                 db.Entry(ordensServicos).State = EntityState.Modified;

@@ -18,11 +18,6 @@ namespace Web.Util
                 var agendamento = (AgendarServicoViewModel)validationContext.ObjectInstance;
                 data = agendamento.DataInicial;
             }
-            if (tipo == typeof(EditarInformacoesDoServicoViewModel))
-            {
-                var agendamento = (EditarInformacoesDoServicoViewModel)validationContext.ObjectInstance;
-                data = agendamento.DataInicial;
-            }
             int comparacao = DateTime.Compare(data, DateTime.Now);
             if (comparacao == 0 || comparacao > 0)
             {
