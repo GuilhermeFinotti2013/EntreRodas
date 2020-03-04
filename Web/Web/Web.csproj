@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -263,6 +266,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Util\CombosGenericos.cs" />
     <Compile Include="Util\DataFutura.cs" />
+    <Compile Include="Util\Enuns.cs" />
+    <Compile Include="Util\iTextEvents.cs" />
     <Compile Include="Util\TODropDownListGenerico.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +276,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\Imagens\fone.png" />
+    <Content Include="Content\Imagens\gmail.png" />
+    <Content Include="Content\Imagens\logo.png" />
+    <Content Include="Content\Imagens\maps.png" />
+    <Content Include="Content\Imagens\whats.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
