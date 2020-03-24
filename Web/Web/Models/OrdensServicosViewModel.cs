@@ -86,6 +86,7 @@ namespace Web.Models
 
         public List<OrdensServicosMateriais> Materiais { get; set; }
         public List<OrdensServicosServicos> Servicos { get; set; }
+        public List<String> Erros { get; set; }
     }
 
     public class EditarFormaPagamentoViewModel

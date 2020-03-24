@@ -52,6 +52,12 @@ namespace Web.Controllers
                 return HttpNotFound();
             }
 
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, null);
+            return View(model);
+        }
+
+        private VisualizarServicoViewModel ConfigurVisualizacao(OrdensServicos ordensServicos, List<String> errors)
+        {
             VisualizarServicoViewModel model = new VisualizarServicoViewModel();
             #region Dados do serviço
             model.Id = ordensServicos.Id;
@@ -180,7 +186,85 @@ namespace Web.Controllers
             model.PlacaVeiculo = ordensServicos.Veiculos.Placa.Trim();
             model.AnoVeiculo = ordensServicos.Veiculos.Ano;
             #endregion
-            return View(model);
+            #region Erros
+            if (errors != null)
+            {
+                if (errors.Count > 0)
+                {
+                    model.Erros = errors;
+                }
+            }
+            #endregion
+            return model;
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult EnviarOrcamento(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            #region Validações
+            List<String> errors = new List<string>();
+            if (ordensServicos.ProblemaIdentificado == null)
+            {
+                errors.Add("Para o envio do orçamento ao cliente é preciso, primeiro, informar o problema identificado!");
+            }
+            if (ordensServicos.DataInicialPrevista == null)
+            {
+                errors.Add("Para o envio do orçamento ao cliente é preciso, primeiro, informar a data prevista para o início do trabalho!");
+            }
+            if (ordensServicos.OrdensServicosServicos == null || ordensServicos.OrdensServicosServicos.Count == 0 ||
+                ordensServicos.OrdensServicosMateriais == null || ordensServicos.OrdensServicosMateriais.Count == 0)
+            {
+                errors.Add("Para o envio do orçamento ao cliente é preciso ter, ao menos, um serviço e um materia associado à ele!");
+            }
+            #endregion
+            if (errors.Count == 0)
+            {
+                ordensServicos.Status = "OE";
+                db.Entry(ordensServicos).State = EntityState.Modified;
+                db.SaveChanges();
+                GerarOrcamentoPdf(id);
+                ordensServicos = db.OrdensServicos.Find(id);
+
+            }
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult GerarOrcamento(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            #region Validações
+            List<String> errors = new List<string>();
+            if (ordensServicos.ProblemaIdentificado == null)
+            {
+                errors.Add("Para gerar o orçamento ao cliente é preciso, primeiro, informar o problema identificado!");
+            }
+            if (ordensServicos.DataInicialPrevista == null)
+            {
+                errors.Add("Para gerar o orçamento ao cliente é preciso, primeiro, informar a data prevista para o início do trabalho!");
+            }
+            if (ordensServicos.OrdensServicosServicos == null || ordensServicos.OrdensServicosServicos.Count == 0 ||
+                ordensServicos.OrdensServicosMateriais == null || ordensServicos.OrdensServicosMateriais.Count == 0)
+            {
+                errors.Add("Para gerar o orçamento ao cliente é preciso ter, ao menos, um serviço e um materia associado à ele!");
+            }
+            #endregion
+            if (errors.Count == 0)
+            {
+                GerarOrcamentoPdf(id);
+            }
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
+            return View("Details", model);
         }
 
         // GET: OrdensServicos/Create
@@ -256,7 +340,10 @@ namespace Web.Controllers
                 editarInformacoes.InformacoesAdicionais = ordensServicos.InformacoesAdicionais.Trim();
             }
             editarInformacoes.OrdensServicosId = ordensServicos.Id;
-            editarInformacoes.ProblemaIdentificado = ordensServicos.ProblemaIdentificado.Trim();
+            if (ordensServicos.ProblemaIdentificado != null)
+            {
+                editarInformacoes.ProblemaIdentificado = ordensServicos.ProblemaIdentificado.Trim();
+            }
             return View(editarInformacoes);
         }
         // POST: OrdensServicos/Edit/5
@@ -381,31 +468,31 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgendarInicio([Bind(Include = "DataInicial,OrdensServicosId")] AgendarServicoViewModel viewModel)
         {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(viewModel.OrdensServicosId);
+            List<String> errors = new List<string>();
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
             if (ModelState.IsValid)
             {
-                OrdensServicos ordensServicos = db.OrdensServicos.Find(viewModel.OrdensServicosId);
-                if (ordensServicos == null)
-                {
-                    return HttpNotFound();
-                }
                 ordensServicos.DataInicialPrevista = viewModel.DataInicial;
                 db.Entry(ordensServicos).State = EntityState.Modified;
                 db.SaveChanges();
+                ordensServicos = db.OrdensServicos.Find(viewModel.OrdensServicosId);
             }
             else
             {
-                StringBuilder sb = new StringBuilder();
-
                 foreach (ModelState modelState in ModelState.Values)
                 {
                     foreach (ModelError error in modelState.Errors)
                     {
-                        sb.Append(error.ErrorMessage + "\n");
+                        errors.Add(error.ErrorMessage);
                     }
                 }
-                TempData["Errors"] = sb.ToString();
             }
-            return RedirectToAction("Details", "OrdensServicos", new { id = viewModel.OrdensServicosId });
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
+            return View("Details", model);
         }
 
         #region Métodos auxiliares
@@ -493,32 +580,11 @@ namespace Web.Controllers
         #endregion
 
         #region Gerar PDF
-        private OrdensServicos BuscarOrdem()
+        
+        //GET: 4
+        public void GerarOrcamentoPdf(int? id)
         {
-            OrdensServicos ordem = new OrdensServicos();
-            ordem.CodigoOrdensServicos = "021-2020";
-            ordem.Veiculos = new Veiculos() { Modelo = "Kicks", Ano = 2019 };
-            ordem.Clientes = new Clientes() { Nome = "Guilherme Finotti" };
-            ordem.DataInicialPrevista = DateTime.Now;
-            ordem.ProblemaIdentificado = "O carro está derrabando nas lombas e com aquecimento.";
-            ordem.InformacoesAdicionais = "Informativo: Bomba de oleo R$256,50";
-            ordem.OrdensServicosServicos = new List<OrdensServicosServicos>();
-            ordem.OrdensServicosServicos.Add(new OrdensServicosServicos() { Descricao = "Mão de obra", Valor = 160.00f });
-            ordem.OrdensServicosServicos.Add(new OrdensServicosServicos() { Descricao = "Limpeza do cárter/t. Correia/filtro/arrefecimento", Valor = 230.00f });
-            ordem.OrdensServicosServicos.Add(new OrdensServicosServicos() { Descricao = "Troca de oleo", Valor = 100.00f });
-            ordem.OrdensServicosMateriais = new List<OrdensServicosMateriais>();
-            ordem.OrdensServicosMateriais.Add(new OrdensServicosMateriais() { Descricao = "Amortecedor dianteiro", Quantidade = 2, PrecoUnitario = 155.36f, PrecoTotal = 310.72f });
-            ordem.OrdensServicosMateriais.Add(new OrdensServicosMateriais() { Descricao = "Amortecedor traseiro", Quantidade = 2, PrecoUnitario = 166.45f, PrecoTotal = 332.90f });
-            ordem.OrdensServicosMateriais.Add(new OrdensServicosMateriais() { Descricao = "Kit correia dentada", Quantidade = 1, PrecoUnitario = 89.00f, PrecoTotal = 89.00f });
-            ordem.OrdensServicosMateriais.Add(new OrdensServicosMateriais() { Descricao = "Filtro combustível", Quantidade = 1, PrecoUnitario = 19.50f, PrecoTotal = 19.50f });
-            ordem.OrdensServicosMateriais.Add(new OrdensServicosMateriais() { Descricao = "Amortecedores tampa traseira", Quantidade = 2, PrecoUnitario = 49.00f, PrecoTotal = 98.00f });
-            ordem.OrdensServicosMateriais.Add(new OrdensServicosMateriais() { Descricao = "Aditivo concentrado para radiador", Quantidade = 2, PrecoUnitario = 25.00f, PrecoTotal = 50.00f });
-            return ordem;
-        }
-
-        public ActionResult GerarOrcamentoPdf()
-        {
-            OrdensServicos ordem = this.BuscarOrdem();
+            OrdensServicos ordem = db.OrdensServicos.Find(id);
 
             Document pdfDoc = new Document(PageSize.A4, 10, 10, 80, 80);
             PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
@@ -752,12 +818,12 @@ namespace Web.Controllers
             pdfDoc.Close();
             Response.Buffer = true;
             Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=Credit-Card-Report.pdf");
+            String nomeArquivo = String.Format("EntreRodas_{0}_{1}", DateTime.Now.Year, ordem.CodigoOrdensServicos);
+            Response.AddHeader("content-disposition", String.Format("attachment;filename={0}.pdf", nomeArquivo));
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Write(pdfDoc);
             Response.End();
 
-            return View();
         }
 
         private PdfPTable MontarLinhaSubtitulo(String titulo, Double valorTotal, bool ehTabela)

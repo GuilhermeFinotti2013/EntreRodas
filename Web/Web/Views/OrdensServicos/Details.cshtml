@@ -5,10 +5,15 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.MenuAtual = "OrdensServicos";
 }
-@if (TempData["Errors"] != null)
+@if (Model.Erros != null)
 {
     <div class="alert alert-danger" role="alert">
-        @TempData["Errors"]
+        <ul>
+            @foreach (String erro in Model.Erros)
+            {
+                <li>@erro</li>
+            }
+        </ul>
     </div>
 }
 
@@ -333,16 +338,20 @@
 
 <br />
 <div>
+    <a href="/OrdensServicos/GerarOrcamento/@Model.Id" class="btn btn-success">
+        <span class="fa fa-envelope"></span>
+        Gerar orçamento
+    </a>
     @if (Model.Status.Trim() == "O")
     {
-        <a href="/OrdensServisos/EnviaOrcamento/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/EnviarOrcamento/@Model.Id" class="btn btn-success">
             <span class="fa fa-envelope"></span>
             Enviar orçamento
         </a>
     }
     @if (Model.Status.Trim() == "OE")
     {
-        <a href="/OrdensServisos/GerarOrcamentoPdf" class="btn btn-success">
+        <a href="/OrdensServicos/Details2/@Model.Id" class="btn btn-success">
             <span class="fa fa-envelope"></span>
             Reenviar orçamento
         </a>
