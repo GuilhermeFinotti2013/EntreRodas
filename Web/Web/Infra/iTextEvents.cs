@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Web.Util
+namespace Web.Infra
 {
     public class ITextEvents : PdfPageEventHelper
     {

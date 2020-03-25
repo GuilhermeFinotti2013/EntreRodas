@@ -198,6 +198,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infra\Email.cs" />
+    <Compile Include="Infra\GeradorDePDF.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Annotations\Clientes.cs" />
     <Compile Include="Models\Annotations\ClientesMetadata.cs" />
@@ -265,9 +267,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Util\CombosGenericos.cs" />
-    <Compile Include="Util\DataFutura.cs" />
+    <Compile Include="Infra\DataFutura.cs" />
     <Compile Include="Util\Enuns.cs" />
-    <Compile Include="Util\iTextEvents.cs" />
+    <Compile Include="Infra\iTextEvents.cs" />
     <Compile Include="Util\TODropDownListGenerico.cs" />
   </ItemGroup>
   <ItemGroup>
