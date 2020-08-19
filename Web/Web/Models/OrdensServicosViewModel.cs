@@ -89,12 +89,34 @@ namespace Web.Models
         public List<String> Erros { get; set; }
     }
 
-    public class EditarFormaPagamentoViewModel
+    public class FinalizarServicoViewModel
     {
+        public int OrdensServicosId { get; set; }
+        public int ClienteId { get; set; }
+        [Display(Name = "Nome do cliente:")]
+        public String NomeCliente { get; set; }
+        [Display(Name = "Modelo:")]
+        public String ModeloVeiculo { get; set; }
+        [Display(Name = "Subtotal serviços:")]
+        public string SubTotalServicos { get; set; }
+        public string SubTotalMateriais { get; set; }
+        [Display(Name = "Valor total:")]
+        public string ValorTotal { get; set; }
+        [Display(Name = "Valor à pagar:")]
+        public float ValorAPagar { get; set; }
         [Required(ErrorMessage = "A forma de pagamento deve ser informada!")]
         [Display(Name = "Forma de pagamento:")]
         public string FormaPagamento { get; set; }
-        public int OrdensServicosId { get; set; }
+        [Display(Name = "Valor em dinheiro:")]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
+        public float ValorDinheiro { get; set; }
+        [Display(Name = "Valor no cartão:")]
+        public float ValorCartao { get; set; }
+        [Display(Name = "Informações adcionais:")]
+        public string InformacoesAdicionais { get; set; }
+        public List<OrdensServicosMateriais> Materiais { get; set; }
+        public List<OrdensServicosServicos> Servicos { get; set; }
+        public List<String> Erros { get; set; }
     }
 
     public class AgendarServicoViewModel

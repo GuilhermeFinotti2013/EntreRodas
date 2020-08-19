@@ -261,6 +261,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrdensServicosViewModel.cs" />
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Veiculos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -423,8 +426,8 @@
     <Content Include="Views\OrdensServicosServicos\Delete.cshtml" />
     <Content Include="Views\OrdensServicosServicos\Details.cshtml" />
     <Content Include="Views\OrdensServicosServicos\Edit.cshtml" />
-    <Content Include="Views\OrdensServicos\EditarFormaPagamento.cshtml" />
     <Content Include="Views\OrdensServicos\AgendarInicio.cshtml" />
+    <Content Include="Views\OrdensServicos\FinalizaServico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -51,10 +51,10 @@ namespace Web.Util
         {
             return new List<TODropDownListGenerico>()
             {
+                new TODropDownListGenerico{ Valor = "S", Texto = "Selecione"},
                 new TODropDownListGenerico{ Valor = "DI", Texto = "Dinheiro"},
-                new TODropDownListGenerico{ Valor = "CQ", Texto = "Cheque"},
                 new TODropDownListGenerico{ Valor = "CA", Texto = "Cartão de  crédito"},
-                new TODropDownListGenerico{ Valor = "TD", Texto = "Todos"}
+                new TODropDownListGenerico{ Valor = "AM", Texto = "Ambos"}
             };
         }
 

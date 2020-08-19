@@ -28,6 +28,7 @@ namespace Web.Models
         public int FuncionarioResponsavel { get; set; }
         public string Status { get; set; }
         public System.DateTime DataOrcamento { get; set; }
+        public string ProblemaIdentificado { get; set; }
         public Nullable<System.DateTime> DataInicialPrevista { get; set; }
         public Nullable<System.DateTime> DataInicial { get; set; }
         public Nullable<System.DateTime> DataFinal { get; set; }
@@ -37,7 +38,6 @@ namespace Web.Models
         public Nullable<float> ValorAPagar { get; set; }
         public string FormaPagamento { get; set; }
         public string InformacoesAdicionais { get; set; }
-        public string ProblemaIdentificado { get; set; }
         public string AprovacaoCliente { get; set; }
         public Nullable<float> ValorDinheiro { get; set; }
         public Nullable<float> ValorCartao { get; set; }

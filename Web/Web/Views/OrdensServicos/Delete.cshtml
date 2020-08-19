@@ -3,17 +3,17 @@
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "OrdensServicos";
 }
 
-<h2>Delete</h2>
+<h2>Deletar Ordem de serviço</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Você tem certreza que deseja excluir esta ordem de seriço?</h3>
 <div>
-    <h4>OrdensServicos</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DataOrcamento)
+            @Html.DisplayName("Data do orçamento:")
         </dt>
 
         <dd>
@@ -21,7 +21,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DataInicialPrevista)
+            @Html.DisplayName("Data inícial prevista:")
         </dt>
 
         <dd>
@@ -29,39 +29,29 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DataFinalPrevista)
+            @Html.DisplayName("Marca:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DataFinalPrevista)
+            @Html.DisplayFor(model => model.Veiculos.MarcasCarros.Nome)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayName("Modelo:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            @Html.DisplayFor(model => model.Veiculos.Modelo)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.SubTotalServicos)
+            @Html.DisplayName("Ano:")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SubTotalServicos)
+            @Html.DisplayFor(model => model.Veiculos.Ano)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SubTotalMateriais)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubTotalMateriais)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ValorTotal)
+            @Html.DisplayName("Valor total:")
         </dt>
 
         <dd>
@@ -69,39 +59,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ValorAPagar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ValorAPagar)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FormaPagamento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FormaPagamento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InformacoesAdicionais)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InformacoesAdicionais)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUsers.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUsers.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Clientes.Nome)
+            @Html.DisplayName("Cliente:")
         </dt>
 
         <dd>
@@ -110,12 +68,18 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div>
+            <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-trash"></span> Excluir
+            </button>
+            <a href="/OrdensServicos/Details/@Model.Id" class="btn btn-primary btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </a>
         </div>
     }
 </div>

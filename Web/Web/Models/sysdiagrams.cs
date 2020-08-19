@@ -12,15 +12,12 @@ namespace Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OrdensServicosMateriais
+    public partial class sysdiagrams
     {
-        public int Id { get; set; }
-        public int OrdensServicosId { get; set; }
-        public string Descricao { get; set; }
-        public float PrecoUnitario { get; set; }
-        public float Quantidade { get; set; }
-        public float PrecoTotal { get; set; }
-    
-        public virtual OrdensServicos OrdensServicos { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

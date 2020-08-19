@@ -5,28 +5,29 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="aedd9bb54cde4f2ab413525d9d8c0ce6" Name="Diagram1">
-        <EntityTypeShape EntityType="entre_rodasModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="entre_rodasModel.MarcasCarros" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="entre_rodasModel.Veiculos" Width="1.5" PointX="0.75" PointY="9.875" />
-        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_MarcasCarros" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" />
-        <EntityTypeShape EntityType="entre_rodasModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="entre_rodasModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="3.375" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="entre_rodasModel.AspNetUsers" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="entre_rodasModel.Clientes" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="entre_rodasModel.MarcasCarros" Width="1.5" PointX="0.75" PointY="12.375" />
+        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicos" Width="1.5" PointX="5.25" PointY="6.25" />
+        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicosMateriais" Width="1.5" PointX="7.5" PointY="6.625" />
+        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicosServicos" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="entre_rodasModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="3.375" />
+        <EntityTypeShape EntityType="entre_rodasModel.Veiculos" Width="1.5" PointX="3" PointY="7.25" />
         <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="entre_rodasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="entre_rodasModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicosMateriais" Width="1.5" PointX="7.75" PointY="8.75" />
-        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicosServicos" Width="1.5" PointX="5.25" PointY="7.625" />
-        <EntityTypeShape EntityType="entre_rodasModel.Clientes" Width="1.5" PointX="0.75" PointY="9.375" />
-        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" />
-        <EntityTypeShape EntityType="entre_rodasModel.OrdensServicos" Width="1.5" PointX="8.25" PointY="2" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdemServico_AspNetUsers" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdemServico_Clientes" />
+        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_Clientes1" />
+        <AssociationConnector Association="entre_rodasModel.FK_Veiculos_MarcasCarros" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdensServicos_Veiculos" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdensServicosMateriais_OrdensServicos" />
         <AssociationConnector Association="entre_rodasModel.FK_OrdensServicosServicos_OrdensServicos" />
-        </Diagram>
+        <AssociationConnector Association="entre_rodasModel.AspNetUserRoles" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -81,6 +81,10 @@
             {
                 <p>Pago</p>
             }
+            else if (Model.Status.Trim() == "SC")
+            {
+                <p>Serviço cancelado</p>
+            }
         </div>
     </div>
     <div class="row">
@@ -184,7 +188,10 @@
 </div>
 <hr />
 <p class="titulo_sessao">Serviços</p>
-<a href="/OrdensServicosServicos/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar serviço</a>
+@if (Model.Status.Trim() != "PT")
+{
+    <a href="/OrdensServicosServicos/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar serviço</a>
+}
 @if (Model.Servicos.Count > 0)
 {
     <table class="table table-hover">
@@ -206,14 +213,17 @@
                         @Html.DisplayFor(modelItem => servico.Valor)
                     </td>
                     <td>
-                        <a href="/OrdensServicosServicos/Edit/@servico.Id" class="btn btn-primary btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Editar
-                        </a>
-                        <a href="/OrdensServicosServicos/Delete/@servico.Id" class="btn btn-primary btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                            Excluir
-                        </a>
+                        @if (Model.Status.Trim() == "O")
+                        {
+                            <a href="/OrdensServicosServicos/Edit/@servico.Id" class="btn btn-primary btn-primary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Editar
+                            </a>
+                            <a href="/OrdensServicosServicos/Delete/@servico.Id" class="btn btn-primary btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Excluir
+                            </a>
+                        }
                     </td>
                 </tr>
             }
@@ -221,7 +231,10 @@
     </table>
 }
 <p class="titulo_sessao">Materiais</p>
-<a href="/OrdensServicosMateriais/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar material</a>
+@if (Model.Status.Trim() != "PT")
+{
+    <a href="/OrdensServicosMateriais/Create/@Model.Id" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-plus"></span> Adicionar material</a>
+}
 @if (Model.Materiais.Count > 0)
 {
     <table class="table table-hover">
@@ -251,14 +264,17 @@
                         @Html.DisplayFor(modelItem => material.PrecoTotal)
                     </td>
                     <td>
-                        <a href="/OrdensServicosMateriais/Edit/@material.Id" class="btn btn-primary btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Editar
-                        </a>
-                        <a href="/OrdensServicosMateriais/Delete/@material.Id" class="btn btn-primary btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                            Excluir
-                        </a>
+                        @if (Model.Status.Trim() == "O")
+                        {
+                            <a href="/OrdensServicosMateriais/Edit/@material.Id" class="btn btn-primary btn-primary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Editar
+                            </a>
+                            <a href="/OrdensServicosMateriais/Delete/@material.Id" class="btn btn-primary btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Excluir
+                            </a>
+                        }
                     </td>
                 </tr>
             }
@@ -271,52 +287,46 @@
     <p class="titulo_sessao">Informações do pagamento</p>
     <div class="container">
         <div class="row">
-            <div class="col col-lg-3" style="text-align:right;">
-                <strong>@Html.DisplayNameFor(model => model.FormaPagamento)</strong>
+            <div class="col col-lg-2" style="text-align:right;">
+                <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>
             </div>
-            <div class="col col-lg-2">
-                @Html.DisplayFor(model => model.FormaPagamento)
+            <div class="col col-lg-1">
+                @Html.DisplayFor(model => model.ValorTotal)
             </div>
-        </div>
-        @if (Model.Servicos.Count > 0 || Model.Materiais.Count > 0)
-        {
-            <div class="row">
-                <div class="col col-lg-3" style="text-align:right;">
-                    <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>
-                </div>
-                <div class="col col-lg-2">
-                    @Html.DisplayFor(model => model.ValorTotal)
-                </div>
+            @if (Model.Status.Trim() == "FN" || Model.Status.Trim() == "PG")
+            {
                 <div class="col col-lg-2" style="text-align:right;">
                     <strong>@Html.DisplayNameFor(model => model.ValorAPagar)</strong>
                 </div>
-                <div class="col col-lg-2">
+                <div class="col col-lg-1">
                     @Html.DisplayFor(model => model.ValorAPagar)
                 </div>
-            </div>
-            <div class="row">
-                <div class="col col-lg-3" style="text-align:right;">
-                    <strong>@Html.DisplayNameFor(model => model.ValorDinheiro)</strong>
+                <div class="col col-lg-2" style="text-align:right;">
+                    <strong>@Html.DisplayNameFor(model => model.FormaPagamento)</strong>
                 </div>
                 <div class="col col-lg-2">
+                    @Html.DisplayFor(model => model.FormaPagamento) Cartão de credtes
+                </div>
+            }
+        </div>
+        @if (Model.Status.Trim() == "FN" || Model.Status.Trim() == "PG")
+        {
+            <div class="row">
+                <div class="col col-lg-2" style="text-align:right;">
+                    <strong>@Html.DisplayNameFor(model => model.ValorDinheiro)</strong>
+                </div>
+                <div class="col col-lg-1">
                     @Html.DisplayFor(model => model.ValorDinheiro)
                 </div>
                 <div class="col col-lg-2" style="text-align:right;">
                     <strong>@Html.DisplayNameFor(model => model.ValorCartao)</strong>
                 </div>
-                <div class="col col-lg-2">
+                <div class="col col-lg-1">
                     @Html.DisplayFor(model => model.ValorCartao)
                 </div>
             </div>
         }
-    </div>
-    if (Model.Status.Trim() != "F" || Model.Status.Trim() != "PG")
-    {
-        <button class="btn btn-primary btn-primary" id="editPag" data-value="@Model.Id">
-            <i class="glyphicon glyphicon-pencil"></i>
-            Editar forma de pagamento
-        </button>
-    }
+        </div>
 }
 
 @if (!String.IsNullOrEmpty(Model.InformacoesAdicionais))
@@ -338,12 +348,12 @@
 
 <br />
 <div>
-    <a href="/OrdensServicos/GerarOrcamento/@Model.Id" class="btn btn-success">
-        <span class="fa fa-envelope"></span>
-        Gerar orçamento
-    </a>
     @if (Model.Status.Trim() == "O")
     {
+        <a href="/OrdensServicos/GerarOrcamento/@Model.Id" class="btn btn-success">
+            <span class="fa fa-envelope"></span>
+            Gerar orçamento
+        </a>
         <a href="/OrdensServicos/EnviarOrcamento/@Model.Id" class="btn btn-success">
             <span class="fa fa-envelope"></span>
             Enviar orçamento
@@ -351,21 +361,21 @@
     }
     @if (Model.Status.Trim() == "OE")
     {
-        <a href="/OrdensServicos/Details2/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/ReenviarOrcamento/@Model.Id" class="btn btn-success">
             <span class="fa fa-envelope"></span>
             Reenviar orçamento
         </a>
     }
     @if (Model.Status.Trim() == "AG" || Model.Status.Trim() == "OE")
     {
-        <a href="/OrdensServisos/IniciaServico/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/IniciaServico/@Model.Id" class="btn btn-success">
             <span class="fa fa-play"></span>
             Iniciar serviço
         </a>
     }
     @if (Model.Status.Trim() == "EE")
     {
-        <a href="/OrdensServisos/AguardoPecas/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/AguardoPecas/@Model.Id" class="btn btn-success">
             <span class="fa fa-envelope"></span>
             No aguardo de peças
         </a>
@@ -373,47 +383,56 @@
 
     @if (Model.Status.Trim() == "EE")
     {
-        <a href="/OrdensServisos/FinalizaServico/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/FinalizaServico/@Model.Id" class="btn btn-success">
             <span class="fa fa-stop"></span>
             Finalizar serviço
         </a>
     }
-
-    @if (Model.Status.Trim() == "EE")
+    @if (Model.Status.Trim() == "AP")
     {
-        <a href="/OrdensServisos/EntregaServico/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/ChegouPeca/@Model.Id" class="btn btn-success">
             <span class="fa fa-stop"></span>
-            Serviço entregue
+            Peça chegou
         </a>
     }
 
-    @if (Model.Status.Trim() == "PT" || Model.Status.Trim() == "F")
+    @if (Model.Status.Trim() == "PT")
     {
-        <a href="/OrdensServisos/ServicoPaga/@Model.Id" class="btn btn-success">
+        <a href="/OrdensServicos/EntregarServico/@Model.Id" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> Serviço entregue
+        </a>
+    }
+
+    @if (Model.Status.Trim() == "SE")
+    {
+        <a href="/OrdensServicos/ServicoPaga/@Model.Id" class="btn btn-success">
             <span class="fa fa-stop"></span>
             Serviço pago
         </a>
     }
+    @if ((Model.Status.Trim() != "PT" || Model.Status.Trim() != "PG") && Model.Status.Trim() != "SC")
+    {
+        <a href="/OrdensServicos/CancelarServico/@Model.Id" class="btn btn-secondary">
+            <span class="fa fa-stop"></span>
+            Cancelar serviço
+        </a>
+    }
 
-    @if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE"
-        || Model.Status.Trim() == "AG" || Model.Status.Trim() == "EE"
-        || Model.Status.Trim() == "AP")
+    @if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE")
     {
         <button id="btnEditarOrdem" class="btn btn-primary" data-value="@Model.Id">
             <i class="fa fa-edit"></i>
             Editar serviço
         </button>
     }
-    @if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE"
-        || Model.Status.Trim() == "AG" || Model.Status.Trim() == "EE"
-        || Model.Status.Trim() == "AP")
+    @if (Model.Status.Trim() == "O" || Model.Status.Trim() == "OE" || Model.Status.Trim() == "SC")
     {
-        <a href="/OrdensServisos/Delete/@Model.Id" class="btn btn-primary btn-danger">
+        <a href="/OrdensServicos/Delete/@Model.Id" class="btn btn-primary btn-danger">
             <span class="glyphicon glyphicon-trash"></span>
             Excluir serviço
         </a>
     }
-    <a href="/OrdensServisos/Index" class="btn btn-primary btn-warning">
+    <a href="/OrdensServicos/Index" class="btn btn-primary btn-warning">
         <span class="glyphicon glyphicon-chevron-left"></span>
         Voltar
     </a>
@@ -426,7 +445,7 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#editPag").click(function () {
+            $("#btnServicoEntregue").click(function () {
                 var id = $(this).data("value");
 
                 $("#modal").load("/OrdensServicos/EditarFormaPagamento/" + id, function () {

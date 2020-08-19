@@ -1,0 +1,295 @@
+﻿@model Web.Models.FinalizarServicoViewModel
+
+@{
+    ViewBag.Title = "Serviços";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.MenuAtual = "OrdensServicos";
+}
+
+<h2>Finalizar serviço</h2>
+
+<h3>Serviço @Html.DisplayFor(model => model.OrdensServicosId)</h3>
+<hr />
+
+<p class="titulo_sessao">Resumo do serviço</p>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-3" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.NomeCliente)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ModeloVeiculo)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ModeloVeiculo)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ModeloVeiculo)
+        </div>
+    </div>
+</div>
+
+<p class="titulo_sessao">Serviços</p>
+@if (Model.Servicos.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor Total: @Model.SubTotalServicos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var servico in Model.Servicos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => servico.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => servico.Valor)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p class="titulo_sessao">Materiais</p>
+@if (Model.Materiais.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Preço unitário</th>
+                <th>Preço total: @Model.SubTotalMateriais</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var material in Model.Materiais)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.Quantidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.PrecoUnitario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => material.PrecoTotal)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p class="titulo_sessao">Informações de pagamento</p>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.DisplayFor(model => model.ValorTotal)
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.FormaPagamento)</strong>
+        </div>
+        <div class="col col-lg-2" style="text-align:right;">
+            @Html.DropDownList("FormaPagamento", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ValorAPagar)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.EditorFor(model => model.ValorAPagar, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ValorAPagar, "", new { @class = "text-danger" })
+        </div>
+        <div id="divValorDinheiro">
+            <div class="col col-lg-2" style="text-align:right;">
+                <strong>@Html.DisplayNameFor(model => model.ValorDinheiro)</strong>
+            </div>
+            <div class="col col-lg-2">
+                @Html.EditorFor(model => model.ValorDinheiro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorDinheiro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div id="divValorCartao" class="row">
+        <div class="col col-lg-2" style="text-align:right;">
+            <strong>@Html.DisplayNameFor(model => model.ValorCartao)</strong>
+        </div>
+        <div class="col col-lg-2">
+            @Html.EditorFor(model => model.ValorCartao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ValorCartao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a href="/OrdensServicos/FinalizaServico/@Model.OrdensServicosId" id="btnFinalizarServico" class="btn btn-success">
+        <span class="fa fa-envelope"></span>
+        Serviço Finalizado
+    </a>
+    <a href="/OrdensServicos/Details/@ViewBag.OrdensServicosId" class="btn btn-primary btn-danger">
+        <span class="glyphicon glyphicon-remove"></span>
+        Cancelar
+    </a>
+</div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        $("#divValorDinheiro").hide();
+        $("#divValorCartao").hide();
+        $("#btnFinalizarServico").hide();
+        $("#ValorAPagar").inputmask('decimal', {
+            radixPoint: ",", groupSeparator: ".", autoGroup: true,
+            digits: 2, digitsOptional: false, placeholder: '0', rightAlign: false,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        $("#ValorDinheiro").inputmask('decimal', {
+            radixPoint: ",", groupSeparator: ".", autoGroup: true,
+            digits: 2, digitsOptional: false, placeholder: '0', rightAlign: false,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        $("#ValorCartao").inputmask('decimal', {
+            radixPoint: ",", groupSeparator: ".", autoGroup: true,
+            digits: 2, digitsOptional: false, placeholder: '0', rightAlign: false,
+            onBeforeMask: function (value, opts) {
+                return value;
+            }
+        });
+        $("#FormaPagamento").change(function () {
+            var forma = $("#FormaPagamento option:selected").val();
+            $("#ValorDinheiro").val("0,00");
+            $("#ValorCartao").val("0,00");
+            if (forma == "DI") {
+                $("#divValorDinheiro").show();
+                $("#divValorCartao").hide();
+            }
+            else if (forma == "CA") {
+                $("#divValorDinheiro").hide();
+                $("#divValorCartao").show();
+            }
+            else if (forma == "AM") {
+                $("#divValorDinheiro").show();
+                $("#divValorCartao").show();
+            } else {
+                $("#divValorDinheiro").hide();
+                $("#divValorCartao").hide();
+            }
+        });
+        $("#ValorAPagar").blur(function () {
+            var forma = $("#FormaPagamento option:selected").val();
+            var valorAPgar = $("#ValorAPagar").val();
+            if (forma == "DI") {
+                var valorDinheiro = $("#ValorDinheiro").val();
+                if (valorAPgar != "0,00" && valorDinheiro != "0,00" && valorDinheiro != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            }
+            else if (forma == "CA") {
+                var valorCartao = $("#ValorCartao").val();
+                if (valorAPgar != "0,00" && valorCartao != "0,00" && valorCartao != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            }
+            else if (forma == "AM") {
+                var valorDinheiro = $("#ValorDinheiro").val();
+                var valorCartao = $("#ValorCartao").val();
+                if (valorAPgar != "0,00" && valorDinheiro != "0,00" && valorDinheiro != ""
+                    && valorCartao != "0,00" && valorCartao != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            } 
+        });
+        $("#divValorDinheiro").blur(function () {
+            var forma = $("#FormaPagamento option:selected").val();
+            var valorAPgar = $("#ValorAPagar").val();
+            if (forma == "DI") {
+                var valorDinheiro = $("#ValorDinheiro").val();
+                if (valorAPgar != "0,00" && valorDinheiro != "0,00" && valorDinheiro != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            }
+            else if (forma == "CA") {
+                var valorCartao = $("#ValorCartao").val();
+                if (valorAPgar != "0,00" && valorCartao != "0,00" && valorCartao != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            }
+            else if (forma == "AM") {
+                var valorDinheiro = $("#ValorDinheiro").val();
+                var valorCartao = $("#ValorCartao").val();
+                if (valorAPgar != "0,00" && valorDinheiro != "0,00" && valorDinheiro != ""
+                    && valorCartao != "0,00" && valorCartao != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            } 
+        });
+        $("#divValorCartao").blur(function () {
+            var forma = $("#FormaPagamento option:selected").val();
+            var valorAPgar = $("#ValorAPagar").val();
+            if (forma == "DI") {
+                var valorDinheiro = $("#ValorDinheiro").val();
+                if (valorAPgar != "0,00" && valorDinheiro != "0,00" && valorDinheiro != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            }
+            else if (forma == "CA") {
+                var valorCartao = $("#ValorCartao").val();
+                if (valorAPgar != "0,00" && valorCartao != "0,00" && valorCartao != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            }
+            else if (forma == "AM") {
+                var valorDinheiro = $("#ValorDinheiro").val();
+                var valorCartao = $("#ValorCartao").val();
+                if (valorAPgar != "0,00" && valorDinheiro != "0,00" && valorDinheiro != ""
+                    && valorCartao != "0,00" && valorCartao != "") {
+                    $("#btnFinalizarServico").show();
+                }
+                else {
+                    $("#btnFinalizarServico").hide();
+                }
+            } 
+        });
+    });
+    </script>
+}

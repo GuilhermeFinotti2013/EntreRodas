@@ -11,6 +11,7 @@ using Web.Models;
 using Web.Util;
 using Web.Infra;
 using System.Net.Mail;
+using System.IO;
 
 namespace Web.Controllers
 {
@@ -195,45 +196,6 @@ namespace Web.Controllers
         }
 
         // GET: OrdensServicos/Details/5
-        public ActionResult EnviarOrcamento(int? id)
-        {
-            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
-            if (ordensServicos == null)
-            {
-                return HttpNotFound();
-            }
-            #region Validações
-            List<String> errors = new List<string>();
-            if (ordensServicos.ProblemaIdentificado == null)
-            {
-                errors.Add("Para o envio do orçamento ao cliente é preciso, primeiro, informar o problema identificado!");
-            }
-            if (ordensServicos.DataInicialPrevista == null)
-            {
-                errors.Add("Para o envio do orçamento ao cliente é preciso, primeiro, informar a data prevista para o início do trabalho!");
-            }
-            if (ordensServicos.OrdensServicosServicos == null || ordensServicos.OrdensServicosServicos.Count == 0 ||
-                ordensServicos.OrdensServicosMateriais == null || ordensServicos.OrdensServicosMateriais.Count == 0)
-            {
-                errors.Add("Para o envio do orçamento ao cliente é preciso ter, ao menos, um serviço e um materia associado à ele!");
-            }
-            #endregion
-            if (errors.Count == 0)
-            {
-                /*ordensServicos.Status = "OE";
-                db.Entry(ordensServicos).State = EntityState.Modified;
-                db.SaveChanges();*/
-                ordensServicos = db.OrdensServicos.Find(id);
-                GeradorDePDF geradorDePDF = new GeradorDePDF(Response, Request);
-                //geradorDePDF.GerarOrcamento(ordensServicos);
-                Email email = new Email();
-                email.EnviarOrcamento("guilhermelfinotti@gmail.com");
-            }
-            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
-            return View("Details", model);
-        }
-
-        // GET: OrdensServicos/Details/5
         public ActionResult GerarOrcamento(int? id)
         {
             OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
@@ -260,7 +222,7 @@ namespace Web.Controllers
             if (errors.Count == 0)
             {
                 GeradorDePDF geradorDePDF = new GeradorDePDF(Response, Request);
-                geradorDePDF.GerarOrcamento(ordensServicos);
+                geradorDePDF.GerarOrcamentoDownload(ordensServicos);
             }
             VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
             return View("Details", model);
@@ -401,13 +363,14 @@ namespace Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            
             db.OrdensServicos.Remove(ordensServicos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         // GET: OrdensServicos/Edit/5
-        public ActionResult EditarFormaPagamento(int? id)
+        public ActionResult EntregarServico(int? id)
         {
             if (id == null)
             {
@@ -418,17 +381,25 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            EditarFormaPagamentoViewModel viewModel = new EditarFormaPagamentoViewModel();
+            FinalizarServicoViewModel viewModel = new FinalizarServicoViewModel();
             viewModel.OrdensServicosId = ordensServicos.Id;
+            viewModel.NomeCliente = ordensServicos.Clientes.Nome;
+            viewModel.ModeloVeiculo = String.Format("{0} {1} Ano {2}", ordensServicos.Veiculos.MarcasCarros.Nome.Trim(),
+                ordensServicos.Veiculos.Modelo.Trim(), ordensServicos.Veiculos.Ano);
+            viewModel.SubTotalMateriais = String.Format("R${0}", this.CalcularValorTotalDeMateriais(ordensServicos.OrdensServicosMateriais.ToList()));
+            viewModel.SubTotalServicos = String.Format("R${0}", this.CalcularValorTotalDeServicos(ordensServicos.OrdensServicosServicos.ToList()));
+            viewModel.ValorTotal = String.Format("R$ {0}", ordensServicos.ValorTotal);
+            viewModel.Materiais = ordensServicos.OrdensServicosMateriais.ToList();
+            viewModel.Servicos = ordensServicos.OrdensServicosServicos.ToList();
             CombosGenericos combos = new CombosGenericos();
-            ViewBag.FormaPagamento = new SelectList(combos.ListarFormasPagamento(), "Valor", "Texto", ordensServicos.FormaPagamento.Trim());
-            return View(viewModel);
+            ViewBag.FormaPagamento = new SelectList(combos.ListarFormasPagamento(), "Valor", "Texto");
+            return View("FinalizaServico", viewModel);
         }
 
         // POST: OrdensServicos/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarFormaPagamento([Bind(Include = "FormaPagamento,OrdensServicosId")] EditarFormaPagamentoViewModel editarForma)
+        public ActionResult EditarFormaPagamento([Bind(Include = "OrdensServicosId,FormaPagamento,ValorAPagar,FormaPagamento,ValorDinheiro,ValorCartao,InformacoesAdicionais")] FinalizarServicoViewModel editarForma)
         {
             if (ModelState.IsValid)
             {
@@ -438,6 +409,20 @@ namespace Web.Controllers
                     return HttpNotFound();
                 }
                 ordensServicos.FormaPagamento = editarForma.FormaPagamento;
+                ordensServicos.ValorAPagar = editarForma.ValorAPagar;
+                if (editarForma.FormaPagamento == "AM")
+                {
+                    ordensServicos.ValorDinheiro = editarForma.ValorDinheiro;
+                }
+                else if (editarForma.FormaPagamento == "DI")
+                {
+                    ordensServicos.ValorDinheiro = editarForma.ValorDinheiro;
+                }
+                else
+                {
+                    ordensServicos.ValorCartao = editarForma.ValorCartao;
+                }
+                ordensServicos.InformacoesAdicionais = editarForma.InformacoesAdicionais;
                 db.Entry(ordensServicos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "OrdensServicos", new { id = editarForma.OrdensServicosId });
@@ -491,6 +476,143 @@ namespace Web.Controllers
                 }
             }
             VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult EnviarOrcamento(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            #region Validações
+
+            List<String> errors = this.ValidarEnviarOrcamento(ordensServicos);
+            #endregion
+            if (errors.Count == 0)
+            {
+                ordensServicos.Status = "OE";
+                db.Entry(ordensServicos).State = EntityState.Modified;
+                db.SaveChanges();
+                ordensServicos = db.OrdensServicos.Find(id);
+                String caminhoArquivo = String.Format("{0}\\EntreRodas_{1}_{2}.pdf", Directory.GetCurrentDirectory(),
+                DateTime.Now.Year, ordensServicos.CodigoOrdensServicos.Trim());
+                GeradorDePDF geradorDePDF = new GeradorDePDF(Response, Request);
+                geradorDePDF.GerarOrcamentoPasta(ordensServicos, caminhoArquivo);
+
+                Email email = new Email();
+                email.EnviarOrcamento(ordensServicos.Clientes.Email.Trim(), caminhoArquivo, ordensServicos.Clientes.Nome, ordensServicos.Veiculos.MarcasCarros.Nome,
+                    ordensServicos.Veiculos.Modelo, ordensServicos.Veiculos.Ano);
+            }
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult ReenviarOrcamento(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            List<String> errors = this.ValidarEnviarOrcamento(ordensServicos);
+            if (errors.Count == 0)
+            {
+                String caminhoArquivo = String.Format("{0}\\EntreRodas_{1}_{2}.pdf", Directory.GetCurrentDirectory(),
+                DateTime.Now.Year, ordensServicos.CodigoOrdensServicos.Trim());
+                GeradorDePDF geradorDePDF = new GeradorDePDF(Response, Request);
+                geradorDePDF.GerarOrcamentoPasta(ordensServicos, caminhoArquivo);
+
+                Email email = new Email();
+                email.EnviarOrcamento(ordensServicos.Clientes.Email.Trim(), caminhoArquivo, ordensServicos.Clientes.Nome, ordensServicos.Veiculos.MarcasCarros.Nome,
+                    ordensServicos.Veiculos.Modelo, ordensServicos.Veiculos.Ano);
+            }
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, errors);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult IniciaServico(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            ordensServicos.Status = "EE";
+            ordensServicos.DataInicial = DateTime.Now;
+            db.Entry(ordensServicos).State = EntityState.Modified;
+            db.SaveChanges();
+
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, null);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult AguardoPecas(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            ordensServicos.Status = "AP";
+            db.Entry(ordensServicos).State = EntityState.Modified;
+            db.SaveChanges();
+
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, null);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult CancelarServico(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            ordensServicos.Status = "SC";
+            db.Entry(ordensServicos).State = EntityState.Modified;
+            db.SaveChanges();
+
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, null);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult ChegouPeca(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            ordensServicos.Status = "EE";
+            db.Entry(ordensServicos).State = EntityState.Modified;
+            db.SaveChanges();
+
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, null);
+            return View("Details", model);
+        }
+
+        // GET: OrdensServicos/Details/5
+        public ActionResult FinalizaServico(int? id)
+        {
+            OrdensServicos ordensServicos = db.OrdensServicos.Find(id);
+            if (ordensServicos == null)
+            {
+                return HttpNotFound();
+            }
+            ordensServicos.ValorTotal = this.CalcularValorTotal(ordensServicos);
+            ordensServicos.Status = "PT";
+            db.Entry(ordensServicos).State = EntityState.Modified;
+            db.SaveChanges();
+
+            VisualizarServicoViewModel model = ConfigurVisualizacao(ordensServicos, null);
             return View("Details", model);
         }
 
@@ -575,6 +697,27 @@ namespace Web.Controllers
                 }
             }
             return valorTotal;
+        }
+        #endregion
+
+        #region Métodos de validacao
+        private List<String> ValidarEnviarOrcamento(OrdensServicos ordensServicos)
+        {
+            List<String> errors = new List<string>();
+            if (ordensServicos.ProblemaIdentificado == null)
+            {
+                errors.Add("Para o envio do orçamento ao cliente é preciso, primeiro, informar o problema identificado!");
+            }
+            if (ordensServicos.DataInicialPrevista == null)
+            {
+                errors.Add("Para o envio do orçamento ao cliente é preciso, primeiro, informar a data prevista para o início do trabalho!");
+            }
+            if (ordensServicos.OrdensServicosServicos == null || ordensServicos.OrdensServicosServicos.Count == 0 ||
+                ordensServicos.OrdensServicosMateriais == null || ordensServicos.OrdensServicosMateriais.Count == 0)
+            {
+                errors.Add("Para o envio do orçamento ao cliente é preciso ter, ao menos, um serviço e um materia associado à ele!");
+            }
+            return errors;
         }
         #endregion
 
